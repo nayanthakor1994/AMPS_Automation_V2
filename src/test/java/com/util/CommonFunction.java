@@ -169,4 +169,20 @@ public class CommonFunction extends BasePage {
 	public boolean checkNA(String value) {
 		return value.equals(NA);
 	}
+	
+	By successMessage = By.xpath("//span[@id='usrMessage']");
+	public void waitForSuccessMessage() {
+		util.waitForWebElementToBePresent(successMessage, 10);
+	}
+	public String getSuccessMessage() {
+		return util.getText(successMessage);
+	}
+	By successAddMessage = By.xpath("//span[@id='usrMessageAdd']");
+	public void waitForSuccessAddMessage() {
+		util.waitForWebElementToBePresent(successAddMessage, 10);
+	}
+	public String getSuccessAddMessage() {
+		return util.getText(successAddMessage);
+	}
+	
 }

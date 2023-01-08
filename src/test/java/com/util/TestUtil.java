@@ -147,6 +147,24 @@ public class TestUtil extends BasePage {
 			throw new RuntimeException("Unable to Enter Text :"+text);
 		}
 	}
+	
+	/**
+	 * This method will enter text into textbox and press tab key
+	 * @param locator as xpath string
+	 * @param text
+	 */
+	public void inputTextAndPressTab(By locator, String text) {
+		try {
+			waitUntilElementDisplay(locator);
+			WebElement inputField = getElement(locator);
+			inputField.click();
+			clearInputField(inputField);
+			inputField.sendKeys(text);
+			inputField.sendKeys(Keys.TAB);
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to Enter Text :"+text);
+		}
+	}
 
 	/**
 	 * This method will clear all the text into textbox
@@ -490,6 +508,16 @@ public class TestUtil extends BasePage {
 	 */
 	public String getText(By locator) {
 		return getElement(locator).getText();
+	}
+	
+	/**
+	 * This method will return the attribute value specified in parameter
+	 * @param locator
+	 * @param attributeName
+	 * @return
+	 */
+	public String getAttributeValue(By locator, String attributeName) {
+		return getElement(locator).getAttribute(attributeName);
 	}
 
 	/**
