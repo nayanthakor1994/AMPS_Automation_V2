@@ -1,1 +1,6 @@
+.classpath
+.gitignore
+.settings
+.project
 /target/
+/test-output/

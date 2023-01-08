@@ -3,7 +3,7 @@ package com.base;
 public class Excel {
 
 	public static final String excelFileName = "EXCEL_TEST_DATA";
-	
+
 	/**
 	 * Add sheet name
 	 */
@@ -17,26 +17,23 @@ public class Excel {
 	public static final String CountryState = "CountryState";
 	public static final String KeyDate = "KeyDate";
 	public static final String OperatingCompany = "OperatingCompany";
-	public static final String  ProjectAssignment = "ProjectAssignment";
-	public static final String  ProjectPermit = "ProjectPermit";
-	
-	
-	
-	
+	public static final String ProjectAssignment = "ProjectAssignment";
+	public static final String ProjectPermit = "ProjectPermit";
+	public static final String AgreementInfo = "AgreementInfo";
+
 	/**
-	 * 	Add column names for login excel
+	 * Add column names for login excel
 	 */
-	
+
 	public static final String URL = "URL";
 	public static final String UserName = "UserName";
 	public static final String Password = "Password";
 	public static final String AddProjectALT = "AddProjectALT";
-	
-	
+
 	/**
-	 * 	Add column names for add project excel
+	 * Add column names for add project excel
 	 */
-	
+
 	public static final String Title = "Title";
 	public static final String ProjectNumber = "Project Number";
 	public static final String ProjectName = "Project Name";
@@ -48,7 +45,6 @@ public class Excel {
 	public static final String TemporaryROW = "Temporary ROW";
 	public static final String PermanentROW = "Permanent ROW";
 	public static final String Unit = "Unit";
-										
 
 	/**
 	 * Add column names for add project approvals
@@ -60,7 +56,7 @@ public class Excel {
 	public static final String DocComments = "DocComments";
 	public static final String ListOfTrack = "ListOfTrack";
 	public static final String ListOfLeases = "ListOfLeases";
-	
+
 	/**
 	 * Add column names for Add Key Date
 	 */
@@ -73,26 +69,38 @@ public class Excel {
 	 * Add column names for Operating Companies
 	 */
 	public static final String Lessees = "Lessees";
-	
-	
+
 	/**
-	 * Add column Name for Add Project Assignment 
+	 * Add column Name for Add Project Assignment
 	 */
-	
+
 	public static final String SelectUser = "SelectUser";
 	public static final String SelectRole = "SelectRole";
 	public static final String EditUser = "EditUser";
 	public static final String EditRole = "EditRole";
 	public static final String SelectAgent = "SelectAgent";
 	public static final String EditAgent = "EditAgent";
-	
+
 	/**
-	 * Add Column Name for Add Peroject Permit
+	 * Add Column Name for Add Project Permit
 	 */
-	
+
 	public static final String AgencyName = "AgencyName";
 	public static final String PermitNumber = "PermitNumber";
 	public static final String Comment = "Comment";
 	public static final String Category = "Category";
 	public static final String Description = "Description";
+
+	/**
+	 * Add Column Name for Add Agreement Information
+	 */
+	public static final String AgreementType = "AgreementType";
+	public static final String AgreementStatus = "AgreementStatus";
+	public static final String AgreementTerm = "AgreementTerm";
+	public static final String EffectiveDate = "EffectiveDate";
+	public static final String TermYMD = "TermYMD";
+	public static final String ExpirationDate = "ExpirationDate";
+	public static final String Amount = "Amount";
+	public static final String Comments = "Comments";
+
 }
