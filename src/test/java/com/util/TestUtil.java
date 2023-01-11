@@ -292,7 +292,11 @@ public class TestUtil extends BasePage {
 	}
 
 	public List<WebElement> getWebElements(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(IMPLICIT_WAIT));
+		return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+	}
+	public List<WebElement> getWebElements(By locator, int waitTime) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
 		return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
 	}
 
@@ -592,6 +596,7 @@ public class TestUtil extends BasePage {
 	 * @return
 	 */
 	public static String getCurrentDateTime(String format) {
+		format = "dd/MM/yyyy";
 		DateFormat dateFormat = new SimpleDateFormat(format);
 		Date date = new Date();
 		String dateTime = dateFormat.format(date);

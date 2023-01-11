@@ -20,6 +20,7 @@ public class Excel {
 	public static final String ProjectAssignment = "ProjectAssignment";
 	public static final String ProjectPermit = "ProjectPermit";
 	public static final String AgreementInfo = "AgreementInfo";
+	public static final String PayeeInfo = "PayeeInfo";
 
 	/**
 	 * Add column names for login excel
@@ -102,5 +103,8 @@ public class Excel {
 	public static final String ExpirationDate = "ExpirationDate";
 	public static final String Amount = "Amount";
 	public static final String Comments = "Comments";
+
+	public static final String LandownerName = "LandownerName";
+	public static final String AvailableTract = "AvailableTract";
 
 }
