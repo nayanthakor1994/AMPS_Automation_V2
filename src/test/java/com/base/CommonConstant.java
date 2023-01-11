@@ -15,7 +15,9 @@ public class CommonConstant {
 	public static String sheetName;
 	public static String NA = "NA";
 	
-	//Excel sheet names
+	public static final String alt = "alt";
+	public static final String dot = "dot";
+	public static final String row = "row";
 	
 	
 }

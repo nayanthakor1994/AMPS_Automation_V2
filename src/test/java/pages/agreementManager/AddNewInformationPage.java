@@ -25,11 +25,12 @@ public class AddNewInformationPage extends BasePage {
 
 	By navProjectMenu = By.xpath("//a//span[@class='rmText rmExpandDown' and contains(text(),'Project')] ");
 	By navAgreementManager = By.xpath("//a//span[contains(text(),'Agreement Manager')] ");
+	By navLeaseManager = By.xpath("//a//span[contains(text(),'Lease Manager')] ");
 	By navAgreementInformation = By.xpath("//a//span[contains(text(),'Agreement Information')] ");
 	By pageTitle = By.xpath("//table[contains(@id,'LSLST_RadGridTracts')]//th//a[text()='Agreement Information']");
-	By agreementNumber = By.xpath("//span[contains(@id,'_Lease_Number_wrapper')]/input[contains(@id,'_Lease_Number')]");
+	By agreementNumber = By.xpath("//span[contains(@id,'_Lease_Number_wrapper')]/input[contains(@id,'_Lease_Number') and @type='text']");
 
-	private void navigateToAgreementInformation() {
+	private void navigateToAgreementInformationALT() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
 		util.waitUntilElementDisplay(navAgreementManager);
@@ -40,6 +41,14 @@ public class AddNewInformationPage extends BasePage {
 		if (!util.isElementPresent(pageTitle)) {
 			throw new RuntimeException();
 		}
+	}
+	
+	private void navigateToAgreementInformationROW() {
+		util.waitUntilElementDisplay(navProjectMenu);
+		util.click(navProjectMenu);
+		util.waitUntilElementDisplay(navLeaseManager);
+		util.click(navLeaseManager);
+		util.waitUntilElementDisplay(addButton);
 	}
 
 	By addButton = By.xpath("//table[contains(@id,'LSLST_RadGridTracts')]//a[contains(@id,'_AddJob')]");
@@ -58,12 +67,24 @@ public class AddNewInformationPage extends BasePage {
 			throw new RuntimeException();
 		}
 	}
+	
+	private void addLeaseNumber(String value) {
+		if (!commonFunction.checkNA(value)) {
+			util.inputText(agreementNumber, value);
+		}
+	}
 
-	By txtAgreementType = By.xpath("//input[contains(@id,'Lease_Type_ID') and @type='text']");
+	By txtAgreementType1 = By.xpath("//input[contains(@id,'Lease_Type_ID') and @type='text']");
+	By txtAgreementType2 = By.xpath("//span/parent::div[contains(@id,'DOCUMENT_TYPE_ID')]");
 
 	private void addAgreementType(String value) {
-		if (!commonFunction.checkNA(value))
-			util.inputTextAndPressTab(txtAgreementType, value);
+		if (!commonFunction.checkNA(value)) {
+			if(util.isElementPresent(txtAgreementType1)) {
+				util.inputTextAndPressTab(txtAgreementType1, value);
+			} else if(util.isElementPresent(txtAgreementType2)) {
+				util.inputTextAndPressTab(txtAgreementType2, value);
+			}
+		}
 	}
 
 	By txtAgreementStatus = By.xpath("//input[contains(@id,'Lease_Status_ID') and @type='text']");
@@ -73,7 +94,7 @@ public class AddNewInformationPage extends BasePage {
 			util.inputTextAndPressTab(txtAgreementStatus, value);
 	}
 
-	By txtOperatingCompany = By.xpath("//div[contains(@id,'_YALComboBox')]//input[contains(@id,'_YALComboBox')]");
+	By txtOperatingCompany = By.xpath("//input[contains(@id,'_YALComboBox') and @type='text']");
 
 	private void addOperatingCompany(String value) {
 		if (!commonFunction.checkNA(value))
@@ -89,7 +110,7 @@ public class AddNewInformationPage extends BasePage {
 		util.waitForWebElementToBePresent(savedAgreementInformation, 20);
 	}
 
-	By btnAddterm = By.xpath("//input[contains(@id,'_btnAddProjectPhase')]");
+	By btnAddterm = By.xpath("//input[contains(@id,'_btnAddProjectPhase') or contains(@id,'btnAddLeaseTerm')]");
 	By leaseDocumentIframe = By.xpath("//iframe[@name='LeaseDocument']");
 	By drpAgreementTerm = By.xpath("//input[contains(@id,'Period_Type_ID_') and @type='text']");
 
@@ -103,7 +124,7 @@ public class AddNewInformationPage extends BasePage {
 	}
 
 	private void addAgreementTerm(String value) {
-		if (!commonFunction.checkNA(value)) {
+		if (!commonFunction.checkNA(value) && util.isElementPresent(drpAgreementTerm)) {
 			util.inputTextAndPressTab(drpAgreementTerm, value);
 		}
 	}
@@ -111,7 +132,9 @@ public class AddNewInformationPage extends BasePage {
 	By chkExtensionProvision = By.xpath("//input[contains(@id,'chkExtensionProvision')]");
 
 	private void clickExtensionProvision() {
-		util.click(chkExtensionProvision);
+		if (util.isElementPresent(chkExtensionProvision)) {
+			util.click(chkExtensionProvision);
+		}
 	}
 
 	By chkActive = By.xpath("//input[contains(@id,'active_ind')]");
@@ -197,8 +220,10 @@ public class AddNewInformationPage extends BasePage {
 	By refreshButton = By.xpath("//table[contains(@id,'LEASE_PAYMENTS_ygccontainTable')]//img/parent::a[contains(@id,'Button')]");
 	By termTableRecord = By.xpath("//table[contains(@id,'LEASE_PAYMENTS_ygccontainTable')]/tbody//tr[contains(@id,'LEASE_PAYMENTS_radYALGridControl')]");
 	private void refreshTermTableAndCheckRecord() {
-		util.click(refreshButton);
-		util.waitForWebElementToBePresent(termTableRecord, IMPLICIT_WAIT);
+		if(util.isElementPresent(refreshButton)) {
+			util.click(refreshButton);
+			util.waitForWebElementToBePresent(termTableRecord, IMPLICIT_WAIT);
+		}
 	}
 
 	By duplicateButton = By.xpath("//input[contains(@id,'_btnDuplicate')]");
@@ -231,9 +256,13 @@ public class AddNewInformationPage extends BasePage {
 		util.waitFor(5000);
 	}
 
-	public void addAgreementInformation(Map<String, String> map, String testcaseName) {
+	public String addAgreementInformation(Map<String, String> map, String testcaseName) {
 		try {
-			navigateToAgreementInformation();
+			if(testcaseName.toLowerCase().contains("row")) {
+				navigateToAgreementInformationROW();
+			} else {
+				navigateToAgreementInformationALT();
+			}
 			log("STEP 1:  Navigate to Menu - Agreement Information page", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1:  Navigate to Menu - Agreement Information page", Status.FAIL);
@@ -249,7 +278,12 @@ public class AddNewInformationPage extends BasePage {
 		}
 
 		try {
-			verifyAutoPopulatedAgreementNumber();
+			if(testcaseName.toLowerCase().contains("row")) {
+				AGREEMENT_NUMBER = util.randomNumber();
+				addLeaseNumber(AGREEMENT_NUMBER);
+			} else {
+				verifyAutoPopulatedAgreementNumber();
+			}
 			log("STEP 3:  Value auto populate in Agreement Number Field", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3:  Value auto populate in Agreement Number Field", Status.FAIL);
@@ -393,7 +427,47 @@ public class AddNewInformationPage extends BasePage {
 			log("STEP 21: Click on Save button", Status.FAIL);
 			throw new RuntimeException("Failed in step 21");
 		}
-
+		return AGREEMENT_NUMBER;
 	}
 
+	By legalDescriptionIframe = By.xpath("//iframe[contains(@id,'Lease_Description')]");
+	By agreementInfoTab = By.xpath("//div[contains(@id,'LSINFO_radPanels')]//span[text()='Agreement Information']");
+	private void switchToLegalDescriptionIframe() {
+		if(!util.isElementVisible(legalDescriptionIframe,5)) {
+			util.click(agreementInfoTab);
+			util.waitFor(2000);
+		} 
+		util.switchToIframe(legalDescriptionIframe);
+	}
+	
+	By legalDescription = By.xpath("//body");
+	private void addLegalDescription(String value) {
+		util.inputText(legalDescription, value);
+	}
+	
+	By saveButtonAgreementInfo = By.xpath("//input[contains(@id,'btnSave2')]");
+	private void clickSaveButtonAgreementInfo() {
+		util.switchToDefaultContent();
+		util.click(saveButtonAgreementInfo);
+	}
+	public void addAgreementInformation(String testcaseName) {
+		try {
+			switchToLegalDescriptionIframe();
+			addLegalDescription("Automation comments");
+			log("STEP 1: Fill in Legal Description text box", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: Fill in Legal Description text box", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
+		}
+		
+		try {
+			clickSaveButtonAgreementInfo();
+			log("STEP 2: Click on Save", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 2: Click on Save", Status.FAIL);
+			throw new RuntimeException("Failed in step 2");
+		}
+	}
+	
+	
 }

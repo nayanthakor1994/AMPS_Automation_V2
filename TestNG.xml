@@ -14,8 +14,8 @@
 			<class name="testsuit.Project.AddInterconnectionInformationTest" />
 			<class name="testsuit.Project.AddKeyDateTest" />
 			<class name="testsuit.Project.AddProjectWorkflowTest" />
-			<class name="testsuit.agreementManager.AgreementInfo_AddNewInfo" />
 
+			<class name="testsuit.agreementManager.AgreementInformationTest" />
 		</classes>
 
 	</test>
@@ -42,6 +42,8 @@
 			<class name="testsuit.Project.AddProjectPermitTest" />
 			<class name="testsuit.Project.AddOpertaingCompanyTest" />
 			<class name="testsuit.Project.AddProjectWorkflowTest" />
+			
+			<class name="testsuit.agreementManager.AgreementInformationTest" />
 		</classes>
 	</test>
 
