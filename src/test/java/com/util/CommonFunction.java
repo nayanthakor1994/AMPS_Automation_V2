@@ -185,4 +185,14 @@ public class CommonFunction extends BasePage {
 		return util.getText(successAddMessage);
 	}
 	
+	public boolean iSArchieveButton() {
+		return util.isElementPresent(btnArchieve, 10);
+	}
+	
+	By buttonNewRecord = By.xpath("//a[contains(@id,'AddNewRecord')]");
+	public void clickOnNewRecord() {
+		util.waitUntilElementDisplay(buttonNewRecord);
+		util.click(buttonNewRecord);
+	}
+	
 }

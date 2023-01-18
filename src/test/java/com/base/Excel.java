@@ -22,6 +22,13 @@ public class Excel {
 	public static final String AgreementInfo = "AgreementInfo";
 	public static final String PayeeInfo = "PayeeInfo";
 
+	
+	public static final String UserAccount = "UserAccount";
+	public static final String ManageUser = "ManageUser";
+	public static final String UserRolePagePermission = "UserRolePagePermission";
+	public static final String UserRoleSpecialPermission = "UserRoleSpecialPermission";
+	public static final String PasswordEncryption ="PasswordEncryption";
+	public static final String SSRSReport = "SSRSReport";
 	/**
 	 * Add column names for login excel
 	 */
@@ -106,5 +113,40 @@ public class Excel {
 
 	public static final String LandownerName = "LandownerName";
 	public static final String AvailableTract = "AvailableTract";
+	
+	
+	
+	
+	/**
+	 * Add Column Name for Add User Account
+	 */
+	
+	public static final String NetworkID = "NetworkID";
+	public static final String Email = "Email";
+	public static final String LastName = "LastName";
+	public static final String FirstName = "FirstName";
+	public static final String ContractorCompany = "ContractorCompany";
+	public static final String Roles = "Roles";
+	public static final String HomePhone = "HomePhone";
+	public static final String CellPhone = "CellPhone";
+	public static final String WorkPhone = "WorkPhone";
+	public static final String DefaultProjectRole = "DefaultProjectRole";
+	public static final String DefaultTractAssignment = "DefaultTractAssignment";
+	
+	/**
+	 * Add Column Name for Manage User
+	 */
+	
+	public static final String SaveRule = "SaveRule";
+	public static final String NewRoles = "NewRoles";
+	
+	
+	/**
+	 * Add Column Name for Manage User
+	 */
+	
+	public static final String DDReport = "DDReport";
+	public static final String StartDate = "StartDate";
+	public static final String EndDate = "EndDate";
 
 }
