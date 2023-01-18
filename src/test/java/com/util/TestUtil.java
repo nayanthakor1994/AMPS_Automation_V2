@@ -723,4 +723,14 @@ public class TestUtil extends BasePage {
 			return false;
 		}
 	}
+	
+	public boolean isElementPresent(By by, int waitTime) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTime));
+		try {
+			wait.until(ExpectedConditions.presenceOfElementLocated(by));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }
