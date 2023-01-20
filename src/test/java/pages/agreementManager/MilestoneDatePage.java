@@ -85,7 +85,7 @@ public class MilestoneDatePage extends BasePage {
 		}
 
 		try {
-			setExpectedDates(TestUtil.getCurrentDateTime("dd/MM/yyyy"));
+			setExpectedDates(TestUtil.getCurrentDateTime("MM/dd/yyyy"));
 			log("STEP 4: Enter the Expected start Date and click update ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Enter the Expected start Date and click update ", Status.FAIL);
@@ -93,7 +93,7 @@ public class MilestoneDatePage extends BasePage {
 		}
 
 		try {
-			setActualDates(TestUtil.getCurrentDateTime("dd/MM/yyyy"));
+			setActualDates(TestUtil.getCurrentDateTime("MM/dd/yyyy"));
 			clickOnUpdateMilestoneButton();
 			verifySuccessMessageMilestoneDate();
 			log("STEP 5: Enter the actual start Date and click update ", Status.PASS);

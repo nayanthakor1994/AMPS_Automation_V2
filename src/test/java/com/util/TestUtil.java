@@ -10,6 +10,7 @@ import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -347,6 +348,11 @@ public class TestUtil extends BasePage {
 	public void waitForWebElementToBeClickable(By locator) {
 		wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
+	
+	public void waitForWebElementToBeClickable(By locator, int time) {
+		WebDriverWait variableWait = new WebDriverWait(driver, Duration.ofSeconds(time));
+		variableWait.until(ExpectedConditions.elementToBeClickable(locator));
+	}
 
 	/**
 	 * This method will return WebElement based on condition, xpath and timeout
@@ -599,6 +605,20 @@ public class TestUtil extends BasePage {
 		DateFormat dateFormat = new SimpleDateFormat(format);
 		Date date = new Date();
 		String dateTime = dateFormat.format(date);
+		return dateTime;
+	}
+	
+	/**
+	 * This method will return Date&Time in given format
+	 * 
+	 * @param format
+	 * @return
+	 */
+	public static String addDaysInCurrentDate(String format, int days) {
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, days);
+		String dateTime = dateFormat.format(c.getTime());
 		return dateTime;
 	}
 

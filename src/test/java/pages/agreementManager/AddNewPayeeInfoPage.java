@@ -40,10 +40,14 @@ public class AddNewPayeeInfoPage extends BasePage {
 		util.click(addPayeeButton);
 	}
 	By successMessage = By.xpath("//span[contains(@id,'usrLesseeMessage')]");
-	private void verifySuccessPayeeMessage() {
+	private void verifySuccessPayeeMessage(String env) {
 		util.waitForWebElementToBePresent(successMessage, 20);
 		String message = util.getText(successMessage);
-		Assert.assertEquals(message, "Landowner has been added to Agreement", "Landowner success message mismatched");
+		if(env.toLowerCase().contains("row")) {
+			Assert.assertEquals(message, "Lessor has been added to Lease", "Lessor success message mismatched");
+		} else {
+			Assert.assertEquals(message, "Landowner has been added to Agreement", "Landowner success message mismatched");
+		}
 	}
 	
 	By addNewPayeeButton = By.xpath("//input[contains(@id,'btnAddLandowner')]");
@@ -107,7 +111,8 @@ public class AddNewPayeeInfoPage extends BasePage {
 	
 	private void verifySuccessMessageLO() {
 		commonFunction.waitForSuccessMessage();
-		if (!commonFunction.getSuccessMessage().equals("New landowner was created and added to the Agreement.")) {
+		if (!commonFunction.getSuccessMessage().equals("New landowner was created and added to the Agreement.") &&
+				!commonFunction.getSuccessMessage().equals("New landowner was created and added to the lease.")) {
 			throw new RuntimeException();
 		}
 	}
@@ -279,7 +284,7 @@ public class AddNewPayeeInfoPage extends BasePage {
 		
 		try {
 			clickOnAddButton();
-			verifySuccessPayeeMessage();
+			verifySuccessPayeeMessage(environment);
 			log("STEP 2: Click on Add", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2: Click on Add", Status.FAIL);
@@ -382,33 +387,33 @@ public class AddNewPayeeInfoPage extends BasePage {
 				log("STEP 13: click on Save button", Status.FAIL);
 				throw new RuntimeException("Failed in step 13");
 			}
-		}
-		
-		//Parcel Information tab
-		try {
-			clickOnParcelOrTractInfoTab();
-			selectAvailableTract(map.get(Excel.AvailableTract));			
-			log("STEP 14: Fill in Available Parcel(s) DD", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 14: Fill in Available Parcel(s) DD", Status.FAIL);
-			throw new RuntimeException("Failed in step 14");
-		}
-		try {
-			clickOnAddButtonAvailableTract();
-			verifySuccessMessageAvailableTract();
-			log("STEP 15: click on Add button", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 15: click on Add button", Status.FAIL);
-			throw new RuntimeException("Failed in step 15");
-		}
-		try {
-			clickOnDeleteButtonAvailableTract();
-			clickOnDeleteOkButtonIframe();
-			verifyDeleteMessage();
-			log("STEP 16: click on Delete button", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 16: click on Delete button", Status.FAIL);
-			throw new RuntimeException("Failed in step 16");
+
+			// Parcel Information tab
+			try {
+				clickOnParcelOrTractInfoTab();
+				selectAvailableTract(map.get(Excel.AvailableTract));
+				log("STEP 14: Fill in Available Parcel(s) DD", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 14: Fill in Available Parcel(s) DD", Status.FAIL);
+				throw new RuntimeException("Failed in step 14");
+			}
+			try {
+				clickOnAddButtonAvailableTract();
+				verifySuccessMessageAvailableTract();
+				log("STEP 15: click on Add button", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 15: click on Add button", Status.FAIL);
+				throw new RuntimeException("Failed in step 15");
+			}
+			try {
+				clickOnDeleteButtonAvailableTract();
+				clickOnDeleteOkButtonIframe();
+				verifyDeleteMessage();
+				log("STEP 16: click on Delete button", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 16: click on Delete button", Status.FAIL);
+				throw new RuntimeException("Failed in step 16");
+			}
 		}
 		
 	}

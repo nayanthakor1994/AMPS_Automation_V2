@@ -3,6 +3,7 @@ package com.base;
 public class Excel {
 
 	public static final String excelFileName = "EXCEL_TEST_DATA";
+	public static final String AGREEEMENT_TEST_DATA = "AGREEEMENT_TEST_DATA";
 
 	/**
 	 * Add sheet name
@@ -21,6 +22,8 @@ public class Excel {
 	public static final String ProjectPermit = "ProjectPermit";
 	public static final String AgreementInfo = "AgreementInfo";
 	public static final String PayeeInfo = "PayeeInfo";
+	public static final String AgreementForm = "AgreementForm";
+	public static final String AgreementObligations = "AgreementObligations";
 
 	
 	public static final String UserAccount = "UserAccount";
@@ -149,4 +152,14 @@ public class Excel {
 	public static final String StartDate = "StartDate";
 	public static final String EndDate = "EndDate";
 
+	public static final String TypeOFPayment = "TypeOFPayment";
+	public static final String AgreementPhase = "AgreementPhase";
+	public static final String Distribution = "Distribution";
+
+	public static final String ObligationType = "ObligationType";
+	public static final String Priority = "Priority";
+	public static final String Status = "Status";
+	public static final String Frequency = "Frequency";
+	public static final String AssignedTo = "AssignedTo";
+	
 }

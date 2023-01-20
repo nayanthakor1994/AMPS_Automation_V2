@@ -54,8 +54,8 @@ public class AddProjectWorkflowTest extends BasePage {
 		
 		commonFunction.navigateToProjectDeails();
 		
-		projectWorkflow.addNewWorkflow(map, true);
-		projectWorkflow.addNewWorkflow(map, false);
+		projectWorkflow.addNewWorkflow(map, testcaseName, true);
+		projectWorkflow.addNewWorkflow(map, testcaseName, false);
 		
 		projectWorkflow.submitTheFormForReview();
 		projectWorkflow.closeApprovalForm();
