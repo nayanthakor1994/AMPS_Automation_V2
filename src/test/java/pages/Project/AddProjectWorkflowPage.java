@@ -25,6 +25,8 @@ public class AddProjectWorkflowPage extends BasePage {
 	}
 
 	By autoApproved = By.xpath("//a[text()='Approved']");
+	By adminReviewLink = By.xpath("//a[text()='Admin Review']");
+	By reviewIframe = By.xpath("//iframe[@name='geoPopUpWF']");
 	By btnSubmitForReview = By.xpath("//input[contains(@id,'WorkflowApprove_btnSubmit')]");
 	By projectApprovals = By.xpath("//a[normalize-space()='Project Approvals' or normalize-space()='Project Forms']");
 	By addProjectApprovals = By.xpath(
@@ -57,8 +59,9 @@ public class AddProjectWorkflowPage extends BasePage {
 	By btnAddDocument = By.xpath("//input[@id='idManageApproval_btnAddDocuments']");
 	By drpCategory = By.xpath("//select[contains(@id,'RadUpload1category')]");
 	By description = By.xpath("//input[contains(@id,'RadUpload1Desc')]");
-	By fileUpload = By.xpath("//input[contains(@id,'RadUpload1file')]");
+	By fileUpload = By.xpath("//input[contains(@id,'RadUpload1file') or contains(@id,'rauFileUploadfile')]");
 	By loadDocumentFile = By.cssSelector("#buttonSubmit");
+	By loadDocumentFile2 = By.xpath("//input[contains(@id,'buttonSubmit_input')]");
 	By documentSuccessMessage = By.xpath("//span[@id='lblResults']");
 	By btnCloseDocument = By.xpath("//div[contains(@id,'_AddDocuments')]//a[@title='Close']");
 
@@ -180,24 +183,43 @@ public class AddProjectWorkflowPage extends BasePage {
 	}
 
 	public void selectProject(String value) {
-		util.selectValueFromDropdown(drpAddProjects, value);
-		util.click(drpAddProjectsClose);
+		try {
+			util.selectValueFromDropdown(drpAddProjects, value);
+			util.click(drpAddProjectsClose);
+		} catch (Exception e) {
+			util.click(drpAddProjectsClose);
+			By valueLocator = By.xpath("//ul//li[normalize-space()='"+value+"']//input");
+			util.scrollToElement(valueLocator);
+			util.click(valueLocator);
+			util.click(drpAddProjectsClose);
+		}
 	}
 
 	public void clickOnGoProject() {
 		util.click(btnGoProject);
+		util.waitFor(5000);
 	}
 
 	public void selectListOfTrack(String value) {
-		util.selectValueFromDropdown(drpListOfTrack, value);
-		util.click(drpListOfTrackClose);
+		try {
+			util.selectValueFromDropdown(drpListOfTrack, value);
+			util.click(drpListOfTrackClose);
+		} catch (Exception e) {
+			util.click(drpListOfTrackClose);
+			util.click(By.xpath("//ul//li[normalize-space()='"+value+"']//input"));
+			util.click(drpListOfTrackClose);
+		}
 	}
 	public void selectListOfLeases(String value) {
-		util.selectValueFromDropdown(drpListofLeases, value);
-		util.click(drpListofLeasesClose);
+		try {
+			util.selectValueFromDropdown(drpListofLeases, value);
+			util.click(drpListofLeasesClose);
+		} catch (Exception e) {
+			util.click(drpListofLeasesClose);
+			util.click(By.xpath("//ul//li[normalize-space()='"+value+"']//input"));
+			util.click(drpListofLeasesClose);
+		}
 	}
-	
-	
 	
 
 	public void clickOnListOfTract() {
@@ -227,8 +249,8 @@ public class AddProjectWorkflowPage extends BasePage {
 	public void clickOnAddNewRecord() {
 		util.click(addProjectApprovals);
 	}
-
-	public void addNewWorkflow(Map<String, String> map, boolean isAllSteps) throws InterruptedException {
+	
+	public void projectApprovalTestcase(Map<String, String> map) {
 		if (!util.isElementVisible(addProjectApprovals)) {
 			util.click(projectApprovals);
 			if (!util.isElementVisible(addProjectApprovals)) {
@@ -266,6 +288,79 @@ public class AddProjectWorkflowPage extends BasePage {
 			log("STEP 4: Selected the report format", Status.FAIL);
 			throw new RuntimeException("Failed in step 4");
 		}
+	}
+	By agreementOrLeaseTab = By.xpath("//span[text()='Agreement Forms' or text()='Lease Forms']");
+	By addNewAgreementForm = By.xpath("//table[contains(@id,'LeaseInfoApproval')]//a[contains(@id,'lnkAddNewRecord')]");
+	public void navigateToAgreementForm() {
+		if(!util.isElementVisible(addNewAgreementForm)) {
+			util.click(agreementOrLeaseTab);
+		}
+		util.click(addNewAgreementForm);
+	}
+	
+	By projectApprovalIFrame = By.xpath("//iframe[@name='ManageApprovalDialog']");
+	public void switchToProjectApprovalIframe() {
+		util.waitForWebElementToBePresent(projectApprovalIFrame, IMPLICIT_WAIT);
+		util.switchToIframe(projectApprovalIFrame);
+	}
+	By typeOfPaymentTXT = By.xpath("//span[text()='Type of Payment:']/..//input[@type='text']");
+	By paymentAmountTXT = By.xpath("//span[text()='Payment Amount:']/..//input[@type='text']");
+	By agreementPhaseTXT = By.xpath("//span[text()='Agreement Phase:']/..//input[@type='text']");
+	By dueDateTXT = By.xpath("//span[text()='Due Date:']/..//input[contains(@id,'dateInput') and @type='text']");
+	By distributionTXT = By.xpath("//span[text()='Distribution:']/..//input[@type='text']");
+	By additionalPaymentTXT = By.xpath("//span[text()='# of Additional Payments']/..//input[@type='text']");
+	By frequencyIncreaseTXT = By.xpath("//span[text()='Frequency Increment:']/..//input[@type='text']");
+	By paymentFrquencyTXT = By.xpath("//span[text()='Payment Frequency:']/..//input[@type='text']");
+	By remarksTXT = By.xpath("//span[text()='Remarks:']/..//textarea");
+	public void fillAlldetailsInProjectApproval(String typeOFPaymentValue, String agreementPhaseValue, String distributionValue) {
+		util.inputTextAndPressTab(typeOfPaymentTXT, typeOFPaymentValue);
+		util.inputText(paymentAmountTXT, "1");
+		util.inputTextAndPressTab(agreementPhaseTXT, agreementPhaseValue);
+		util.inputText(dueDateTXT, TestUtil.getCurrentDateTime("dd/MM/yyyy"));
+		util.inputTextAndPressTab(distributionTXT, distributionValue);
+		util.inputText(additionalPaymentTXT, "1");
+		util.inputText(frequencyIncreaseTXT, "1");
+		util.inputTextAndPressTab(paymentFrquencyTXT, "Days");
+		util.inputText(remarksTXT, "Automation Remarks");
+	}
+	public void agreementFormTestcase(Map<String, String> map) {
+		try {
+			navigateToAgreementForm();
+			switchToProjectApprovalIframe();
+			log("STEP 1: Click on Add button under the  Project Approvals panels", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: Click on Add button under the  Project Approvals panels", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
+		}
+		try {
+			selectApprovalType(map.get(Excel.ApprovalType));
+			log("STEP 2: Select Any Work Flow from Approval Type DD", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 2: Select Any Work Flow from Approval Type DD", Status.FAIL);
+			throw new RuntimeException("Failed in step 2");
+		}
+		try {
+			fillAlldetailsInProjectApproval(map.get(Excel.TypeOFPayment), map.get(Excel.AgreementPhase), map.get(Excel.Distribution));
+			log("STEP 3: Select all mandatory field", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 3: Select all mandatory field", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
+		}
+		try {
+			log("STEP 4: Verify any validations if any", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4: Verify any validations if any", Status.FAIL);
+			throw new RuntimeException("Failed in step 4");
+		}
+	}
+
+	public void addNewWorkflow(Map<String, String> map, String testcaseName, boolean isAllSteps) throws InterruptedException {
+		
+		if(testcaseName.contains("Agreement")) {
+			agreementFormTestcase(map);
+		} else {
+			projectApprovalTestcase(map);
+		}
 
 		try {
 			clickOnSaveApprovals();
@@ -285,6 +380,8 @@ public class AddProjectWorkflowPage extends BasePage {
 		}
 
 		try {
+			util.waitForWebElementToBePresent(iframeDocument, IMPLICIT_WAIT);
+			util.waitFor(3000);
 			util.switchToIframe(iframeDocument);
 			selectCategory(map.get(Excel.DocCategory));
 			log("STEP 7: Select the document category", Status.PASS);
@@ -294,7 +391,7 @@ public class AddProjectWorkflowPage extends BasePage {
 		}
 
 		try {
-			setDescription(map.get(Excel.DocComments));
+			setDescription("Automation comments");
 			log("STEP 8: Entered a Title of document", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 8: Entered a Title of document", Status.FAIL);
@@ -311,7 +408,11 @@ public class AddProjectWorkflowPage extends BasePage {
 		}
 
 		try {
-			util.click(loadDocumentFile);
+			if (util.isElementPresent(loadDocumentFile)) {
+				util.click(loadDocumentFile);
+			} else if (util.isElementPresent(loadDocumentFile2)) {
+				util.click(loadDocumentFile2);
+			}
 			util.waitUntilElementDisplay(documentSuccessMessage);
 			String msg = util.getText(documentSuccessMessage);
 			Assert.assertEquals(msg, "Loaded: test.txt", "Success message is mismatch");
@@ -470,6 +571,33 @@ public class AddProjectWorkflowPage extends BasePage {
 			util.switchToDefaultContent();
 		} catch (Exception e) {
 			log("STEP 23: Not Click on submit for review on the form", Status.FAIL);
+		}
+	}
+	
+	By reviewComments = By.xpath("//textarea[contains(@id,'txtReviewerComments')]");
+	By approveButton = By.xpath("//input[contains(@id,'btnApprove')]");
+	public void submitTheFormForReviewAgreement() {
+		try {
+			util.click(tabApproval);
+			util.click(btnSubmitForReview);
+			util.waitForWebElementToBePresent(adminReviewLink, 30);
+			util.click(adminReviewLink);
+			util.waitForWebElementToBePresent(reviewIframe, 30);
+			util.switchToIframe(reviewIframe);
+			util.inputText(reviewComments, "Automation review comments.");
+			util.click(approveButton);
+			try {
+				util.switchToDefaultContent();
+			} catch (Exception e1) { }
+			switchToProjectApprovalIframe();
+			util.waitForWebElementToBePresent(autoApproved, IMPLICIT_WAIT);
+			Assert.assertTrue(util.isElementPresent(autoApproved), "Form is not auto approved");
+			log("STEP 23: Click on submit for review on the form", Status.PASS);
+			log("Form is auto approved");
+			util.switchToDefaultContent();
+		} catch (Exception e) {
+			log("STEP 23: Not Click on submit for review on the form", Status.FAIL);
+			throw new RuntimeException("Failed in STEP 23: Click on submit for review on the form");
 		}
 	}
 
