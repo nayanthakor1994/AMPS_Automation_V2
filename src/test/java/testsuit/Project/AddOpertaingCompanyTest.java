@@ -47,17 +47,10 @@ public class AddOpertaingCompanyTest extends BasePage {
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.OperatingCompany,
 				testcaseName);
-		
 		commonFunction.navigateToProjectDeails();
-		
 		operatingCompany.addOperatingCompanies(map);
 		
 
-	}
-
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentROW");
 	}
 
 }

@@ -18,7 +18,7 @@ import page.Common.LoginPage;
 import pages.Project.UpdateProjectSettingAndMaintancePage;
 
 @Listeners(com.listeners.MyListeners.class)
-public class UpdateProjectSettingAndMaintanceTest extends BasePage {
+public class UpdateProjectSettingsAndMaintenanceTest extends BasePage {
 	LoginPage objLogin;
 	CommonFunction commonFunction;
 	ReadPropertyFile readPro = new ReadPropertyFile();
@@ -46,13 +46,6 @@ public class UpdateProjectSettingAndMaintanceTest extends BasePage {
 		log("navigating to create UpdateProjectSettingMaintence");
 		commonFunction.navigateToProjectDeails();
 		objUpdateProject.updateProjectSettingAndMaintence(map);
-		
-		
-	}
-
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALT");
 	}
 
 }

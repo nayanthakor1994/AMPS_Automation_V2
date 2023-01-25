@@ -14,20 +14,20 @@ import com.util.ExcelUtils;
 import com.util.ReadPropertyFile;
 
 import page.Common.LoginPage;
-import pages.Project.AddProjectStateCountryPage;
+import pages.Project.AddProjectStateCountyPage;
 
 @Listeners(com.listeners.MyListeners.class)
-public class AddProjectStateCountryTest extends BasePage {
+public class AddProjectStateCountyTest extends BasePage {
 	LoginPage objLogin;
 	ReadPropertyFile readPro = new ReadPropertyFile();
-	AddProjectStateCountryPage objCityState;
+	AddProjectStateCountyPage objStateCounty;
 	Map<String, String> map = new HashMap<String, String>();
 
 	@BeforeClass
 	public void setup() throws Exception {
 		driver = getDriver();
 		objLogin = new LoginPage(driver);
-		objCityState = new AddProjectStateCountryPage(driver);
+		objStateCounty = new AddProjectStateCountyPage(driver);
 	}
 
 	@Test(dataProvider = "data-provider")
@@ -36,18 +36,13 @@ public class AddProjectStateCountryTest extends BasePage {
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.Login, "1");
 		objLogin.login(map);
-		String testcaseName = "AddCountryState" + env;
+		String testcaseName = "StateCounty" + env;
 		log("Data picked : " + testcaseName);
 		log("navigating to create City and State");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.CountryState, testcaseName);
-		objCityState.addStateAndContryInformation(map);
-		objCityState.updateStateAndContryInformation(map);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.StateCounty, testcaseName);
+		objStateCounty.addStateAndCountyInformation(map);
+		objStateCounty.updateStateAndCountyInformation(map);
 
-	}
-
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALT");
 	}
 
 }

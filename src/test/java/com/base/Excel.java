@@ -15,7 +15,7 @@ public class Excel {
 	public static final String ProjectApproval = "ProjectApproval";
 	public static final String ProjectSettingsAndMaintence = "ProjectSettingsAndMaintence";
 	public static final String InterconnectionInformation = "InterconnectionInformation";
-	public static final String CountryState = "CountryState";
+	public static final String StateCounty = "StateCounty";
 	public static final String KeyDate = "KeyDate";
 	public static final String OperatingCompany = "OperatingCompany";
 	public static final String ProjectAssignment = "ProjectAssignment";
@@ -30,8 +30,11 @@ public class Excel {
 	public static final String ManageUser = "ManageUser";
 	public static final String UserRolePagePermission = "UserRolePagePermission";
 	public static final String UserRoleSpecialPermission = "UserRoleSpecialPermission";
+	public static final String UserTemplatePagePermission ="UserTemplatePagePermission";
 	public static final String PasswordEncryption ="PasswordEncryption";
 	public static final String SSRSReport = "SSRSReport";
+	public static final String ProjectGroup = "ProjectGroup";
+	
 	/**
 	 * Add column names for login excel
 	 */
@@ -151,6 +154,22 @@ public class Excel {
 	public static final String DDReport = "DDReport";
 	public static final String StartDate = "StartDate";
 	public static final String EndDate = "EndDate";
+	
+	
+	/**
+	 * Add Column Name for Project Group
+	 */
+	
+	public static final String ProjectGroupName = "ProjectGroupName";
+	public static final String GroupDescription = "GroupDescription";
+	public static final String AvailableProjects = "AvailableProjects";
+	
+	public static final String AddDocumentProjectGroup = "AddDocumentProjectGroup";
+	
+	public static final String ExternalLink = "ExternalLink";
+	public static final String SharePointLink = "SharePointLink";
+	public static final String DocumentName = "DocumentName";
+	
 
 	public static final String TypeOFPayment = "TypeOFPayment";
 	public static final String AgreementPhase = "AgreementPhase";

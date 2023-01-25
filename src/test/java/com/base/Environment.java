@@ -14,9 +14,11 @@ public class Environment {
 			Map<String, String> map = ExcelUtils.getRowFromRowNumber(prop.getExcelFileName(), Excel.TestCases, environmentType);
 			environment = ThreadLocal.withInitial(() -> map.get(Excel.URL));
 		} else if(environmentType.equalsIgnoreCase("dot")) {
-			environment = ThreadLocal.withInitial(() -> prop.getDotAMPSURL());
+			Map<String, String> map = ExcelUtils.getRowFromRowNumber(prop.getExcelFileName(), Excel.TestCases, environmentType);
+			environment = ThreadLocal.withInitial(() ->  map.get(Excel.URL));
 		} else if(environmentType.equalsIgnoreCase("row")) {
-			environment = ThreadLocal.withInitial(() -> prop.getRowAMPSURL());
+			Map<String, String> map = ExcelUtils.getRowFromRowNumber(prop.getExcelFileName(), Excel.TestCases, environmentType);
+			environment = ThreadLocal.withInitial(() ->  map.get(Excel.URL));
 		}
 	}
 	

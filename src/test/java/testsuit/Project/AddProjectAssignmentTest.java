@@ -54,9 +54,4 @@ public class AddProjectAssignmentTest extends BasePage {
 
 	}
 
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");
-	}
-
 }

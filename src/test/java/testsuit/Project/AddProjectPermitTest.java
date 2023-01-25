@@ -54,10 +54,4 @@ public class AddProjectPermitTest extends BasePage {
 		projectPermit.deletProjectPermit(map);
 	}
 
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALTROW"
-				+ "");
-	}
-
 }

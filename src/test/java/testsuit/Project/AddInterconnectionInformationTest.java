@@ -51,14 +51,7 @@ public class AddInterconnectionInformationTest extends BasePage {
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty("EXCEL_TEST_DATA"), Excel.InterconnectionInformation,
 				testcaseName);
 		objAddInterconnectionInformation.deleteInterconnection(map);
-		
 
-	}
-
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALT");
-	
 	}
 
 }

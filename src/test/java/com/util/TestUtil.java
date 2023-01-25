@@ -13,6 +13,7 @@ import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -26,9 +27,13 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.base.BasePage;
+import com.base.Excel;
+
+import extentReports.ExtentTestManager;
 
 public class TestUtil extends BasePage {
 	WebDriverWait wait;
+	JavascriptExecutor jscriptExec;
 
 	public TestUtil(WebDriver driver) {
 		this.driver = driver;
@@ -70,10 +75,47 @@ public class TestUtil extends BasePage {
 				JavascriptExecutor executor = (JavascriptExecutor) driver;
 				executor.executeScript("arguments[0].click();", driver.findElement(xpath));
 			} catch (Exception e1) {
+				throw new RuntimeException("Not able to click on element"+xpath.toString());
+			}
+		}
+	}
+	
+	public void jsClick(By by) {
+		scrollToElement(by);
+		try {
+			jscriptExec.executeScript("arguments[0].click();", waitForWebElementToBePresentReturnElement(by));
+		} catch (Exception e) {
+			jscriptExec.executeScript("arguments[0].click();", waitForWebElementToBePresentReturnElement(by));
+		}
+	}
+
+	public void jsClick(WebElement webElement) {
+		try {
+			jscriptExec.executeScript("arguments[0].click();", webElement);
+		} catch (Exception e) {
+			jscriptExec.executeScript("arguments[0].click();", webElement);
+		}
+	}
+	
+public void Rcllick(WebElement xpath) {
+	Actions act = new Actions(driver);
+	act.contextClick(xpath).build().perform();
+}
+	public void rightClick(By xpath) {
+		try {
+			waitUntilElementDisplay(xpath);
+			getElement(Condition.isClickable, xpath, 50).click();
+		} catch (Exception e) {
+			try {
+				JavascriptExecutor executor = (JavascriptExecutor) driver;
+				executor.executeScript("arguments[0].click();", driver.findElement(xpath));
+			} catch (Exception e1) {
 				throw new RuntimeException("Not able to click on element");
 			}
 		}
 	}
+	
+	
 	
 	public void dummyWait(int seconds) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
@@ -86,17 +128,22 @@ public class TestUtil extends BasePage {
 	}
 
 	public void selectDropDownValue(By xpath, String value) {
-		waitUntilElementDisplay(xpath);
-		click(xpath);
-		waitFor(2000);
-		By drpValue = By.xpath("//ul//li[text()='" + value + "']");
-		if (!isElementPresent(drpValue)) {
+		try {
+			waitUntilElementDisplay(xpath);
 			click(xpath);
 			waitFor(2000);
+			log("Selecting value from dropdown :"+value);
+			By drpValue = By.xpath("//ul//li[text()='" + value + "']");
+			if (!isElementPresent(drpValue)) {
+				click(xpath);
+				waitFor(2000);
+			}
+			click(drpValue);
+			ExtentTestManager.info("Selected value : " + value + " in locator : " + xpath.toString());
+		} catch (Exception e) {
+			throw new RuntimeException("Not able to select value from drpdown : "+value);
 		}
-		click(drpValue);
-//		Select ele = new Select(driver.findElement(xpath));
-//		ele.selectByVisibleText(Value);
+		
 	}
 
 	public void click(String xpath) {
@@ -123,11 +170,13 @@ public class TestUtil extends BasePage {
 		try {
 			inputField.click();
 			clearInputField(inputField);
+			//log("Enter value :"+text);
 			inputField.sendKeys(text);
+			ExtentTestManager.info("User typed: " + text + " in locator: " + inputField.toString());
 		} catch (Exception e) {
 			System.out.println("Element not present "+inputField);
 			e.printStackTrace();
-			throw new RuntimeException("Unable to Enter Text");
+			throw new RuntimeException("Unable to Enter Text"+text);
 		}
 	}
 
@@ -144,6 +193,7 @@ public class TestUtil extends BasePage {
 			inputField.click();
 			clearInputField(inputField);
 			inputField.sendKeys(text);
+			ExtentTestManager.info("User typed: " + text + " in locator: " + locator.toString());
 		} catch (Exception e) {
 			throw new RuntimeException("Unable to Enter Text :"+text);
 		}
@@ -162,6 +212,7 @@ public class TestUtil extends BasePage {
 			clearInputField(inputField);
 			inputField.sendKeys(text);
 			inputField.sendKeys(Keys.TAB);
+			ExtentTestManager.info("User typed: " + text + " in locator: " + locator.toString());
 		} catch (Exception e) {
 			throw new RuntimeException("Unable to Enter Text :"+text);
 		}
@@ -482,6 +533,10 @@ public class TestUtil extends BasePage {
 		Actions act = new Actions(driver);
 		act.sendKeys(Keys.ESCAPE).build().perform();
 	}
+	public void pressRightClick() {
+		Actions act = new Actions(driver);
+		act.contextClick().build().perform();
+	}
 	
 
 	/**
@@ -690,20 +745,23 @@ public class TestUtil extends BasePage {
 				waitFor(1000);
 			}
 			click(By.xpath(drpSelectName));
+			ExtentTestManager.info("User select value: " + value + " in locator: " + locator.toString());
 		} catch (Exception e) {
 			try {
 				click(locator);
 				waitUntilElementDisplay(By.xpath(drpSelectName));
 				click(By.xpath(drpSelectName));
 			} catch (Exception e1) {
-				throw e1;
+				throw new RuntimeException("Unable to select :"+value);
 			}
 		}
 	}
 
 
 	public void switchToIframe(By locator) {
+		waitUntilElementDisplay(locator);
 		driver.switchTo().frame(driver.findElement(locator));
+		ExtentTestManager.info("Switch to Frame:"+locator);
 	}
 
 	public void switchToDefaultContent() {
@@ -751,6 +809,15 @@ public class TestUtil extends BasePage {
 			return true;
 		} catch (Exception e) {
 			return false;
+		}
+	}
+	
+	public void switchToWindow() {
+		Set<String> allWindowHandles = driver.getWindowHandles();
+		for(String handle : allWindowHandles)
+		{
+		System.out.println("Switching to window - > " + handle);
+		driver.switchTo().window(handle);
 		}
 	}
 }
