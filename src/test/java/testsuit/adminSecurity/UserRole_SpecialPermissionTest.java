@@ -32,8 +32,8 @@ public class UserRole_SpecialPermissionTest extends BasePage {
 	}
 	
 	@Test()
-	public void specialPermission_UserRole_TC_01() throws Exception {
-		log("TC01 : Page Permission");
+	public void specialPermission_UserRole_TC_02() throws Exception {
+		log("TC02 : Special Permission");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);

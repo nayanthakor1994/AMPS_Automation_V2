@@ -191,7 +191,7 @@ public class ManageUserAddNewUserPage extends BasePage {
 
 		try {
 			addNetworkID(map.get(Excel.NetworkID));
-			log("STEP 2:  Enter Network ID", Status.PASS);
+			log("STEP 2:  User can entered NetworkID :", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2:  User can not enter NetworkID", Status.FAIL);
 			throw new RuntimeException("Failed in step 2");

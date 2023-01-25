@@ -11,11 +11,11 @@ import com.base.BasePage;
 import com.util.CommonFunction;
 import com.util.TestUtil;
 
-public class AddProjectStateCountryPage extends BasePage {
+public class AddProjectStateCountyPage extends BasePage {
 	TestUtil util;
 	CommonFunction commonFunction;
 
-	public AddProjectStateCountryPage(WebDriver driver) {
+	public AddProjectStateCountyPage(WebDriver driver) {
 		this.driver = driver;
 		util = new TestUtil(driver);
 		commonFunction = new CommonFunction(driver);
@@ -24,14 +24,14 @@ public class AddProjectStateCountryPage extends BasePage {
 
 	By btnAddNewRecord = By.xpath("(//img[contains(@id,'PROJECTSTATECOUNTY_radYALGridControl')])[1]");
 	By drpState = By.xpath("//input[contains(@id,'EditFormControl_RadState_Input')]");
-	By drpCountry = By.xpath("//input[contains(@id,'EditFormControl_RadCounty_Input')]");
+	By drpCounty = By.xpath("//input[contains(@id,'EditFormControl_RadCounty_Input')]");
 	By btnInsert = By.xpath("//input[contains(@id,'EditFormControl_btnInsert')]");
 
 	By btnEdit = By.xpath("//input[contains(@name,'EditButton')]");
 	By EditState = By.xpath("//tr[contains(@id,'EditFormControl')]//input[contains(@name,'RadState')]");
-	By EditCountry = By.xpath("(//tr[contains(@id,'EditFormControl')]//input[contains(@name,'RadCounty')])[1]");
-	By btnUpdateCountry = By.xpath("//input[contains(@id,'btnUpdate')]");
-	By tableCountryName = By.xpath("((//table[@class='rgMasterTable'])[1]//tbody)[last()]//tr[1]//td[5]");
+	By EditCounty = By.xpath("(//tr[contains(@id,'EditFormControl')]//input[contains(@name,'RadCounty')])[1]");
+	By btnUpdateCounty = By.xpath("//input[contains(@id,'btnUpdate')]");
+	By tableCountyName = By.xpath("((//table[@class='rgMasterTable'])[1]//tbody)[last()]//tr[1]//td[5]");
 	By tableStateName = By.xpath("((//table[@class='rgMasterTable'])[1]//tbody)[last()]//tr[1]//td[4]");
 	By btnDeleteSTCT = By.xpath("//input[contains(@id,'DeleteAlignment')]");
 	By deletePopupFrame = By.xpath("//iframe[contains(@name,'confirm')]");
@@ -46,10 +46,10 @@ public class AddProjectStateCountryPage extends BasePage {
 		util.pressENTERkey();
 	}
 
-	public void setCountry(String country) throws InterruptedException {
+	public void setCounty(String County) throws InterruptedException {
 		Thread.sleep(2000);
-		//util.selectValueFromDropdown2(country, drpCountry);
-		util.selectValueFromDropdown(drpCountry, country);
+		//util.selectValueFromDropdown2(County, drpCounty);
+		util.selectValueFromDropdown(drpCounty, County);
 		util.pressENTERkey();
 	}
 
@@ -58,16 +58,16 @@ public class AddProjectStateCountryPage extends BasePage {
 		log("update State" + updateState);
 	}
 
-	public void updateCountry(String updateCity) {
-		util.selectDropDownValue(EditCountry, updateCity);
-		log("update State" + updateCity);
+	public void updateCounty(String updateCity) {
+		util.selectDropDownValue(EditCounty, updateCity);
+		log("update County" + updateCity);
 	}
 
 	public void clickInsetButton() {
 		util.click(btnInsert);
 	}
 
-	public void addStateAndContryInformation(Map<String, String> map) throws InterruptedException {
+	public void addStateAndCountyInformation(Map<String, String> map) throws InterruptedException {
 		commonFunction.navigateToProjectDeails();
 		util.waitUntilElementDisplay(btnAddNewRecord);
 		try {
@@ -86,7 +86,7 @@ public class AddProjectStateCountryPage extends BasePage {
 		}
 		util.dummyWait(10);
 		try {
-			setCountry(map.get("CountryName"));
+			setCounty(map.get("CountyName"));
 			log("STEP 3: County added diplays in the column field", Status.PASS);
 		} catch (InterruptedException e) {
 			log("STEP 3:  Added county is not displayed in the field", Status.FAIL);
@@ -102,21 +102,21 @@ public class AddProjectStateCountryPage extends BasePage {
 		util.dummyWait(10);
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
-			log(" State and Country Information message displyed", Status.PASS);
+			log(" State and County Information message displyed", Status.PASS);
 		} else {
-			log("State and Country Information message not displayed", Status.FAIL);
-			throw new RuntimeException("Failed in State and Country Information message not displayed ");
+			log("State and County Information message not displayed", Status.FAIL);
+			throw new RuntimeException("Failed in State and County Information message not displayed ");
 		}
-		if (util.isElementPresent(String.format(tableValue, map.get("CountryName")))) {
-			log("State and Country Information is added sucessfully", Status.PASS);
+		if (util.isElementPresent(String.format(tableValue, map.get("CountyName")))) {
+			log("State and County Information is added sucessfully", Status.PASS);
 		} else {
-			log("State and Country Information is not added sucessfully", Status.FAIL);
-			throw new RuntimeException("Failed in State and Country Information is not added sucessfully ");
+			log("State and County Information is not added sucessfully", Status.FAIL);
+			throw new RuntimeException("Failed in State and County Information is not added sucessfully ");
 			
 		}
 	}
 
-	public void updateStateAndContryInformation(Map<String, String> map) throws InterruptedException {
+	public void updateStateAndCountyInformation(Map<String, String> map) throws InterruptedException {
 		util.waitUntilElementDisplay(btnEdit);
 		util.click(btnEdit);
 		util.dummyWait(10);
@@ -129,7 +129,7 @@ public class AddProjectStateCountryPage extends BasePage {
 
 		}
 		try {
-			updateCountry(map.get("EditCountryName"));
+			updateCounty(map.get("EditCountyName"));
 			//log("STEP 1: The panel fields displays", Status.PASS);
 		} catch (Exception e) {
 			//log("STEP 1: Project states and County information panel is not available", Status.FAIL);
@@ -137,7 +137,7 @@ public class AddProjectStateCountryPage extends BasePage {
 		}
 		util.dummyWait(10);
 		try {
-			util.click(btnUpdateCountry);
+			util.click(btnUpdateCounty);
 			util.dummyWait(10);
 			log("Click On update", Status.PASS);
 		} catch (Exception e) {
@@ -145,33 +145,33 @@ public class AddProjectStateCountryPage extends BasePage {
 			throw new RuntimeException("Upate button not clicable ");
 		}
 		util.dummyWait(10);
-		util.waitUntilElementDisappear(btnUpdateCountry);
-		String countryName = util.getText(tableCountryName);
+		util.waitUntilElementDisappear(btnUpdateCounty);
+		String CountyName = util.getText(tableCountyName);
 		String stateName = util.getText(tableStateName);
 		util.dummyWait(10);
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Changes saved successfully!");
-		Assert.assertEquals(countryName, map.get("EditCountryName"), "Verify country name");
-		Assert.assertEquals(stateName, map.get("EditCountryAlias"), "Verify state name");
+		Assert.assertEquals(CountyName, map.get("EditCountyName"), "Verify County name");
+		Assert.assertEquals(stateName, map.get("EditCountyAlias"), "Verify state name");
 //		if(util.isElementPresent(changesSavedSuccessfully)){
-//			ReportsClass.logStat(Status.PASS, "State and Country Information is updated sucessfully !!!");
+//			ReportsClass.logStat(Status.PASS, "State and County Information is updated sucessfully !!!");
 //		} else {
-//			ReportsClass.logStat(Status.FAIL, "State and Country Information is not updated sucessfully !!!");
+//			ReportsClass.logStat(Status.FAIL, "State and County Information is not updated sucessfully !!!");
 //		}
-		if (countryName.equals(map.get("EditCountryName"))) {
-			log("STEP 6: Country information is updated sucessfully", Status.PASS);
+		if (CountyName.equals(map.get("EditCountyName"))) {
+			log("STEP 6: County information is updated sucessfully", Status.PASS);
 		} else {
-			log("STEP 6: Country information is not  updated sucessfully", Status.FAIL);
-			throw new RuntimeException("Faild in STEP 6 :Country information is not  updated sucessfully ");
+			log("STEP 6: County information is not  updated sucessfully", Status.FAIL);
+			throw new RuntimeException("Faild in STEP 6 :County information is not  updated sucessfully ");
 		}
 
-		if (stateName.equals(map.get("EditCountryAlias"))) {
+		if (stateName.equals(map.get("EditCountyAlias"))) {
 			log("STEP 6: State information is updated sucessfully", Status.PASS);
 		} else {
 			log("STEP 6: State information is not  updated sucessfully", Status.FAIL);
 			throw new RuntimeException("Faild in STEP 6 :State information is not  updated sucessfully  ");
 		}
 
-		// Delete updated country-state
+		// Delete updated County-state
 		util.dummyWait(10);
 		util.waitUntilElementDisplay(btnDeleteSTCT);
 		try {
@@ -186,12 +186,13 @@ public class AddProjectStateCountryPage extends BasePage {
 
 		Assert.assertTrue(util.isElementPresent(changesSavedSuccessfully), "Verify changes saved successfully.");
 		if (util.isElementPresent(changesSavedSuccessfully)) {
-			log("STEP 7: State and Country Information is deleted sucessfully", Status.PASS);
+			log("STEP 7: State and County Information is deleted sucessfully", Status.PASS);
 		} else {
-			log("STEP 7: State and Country Information is not deleted sucessfully", Status.FAIL);
-			throw new RuntimeException("State and Country Information is not deleted sucessfully ");
+			log("STEP 7: State and County Information is not deleted sucessfully", Status.FAIL);
+			throw new RuntimeException("State and County Information is not deleted sucessfully ");
 		}
 
 	}
+
 
 }

@@ -51,16 +51,16 @@ public class AddProjectWorkflowTest extends BasePage {
 		log("Nevigate to Add Workflow");
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectApproval,
 				testcaseName);
-		
+
 		commonFunction.navigateToProjectDeails();
 		
 		projectWorkflow.addNewWorkflow(map, testcaseName, true);
 		projectWorkflow.addNewWorkflow(map, testcaseName, false);
-		
+
 		projectWorkflow.submitTheFormForReview();
 		projectWorkflow.closeApprovalForm();
 		projectWorkflow.verifyStoredRecord(map.get(Excel.ApprovalType));
-		
+
 		try {
 			commonFunction.navigateToMyDashboard();
 			log("STEP 25: Click on submit for review on the form", Status.PASS);
@@ -78,11 +78,6 @@ public class AddProjectWorkflowTest extends BasePage {
 		Assert.assertTrue(dashboardPage.isJobCreated("Requested"), "Job is not created");
 		log("STEP 27: The Job created is listed under the tab", Status.PASS);
 
-	}
-
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environmentALT");
 	}
 
 }

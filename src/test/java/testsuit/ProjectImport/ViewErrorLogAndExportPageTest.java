@@ -12,6 +12,7 @@ import com.base.Excel;
 import com.util.ExcelUtils;
 import com.util.ReadPropertyFile;
 
+import net.bytebuddy.build.Plugin.Factory.UsingReflection.Priority;
 import page.Common.LoginPage;
 import pages.projectImport.ProjectImportPage;
 import pages.projectImport.ViewErrorLogAndExportPage;
@@ -31,8 +32,8 @@ public class ViewErrorLogAndExportPageTest extends BasePage {
 		objViewErrorLogAndExportPage = new ViewErrorLogAndExportPage(driver);
 	}
 	
-	@Test()
-	public void projectImport_TC_02AndTC_03() throws Exception {
+	@Test(priority=1,enabled=true)
+	public void viewError_ProjectImport_TC_02() throws Exception {
 		log("TC02 : View Error log :");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
@@ -41,7 +42,17 @@ public class ViewErrorLogAndExportPageTest extends BasePage {
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.SSRSReport, testcaseName);
 		objViewErrorLogAndExportPage.viewErrorLog(map, testcaseName);
-		log("TC03 : Export :");
+	}
+	
+	@Test(priority=1,enabled=true)
+	public void verifyExport_ProjectImport_TC_03() throws Exception {
+		log("TC03 : Verify Export :");
+		navigateToApplication(appURL);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		objLogin.login(map);
+		String testcaseName = "projectImport" + environment;
+		log("Data picked : " + testcaseName);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.SSRSReport, testcaseName);
 		objViewErrorLogAndExportPage.exportButton(map, testcaseName);
 	}
 

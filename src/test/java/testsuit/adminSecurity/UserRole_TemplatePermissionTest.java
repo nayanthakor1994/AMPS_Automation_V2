@@ -30,14 +30,14 @@ public class UserRole_TemplatePermissionTest extends BasePage{
 		objTemplatePermission = new UserRoleTemplatePermissionPage(driver);
 	}
 	@Test()
-	public void specialPermission_UserRole_TC_01() throws Exception {
-		log("TC03 : Special Permission");
+	public void templatePermission_UserRole_TC_03() throws Exception {
+		log("TC03 : Template Permission");
 		navigateToApplication(appURL);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
 		objLogin.login(map);
 		String testcaseName = "AddTemplatePermission" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.UserRolePagePermission,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.UserTemplatePagePermission,
 				testcaseName);
 		objTemplatePermission.selectTemplatePermission(map, testcaseName);
 		objTemplatePermission.addNewPermission(map, testcaseName);

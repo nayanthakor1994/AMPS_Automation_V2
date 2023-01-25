@@ -115,7 +115,7 @@ public class UserRoleTemplatePermissionPage extends BasePage {
 		projectDetailsNotDisplay();
 	}
 	
-	By tabSpecialPermission = By.xpath("//span[text()='Special Permissions']");
+	By tabSpecialPermission = By.xpath("//span[text()='Template Permissions']");
 	public void clickOnSpecialPermission() {
 		util.click(tabSpecialPermission);
 
@@ -164,6 +164,7 @@ public class UserRoleTemplatePermissionPage extends BasePage {
 		try {
 			selectRoleDD(map.get(Excel.Roles));
 			log("STEP 2:  User can select Role", Status.PASS);
+			
 		} catch (Exception e) {
 			log("STEP 2:  User can not select Role", Status.FAIL);
 			throw new RuntimeException("Failed in step 2:  User can not select Role");

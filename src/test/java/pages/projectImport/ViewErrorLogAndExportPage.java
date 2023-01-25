@@ -24,7 +24,7 @@ public class ViewErrorLogAndExportPage extends BasePage{
 	
 	
 	By navProjectMenu = By.xpath("*//a//span[@class='rmText rmExpandDown' and contains(text(),'Project')] ");
-	By navImfort = By.xpath("*//a//span[contains(text(),'Import')] ");
+	By navImfort = By.xpath("*//span[text()='Import']");
 	public void navigateToImport() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
@@ -33,10 +33,10 @@ public class ViewErrorLogAndExportPage extends BasePage{
 		
 	}
 	By viewErrorLog=  By.xpath("//span[@id='ctl00_ConPHRightTop_idYalImport_spViewErrorLog']");
-	By downlodPDF = By.xpath("//a[@id='rgDataMigrationErorLog_radYALGridControl_ctl00_ctl02_ctl00_DownloadPDF']");
-	By downloadExcel = By.xpath("//a[@id='rgDataMigrationErorLog_radYALGridControl_ctl00_ctl02_ctl00_DownloadEXCEL']");
+	By downlodPDF = By.xpath("//a[contains(@id,'DownloadPDF')]");
+	By downloadExcel = By.xpath("//a[contains(@id,'DownloadEXCEL')]");
 	
-	By btnexport = By.xpath("//input[@id='ctl00_ConPHRightTop_idYalImport_btnSaveTract']");
+	By btnexport = By.xpath("//input[contains(@id,'btnSaveTract')]");
 	
 	
 	public void viewErrorLog(Map<String, String> map, String testcaseName) {
@@ -56,6 +56,7 @@ public class ViewErrorLogAndExportPage extends BasePage{
 			throw new RuntimeException("Failed in step 2: User can not click on ErroLog");
 		}
 		try {
+			util.switchToWindow();
 			util.click(downlodPDF);
 			log("STEP :  User can click on Download PDF", Status.PASS);
 		} catch (Exception e) {
@@ -64,6 +65,7 @@ public class ViewErrorLogAndExportPage extends BasePage{
 		}
 		try {
 			util.click(downloadExcel);
+			util.switchToDefaultContent();
 			log("STEP 4:  User can click on Downlaod Excel", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4:  User can not click on Downlaod Excel", Status.FAIL);
@@ -82,11 +84,11 @@ public class ViewErrorLogAndExportPage extends BasePage{
 			throw new RuntimeException("Failed in step 1: Popup up does not appear");
 		}
 		try {
-			util.click(downloadExcel);
+			util.click(btnexport);
 			log("STEP 2:  User can click on Export", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2:  User can not click on Export", Status.FAIL);
-			throw new RuntimeException("Failed in step 4: User can not click on Export");
+			throw new RuntimeException("Failed in step 2: User can not click on Export");
 		}
 		
 	}

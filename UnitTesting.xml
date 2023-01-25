@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TestSuite">
-	<test name="TestCasesUnit">
+	<test name="ProjectDetails_ALT">
+		<parameter name="browser" value="chrome" />
+		<parameter name="env" value="ALT" />
+		<classes>
+<!--			<class name="testsuit.Project.AddProjectTest" />-->
+<!--			<class name="testsuit.Project.AddProjectStateCountyTest" />-->
+<!--			<class name="testsuit.Project.UpdateProjectSettingsAndMaintenanceTest" />-->
+<!--			<class name="testsuit.Project.AddInterconnectionInformationTest" />-->
+<!--			<class name="testsuit.Project.AddProjectAssignmentTest" />-->
+<!--			<class name="testsuit.Project.AddKeyDateTest" />-->
+			<class name="testsuit.Project.AddProjectWorkflowTest" />
+		</classes>
+	</test>
+	
+	
+	
+	<!-- <test name="TestCasesUnit_DOT">
+		<parameter name="browser" value="chrome" />
+		<parameter name="env" value="DOT" />
+		<classes>
+	 		<class name="testsuit.adminSecurity.UserAccount_AddNewUserTest" />
+		<class name="testsuit.adminSecurity.ManageUser_AddNewUserTest" />
+		<class name="testsuit.adminSecurity.UserRole_PagePermissionTest" />
+		<class name="testsuit.adminSecurity.UserRole_SpecialPermissionTest" />
+		<class name="testsuit.adminSecurity.UserRole_TemplatePermissionTest" />
+		<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
+		</classes>
+	</test>
+	<test name="TestCasesUnit_ROW">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ROW" />
 		<classes>
-			<class name="testsuit.Project.AddProjectTest" />
+			<class name="testsuit.adminSecurity.UserAccount_AddNewUserTest" />
+		<class name="testsuit.adminSecurity.ManageUser_AddNewUserTest" />
+		<class name="testsuit.adminSecurity.UserRole_PagePermissionTest" />
+		<class name="testsuit.adminSecurity.UserRole_SpecialPermissionTest" />
+		<class name="testsuit.adminSecurity.UserRole_TemplatePermissionTest" />
+		<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
 		</classes>
-	</test>
+	</test>-->
 </suite>

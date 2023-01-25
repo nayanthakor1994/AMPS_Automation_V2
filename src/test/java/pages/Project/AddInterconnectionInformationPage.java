@@ -124,7 +124,7 @@ public class AddInterconnectionInformationPage extends BasePage {
 			log("STEP 4:  Added values does  not displayed in the grid  ", Status.FAIL);
 			throw new RuntimeException("Failed in step 4");
 		}
-
+util.dummyWait(10);
 		// Verify Interconnection Information Saved Successfully
 		util.waitUntilElementDisplay(By.xpath("*//div//span[contains(text(),'Changes saved successfully!')]"));
 		String getInterconnectionInfoSuccessMsg = driver
@@ -145,11 +145,18 @@ public class AddInterconnectionInformationPage extends BasePage {
 
 	}
 
+	public void clickOnEdit(String value) {
+		By btnEdit = By.xpath("//*[text()='"+value+"']/../td[1]/input");
+		util.click(btnEdit);
+	}
+	
 	public void updateInterconnectionInformation(Map<String, String> map) throws InterruptedException {
-		By viewEditBtn = By.xpath(String.format(editInterconnection, map.get("EditInterconnection Grid")));
-		util.waitUntilElementDisplay(viewEditBtn);
+		//By viewEditBtn = By.xpath(String.format(editInterconnection, map.get("EditInterconnection Grid")));
+		util.dummyWait(10);
+	//	util.waitUntilElementDisplay(viewEditBtn);
 		try {
-			util.click(viewEditBtn);
+			clickOnEdit(map.get("Interconnection Grid"));
+			//util.click(viewEditBtn);
 			log("STEP 5: added value diplays in the comment field  ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5:  added  value does not displayed in the field. OR 2) Cannot add values in the text field  ",
@@ -208,6 +215,7 @@ public class AddInterconnectionInformationPage extends BasePage {
 		util.waitUntilElementDisplay(btnAddDocument);
 		util.click(btnAddDocument);
 		util.switchToIframe(documentAddIframe);
+		
 		util.waitUntilElementDisplay(drpCategory);
 		try {
 			util.selectValueFromDropdown2("test doc cat", drpCategory);

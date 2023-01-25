@@ -15,12 +15,14 @@ import com.util.ReadPropertyFile;
 
 import page.Common.LoginPage;
 import pages.Project.AddProjectPage;
+import pages.Project.AddProjectStateCountyPage;
 
 @Listeners(com.listeners.MyListeners.class)
 public class AddProjectTest extends BasePage {
 	LoginPage objLogin;
 	AddProjectPage objAddProject;
 	ReadPropertyFile readPro = new ReadPropertyFile();
+	AddProjectStateCountyPage objStateCounty;
 	Map<String, String> map = new HashMap<String, String>();
 
 	@BeforeClass
@@ -28,9 +30,10 @@ public class AddProjectTest extends BasePage {
 		driver = getDriver();
 		objLogin = new LoginPage(driver);
 		objAddProject = new AddProjectPage(driver);
+		objStateCounty = new AddProjectStateCountyPage(driver);
 	}
 
-	@Test()
+	@Test(enabled = true)
 	public void add_Project_TC_01() throws Exception {
 		log("TC01 : Add a Project");
 		navigateToApplication(appURL);
@@ -41,13 +44,21 @@ public class AddProjectTest extends BasePage {
 		log("navigating to create new Project");
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectInformation,
 				testcaseName);
-		objAddProject.addProjectInformation(map,testcaseName);
+		objAddProject.addProjectInformation(map, testcaseName);
 	}
-
-	@DataProvider(name = "data-provider")
-	public Object[][] getTestcaseData() throws Exception {
-		return ExcelUtils.getURLFromSheet(prop.getProperty(Excel.excelFileName), Excel.TestCases, "environment");
-
+	
+	@Test(enabled = true)
+	public void add_Project_State_County_TC_02() throws Exception {
+		log("TC02 : Add a Project State and County");
+		navigateToApplication(appURL);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		objLogin.login(map);
+		String testcaseName = "AddStateCounty" + environment;
+		log("Data picked : " + testcaseName);
+		log("navigating to create State and County");
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.StateCounty, testcaseName);
+		objStateCounty.addStateAndCountyInformation(map);
+		objStateCounty.updateStateAndCountyInformation(map);
 	}
 
 }

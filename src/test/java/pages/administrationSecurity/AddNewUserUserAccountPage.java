@@ -159,18 +159,16 @@ public class AddNewUserUserAccountPage extends BasePage {
 	By close = By.xpath("//a[@title='Close']");
 
 	public void addPicture() {
-		util.waitFor(10);
 		util.click(btnAddPircture);
-		log("Add Picuture clicked ", Status.PASS);
-		util.waitFor(10);
+		log("Add Picuture clicked : ", Status.PASS);
 		util.switchToIframe(iframeDocument);
 		log("Switch to frame ", Status.PASS);
-		util.waitFor(10);
 		String filepath = System.getProperty("user.dir") + File.separator + "Image1.jfif";
 		driver.findElement(fileUpload).sendKeys(filepath);
 		log("Uploadfile ", Status.PASS);
 		util.click(loadDocument);
 		log("Click on load ", Status.PASS);
+		util.dummyWait(10);
 		util.waitUntilElementDisplay(successMessage);
 		log("Waitfor Message ", Status.PASS);
 		util.switchToDefaultContent();
