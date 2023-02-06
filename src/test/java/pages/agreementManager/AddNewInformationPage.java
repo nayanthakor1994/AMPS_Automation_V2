@@ -35,7 +35,11 @@ public class AddNewInformationPage extends BasePage {
 		util.click(navProjectMenu);
 		util.waitUntilElementDisplay(navAgreementManager);
 		util.click(navAgreementManager);
-		util.waitUntilElementDisplay(navAgreementInformation);
+		util.waitFor(2000);
+		if(!util.isElementPresent(navAgreementInformation, 5)) {
+			util.click(navAgreementManager);
+			util.waitFor(2000);
+		}
 		util.click(navAgreementInformation);
 		util.waitForWebElementToBePresent(pageTitle, 20);
 		if (!util.isElementPresent(pageTitle)) {

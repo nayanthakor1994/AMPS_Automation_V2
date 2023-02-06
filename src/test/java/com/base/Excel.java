@@ -24,6 +24,7 @@ public class Excel {
 	public static final String PayeeInfo = "PayeeInfo";
 	public static final String AgreementForm = "AgreementForm";
 	public static final String AgreementObligations = "AgreementObligations";
+	public static final String RecordingInfo = "RecordingInfo";
 
 	
 	public static final String UserAccount = "UserAccount";
@@ -182,6 +183,17 @@ public class Excel {
 	public static final String Frequency = "Frequency";
 	public static final String AssignedTo = "AssignedTo";
 	
+	/**
+	 * Add Column Name for Agreement record information
+	 */
+	public static final String DocumentType = "DocumentType";
+	public static final String Book = "Book";
+	public static final String Volume = "Volume";
+	public static final String Page = "Page";
+	public static final String State = "State";
+	public static final String Country = "Country";
+	public static final String Grantor = "Grantor";
+	public static final String Grantee = "Grantee";
 	
 	public static final String SendCommunication = "SendCommunication";
 	public static final String SelectOne = "SelectOne";

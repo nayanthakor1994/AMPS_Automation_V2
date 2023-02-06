@@ -102,7 +102,12 @@ public class AgreementObligationsPage extends BasePage {
 		if(!commonFunction.checkNA(value)) {
 			util.waitForWebElementToBeClickable(description, IMPLICIT_WAIT);
 			util.waitFor(5000);
-			util.inputText(description, value);
+			try {
+				util.inputText(description, value);
+			} catch (Exception e) {
+				util.waitFor(10000);
+				util.inputText(description, value);
+			}
 		}
 	}
 	public void enterAssociateAgreement(String value) {
