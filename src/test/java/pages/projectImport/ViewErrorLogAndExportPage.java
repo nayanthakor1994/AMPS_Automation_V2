@@ -58,7 +58,7 @@ public class ViewErrorLogAndExportPage extends BasePage{
 		try {
 			util.switchToWindow();
 			util.click(downlodPDF);
-			log("STEP :  User can click on Download PDF", Status.PASS);
+			log("STEP 3 :  User can click on Download PDF", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3:  User can not click on Download PDF", Status.FAIL);
 			throw new RuntimeException("Failed in step 3: User can not click on Download PDF");
@@ -75,22 +75,29 @@ public class ViewErrorLogAndExportPage extends BasePage{
 	}
 
 	public void exportButton(Map<String, String> map, String testcaseName) {
+		if(testcaseName.contains("ALT")||testcaseName.contains("ROW")) {
+			log("Export Button Not applicable for ALT  :", Status.PASS);
+			
+		}
+		else {
+			try {
+				navigateToImport();
+				log("STEP 1:  Navigate to Menu - Import", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 1:  Navigate to Menu - Import", Status.FAIL);
+				throw new RuntimeException("Failed in step 1: Popup up does not appear");
+			}
+			try {
+				util.click(btnexport);
+				log("STEP 2:  User can click on Export", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 2:  User can not click on Export", Status.FAIL);
+				throw new RuntimeException("Failed in step 2: User can not click on Export");
+			}
+		}
 		
-		try {
-			navigateToImport();
-			log("STEP 1:  Navigate to Menu - Import", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 1:  Navigate to Menu - Import", Status.FAIL);
-			throw new RuntimeException("Failed in step 1: Popup up does not appear");
-		}
-		try {
-			util.click(btnexport);
-			log("STEP 2:  User can click on Export", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 2:  User can not click on Export", Status.FAIL);
-			throw new RuntimeException("Failed in step 2: User can not click on Export");
-		}
 		
 	}
+	
 
 }

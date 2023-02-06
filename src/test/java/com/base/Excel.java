@@ -34,6 +34,7 @@ public class Excel {
 	public static final String PasswordEncryption ="PasswordEncryption";
 	public static final String SSRSReport = "SSRSReport";
 	public static final String ProjectGroup = "ProjectGroup";
+	public static final String MyDashboard = "MyDashboard";
 	
 	/**
 	 * Add column names for login excel
@@ -180,5 +181,10 @@ public class Excel {
 	public static final String Status = "Status";
 	public static final String Frequency = "Frequency";
 	public static final String AssignedTo = "AssignedTo";
+	
+	
+	public static final String SendCommunication = "SendCommunication";
+	public static final String SelectOne = "SelectOne";
+	public static final String Message = "Message";
 	
 }
