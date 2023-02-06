@@ -81,10 +81,16 @@ public class AddDocExternalLinkPage extends BasePage {
 	}
 
 	By btnLoadDocument_ExternalLink = By
-			.xpath(" //div[(@id='RadPanelBar2')]//following::span[contains(@id,'btnSave')]");
+			.xpath("//div[(@id='RadPanelBar2')]//following::span[contains(@id,'btnSave')]");
+	
+	By btnLoadDocument_ExternalLinkDOT = By
+			.xpath("//input[@name='radReportConfigPanels$i0$i0$btnSave']");
 
 	public void clickOnLoadDocumentExternalLInk() {
 		util.click(btnLoadDocument_ExternalLink);
+	}
+	public void clickOnLoadDocumentExternalLInkDOT() {
+		util.click(btnLoadDocument_ExternalLinkDOT);
 	}
 
 	By sectionExternalLink = By.xpath("//*[text()='External Link']");
@@ -207,7 +213,12 @@ public class AddDocExternalLinkPage extends BasePage {
 			throw new RuntimeException("STEP 6:  User can not enter DocumentName");
 		}
 		try {
-			clickOnLoadDocumentExternalLInk();
+			if(testcaseName.contains("DOT")) {
+				clickOnLoadDocumentExternalLInkDOT();
+			}
+			else {
+				clickOnLoadDocumentExternalLInk();
+			}
 			util.waitUntilElementDisplay(documentSuccessMessage);
 			String msg = util.getText(documentSuccessMessage);
 			//driver.close();

@@ -39,7 +39,7 @@ public class AddProjectGroupPage extends BasePage {
 	public void setGroupName(String value) {
 		if (!commonFunction.checkNA(value))
 		util.waitUntilElementDisplay(txtGroupName);
-		util.inputTextAndPressTab(txtGroupName, value);
+		util.inputTextAndPressTab(txtGroupName, util.randomNumber());
 	}
 
 	By txtGroupDescription = By.xpath("//textarea[contains(@id,'GROUPDESC')]");

@@ -13,6 +13,7 @@ import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.openqa.selenium.By;
@@ -80,6 +81,24 @@ public class TestUtil extends BasePage {
 		}
 	}
 	
+	SimpleDateFormat sdf;
+	Calendar calendar;
+	Calendar now;
+	Calendar sevenDaysAgo;
+	Calendar endOfNow;
+	Date effDate;
+	public void EffectiveDate() {
+		sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+		calendar = Calendar.getInstance();
+		now = Calendar.getInstance();
+		endOfNow = Calendar.getInstance();
+		sevenDaysAgo = Calendar.getInstance();
+	}
+	
+	public String getNowDate() {
+		now.add(Calendar.DATE,0);
+		return sdf.format(now.getTime());
+	}
 	public void jsClick(By by) {
 		scrollToElement(by);
 		try {
@@ -105,6 +124,8 @@ public void Rcllick(WebElement xpath) {
 		try {
 			waitUntilElementDisplay(xpath);
 			getElement(Condition.isClickable, xpath, 50).click();
+			Actions act = new Actions(driver);
+			act.contextClick().build().perform();
 		} catch (Exception e) {
 			try {
 				JavascriptExecutor executor = (JavascriptExecutor) driver;

@@ -149,23 +149,33 @@ public class AddNewUserUserAccountPage extends BasePage {
 	public void clickOnCancle() {
 		util.click(btnCancle);
 	}
+	
+	public void editNewUser(String value) {
+		By editNewUser = By.xpath("//*[text()='" + value + "']/..//td[1]");
+		util.click(editNewUser);
+	}
 
 	By btnAddPircture = By.xpath("//img[@alt='Add Picture']");
 	By selectPicture = By.xpath("//input[@class='ruButton ruBrowse']");
 	By loadDocument = By.xpath("//input[contains(@id,'buttonSubmit_input')]");
 	By successMessage = By.xpath("//span[@id='lblResults']");
-	By fileUpload = By.xpath("//input[contains(@id,'Upload1file') or contains(@id,'Uploadfile')]");
+	By fileUpload = By.xpath("//span[@class='ruButton ruBrowse']");
 	By iframeDocument = By.xpath("//iframe[@name='UserListDialog']");
 	By close = By.xpath("//a[@title='Close']");
 
 	public void addPicture() {
 		util.click(btnAddPircture);
 		log("Add Picuture clicked : ", Status.PASS);
+		util.dummyWait(120);
+		util.waitUntilElementDisplay(iframeDocument);
 		util.switchToIframe(iframeDocument);
 		log("Switch to frame ", Status.PASS);
-		String filepath = System.getProperty("user.dir") + File.separator + "Image1.jfif";
+		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
+		util.waitUntilElementDisplay(fileUpload);
+		util.click(fileUpload);
 		driver.findElement(fileUpload).sendKeys(filepath);
 		log("Uploadfile ", Status.PASS);
+		util.waitUntilElementDisplay(loadDocument);
 		util.click(loadDocument);
 		log("Click on load ", Status.PASS);
 		util.dummyWait(10);
@@ -306,6 +316,7 @@ public class AddNewUserUserAccountPage extends BasePage {
 //			log("STEP 18:  User can not Click On Cancle", Status.FAIL);
 //			throw new RuntimeException("Failed in step 18");
 //		}
+	
 		try {
 			editNewUser(map.get(Excel.LastName));
 			log("Existing User Open ", Status.PASS);
@@ -317,10 +328,6 @@ public class AddNewUserUserAccountPage extends BasePage {
 		}
 	}
 
-	public void editNewUser(String value) {
-		By editNewUser = By.xpath("//*[text()='" + value + "']/..//td[1]");
-		util.click(editNewUser);
-	}
 
 	By btnUpdate = By.xpath("//input[contains(@id,'btnUpdate')]");
 	By updateMessage = By.xpath("//*[text()='Changes saved successfully!']");

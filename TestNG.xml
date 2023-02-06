@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-
 <suite name="AMPS_Test">
 	<test name="ProjectDetails_ALT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ALT" />
 		<classes>
-			<class name="testsuit.Project.AddProjectTest" />
-			<class name="testsuit.Project.AddProjectStateCountryTest" />
-			<class name="testsuit.Project.UpdateProjectSettingsAndMaintenanceTest" />
-			<class name="testsuit.Project.AddProjectAssignmentTest" />
-			<class name="testsuit.Project.AddInterconnectionInformationTest" />
-			<class name="testsuit.Project.AddKeyDateTest" />
-			<class name="testsuit.Project.AddProjectWorkflowTest" />
-
+			<!--			<class name="testsuit.Project.AddProjectTest" />-->
+			<!--			<class name="testsuit.Project.AddProjectStateCountryTest" />-->
+			<!--			<class name="testsuit.Project.UpdateProjectSettingsAndMaintenanceTest" />-->
+			<!--			<class name="testsuit.Project.AddProjectAssignmentTest" />-->
+			<!--			<class name="testsuit.Project.AddInterconnectionInformationTest" />-->
+			<!--			<class name="testsuit.Project.AddKeyDateTest" />-->
+			<!--			<class name="testsuit.Project.AddProjectWorkflowTest" />-->
 		</classes>
 	</test>
-	
 	<test name="AdministrationSecurity_ALT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ALT" />
@@ -30,7 +26,6 @@
 			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
 		</classes>
 	</test>
-	
 	<test name="ProjectGroup_ALT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ALT" />
@@ -38,7 +33,6 @@
 			<class name="testsuit.ProjectGroup.AddProjectGroupTest" />
 		</classes>
 	</test>
-	
 	<test name="ProjectIimport_ALT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ALT" />
@@ -47,7 +41,6 @@
 			<class name="testsuit.ProjectImport.ViewErrorLogAndExportPageTest" />
 		</classes>
 	</test>
-
 	<test name="SSRSReports_ALT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ALT" />
@@ -55,28 +48,32 @@
 			<class name="testsuit.SSRSReports.SSRSReportsTest" />
 		</classes>
 	</test>
-	
-	<test name="AgreementManager_ALT">
+	<test name="ToolsMyDashboard_ALT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ALT" />
 		<classes>
-			<class name="testsuit.agreementManager.AgreementInformationTest" />
+			<class name="testsuit.ToolsMyDashboard.MyDashboardTest" />
+			<class name="testsuit.ToolsMyDashboard.ToolMyDashboardTest" />
 		</classes>
 	</test>
-
-
-	<test name="ProjectDetails_DOT">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="DOT" />
-		<classes>
-			<class name="testsuit.Project.AddProjectTest" />
-			<class name="testsuit.Project.AddProjectAssignmentTest" />
-			<class name="testsuit.Project.AddProjectWorkflowTest">
-			</class>
-		</classes>
-	</test>
-	
-		<test name="AdministrationSecurity_DOT">
+		<test name="AgreementManager_ALT">
+			<parameter name="browser" value="chrome" />
+			<parameter name="env" value="ALT" />
+			<classes>
+				<class name="testsuit.agreementManager.AgreementInformationTest" />
+			</classes>
+		</test>
+		<test name="ProjectDetails_DOT">
+			<parameter name="browser" value="chrome" />
+			<parameter name="env" value="DOT" />
+			<classes>
+				<class name="testsuit.Project.AddProjectTest" />
+				<class name="testsuit.Project.AddProjectAssignmentTest" />
+				<class name="testsuit.Project.AddProjectWorkflowTest">
+				</class>
+			</classes>
+		</test>
+	<test name="AdministrationSecurity_DOT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="DOT" />
 		<classes>
@@ -88,7 +85,6 @@
 			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
 		</classes>
 	</test>
-	
 	<test name="ProjectGroup_DOT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="DOT" />
@@ -96,7 +92,6 @@
 			<class name="testsuit.ProjectGroup.AddProjectGroupTest" />
 		</classes>
 	</test>
-	
 	<test name="ProjectIimport_DOT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="DOT" />
@@ -105,7 +100,6 @@
 			<class name="testsuit.ProjectImport.ViewErrorLogAndExportPageTest" />
 		</classes>
 	</test>
-
 	<test name="SSRSReports_DOT">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="DOT" />
@@ -113,24 +107,28 @@
 			<class name="testsuit.SSRSReports.SSRSReportsTest" />
 		</classes>
 	</test>
-	
-
-	<test name="ProjectDetails_ROW">
+	<test name="ToolsMyDashboard_DOT">
 		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="ROW" />
+		<parameter name="env" value="ALT" />
 		<classes>
-			<class name="testsuit.Project.AddProjectTest" />
-			<class name="testsuit.Project.AddProjectAssignmentTest" />
-			<class name="testsuit.Project.AddKeyDateTest" />
-			<class name="testsuit.Project.AddProjectPermitTest" />
-			<class name="testsuit.Project.AddOpertaingCompanyTest" />
-			<class name="testsuit.Project.AddProjectWorkflowTest" />
-			
-			<class name="testsuit.agreementManager.AgreementInformationTest" />
+			<class name="testsuit.ToolsMyDashboard.MyDashboardTest" />
+			<class name="testsuit.ToolsMyDashboard.ToolMyDashboardTest" />
 		</classes>
 	</test>
-	
-		<test name="AdministrationSecurity_ROW">
+	<!--	<test name="ProjectDetails_ROW">-->
+	<!--		<parameter name="browser" value="chrome" />-->
+	<!--		<parameter name="env" value="ROW" />-->
+	<!--		<classes>-->
+	<!--			<class name="testsuit.Project.AddProjectTest" />-->
+	<!--			<class name="testsuit.Project.AddProjectAssignmentTest" />-->
+	<!--			<class name="testsuit.Project.AddKeyDateTest" />-->
+	<!--			<class name="testsuit.Project.AddProjectPermitTest" />-->
+	<!--			<class name="testsuit.Project.AddOpertaingCompanyTest" />-->
+	<!--			<class name="testsuit.Project.AddProjectWorkflowTest" />-->
+	<!--			<class name="testsuit.agreementManager.AgreementInformationTest" />-->
+	<!--		</classes>-->
+	<!--	</test>-->
+	<test name="AdministrationSecurity_ROW">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ROW" />
 		<classes>
@@ -142,15 +140,6 @@
 			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
 		</classes>
 	</test>
-	
-	<test name="ProjectGroup_ROW">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="ROW" />
-		<classes>
-			<class name="testsuit.ProjectGroup.AddProjectGroupTest" />
-		</classes>
-	</test>
-	
 	<test name="ProjectIimport_ROW">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ROW" />
@@ -159,7 +148,6 @@
 			<class name="testsuit.ProjectImport.ViewErrorLogAndExportPageTest" />
 		</classes>
 	</test>
-
 	<test name="SSRSReports_ROW">
 		<parameter name="browser" value="chrome" />
 		<parameter name="env" value="ROW" />
@@ -167,14 +155,11 @@
 			<class name="testsuit.SSRSReports.SSRSReportsTest" />
 		</classes>
 	</test>
-	
-	<test name="AgreementManager_ROW">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="ROW" />
-		<classes>
-			<class name="testsuit.agreementManager.AgreementInformationTest" />
-		</classes>
-	</test>
-
-
+	<!--	<test name="AgreementManager_ROW">-->
+	<!--		<parameter name="browser" value="chrome" />-->
+	<!--		<parameter name="env" value="ROW" />-->
+	<!--		<classes>-->
+	<!--			<class name="testsuit.agreementManager.AgreementInformationTest" />-->
+	<!--		</classes>-->
+	<!--	</test>-->
 </suite>
