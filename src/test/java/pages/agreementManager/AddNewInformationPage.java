@@ -33,11 +33,11 @@ public class AddNewInformationPage extends BasePage {
 	public void navigateToAgreementInformationALT() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
-		util.waitUntilElementDisplay(navAgreementManager);
-		util.click(navAgreementManager);
-		util.waitFor(2000);
+		util.dummyWait(1);
+		util.waitForWebElementToBeClickableReturnElement(navAgreementManager).click();;
+		util.dummyWait(1);
 		if(!util.isElementPresent(navAgreementInformation, 5)) {
-			util.click(navAgreementManager);
+			util.hoverOnElement(navAgreementManager);
 			util.waitFor(2000);
 		}
 		util.click(navAgreementInformation);
@@ -73,9 +73,11 @@ public class AddNewInformationPage extends BasePage {
 	}
 	
 	private void addLeaseNumber(String value) {
-		if (!commonFunction.checkNA(value)) {
-			util.inputText(agreementNumber, value);
-		}
+		try {
+			if (!commonFunction.checkNA(value)) {
+				util.inputText(agreementNumber, value);
+			}
+		} catch (Exception e) { }
 	}
 
 	By txtAgreementType1 = By.xpath("//input[contains(@id,'Lease_Type_ID') and @type='text']");
@@ -296,8 +298,8 @@ public class AddNewInformationPage extends BasePage {
 
 		try {
 			if(testcaseName.toLowerCase().contains("row")) {
-//				AGREEMENT_NUMBER = util.randomNumber();
-//				addLeaseNumber(AGREEMENT_NUMBER);
+				AGREEMENT_NUMBER = util.randomNumber();
+				addLeaseNumber(AGREEMENT_NUMBER);
 			} else {
 				verifyAutoPopulatedAgreementNumber();
 			}

@@ -61,7 +61,7 @@ public class PaymentInformationPage extends BasePage {
 	
 	private void selectPaymentTemplate(String value) {
 		if (!commonFunction.checkNA(value)) {
-			util.selectValueFromDropdown(paymentTemplateDRP, value);
+			util.selectValueFromDropdownCheckbox(paymentTemplateDRP, value);
 			util.click(paymentTemplateDRP); 
 		}
 	}
@@ -69,6 +69,7 @@ public class PaymentInformationPage extends BasePage {
 	By agreementTerm = By.xpath("//input[contains(@id,'Lease_Agreement_ID') and @type='text']");
 	private void selectPaymentTerm(String value) {
 		if (!commonFunction.checkNA(value)) {
+			util.dummyWait(2);
 			util.inputTextAndPressTab(agreementTerm, value);
 		}
 	}
@@ -84,6 +85,7 @@ public class PaymentInformationPage extends BasePage {
 	}
 	By paymentTermGrid= By.xpath("//div[contains(@id,'LSINFO_RadPageView3')]//table[contains(@id,'LEASE_PAYMENTS_radYALGridControl')]/tbody/tr/td[3]");
 	private void rightClickOnPaymentTermGrid() {
+		util.dummyWait(2);
 		action.contextClick(util.waitForWebElementToBePresentReturnElement(paymentTermGrid)).build().perform();
 	}
 	
@@ -111,6 +113,7 @@ public class PaymentInformationPage extends BasePage {
 	By paymentHistorySection= By.xpath("//span[text()='Payment History']/../parent::a");
 	private void clickOnPaymentHistoryPanel() {
 		if(!util.isElementVisible(upcomingTab)) {
+			util.waitUntilLoaderDisappear();
 			util.click(paymentHistorySection);
 		}
 	}
@@ -143,7 +146,7 @@ public class PaymentInformationPage extends BasePage {
 		}
 		
 		try {
-			selectPaymentTemplate(testCaseName);
+			selectPaymentTemplate(map.get(Excel.PaymentTemplate));
 			log("STEP 2: Fill in Add payment template dd", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2: Fill in Add payment template dd", Status.FAIL);
@@ -151,7 +154,7 @@ public class PaymentInformationPage extends BasePage {
 		}
 		
 		try {
-			selectPaymentTerm(testCaseName);
+			selectPaymentTerm(map.get(Excel.PaymentTerm));
 			log("STEP 3: Fill in Agreement Term DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: Fill in Agreement Term DD", Status.FAIL);
@@ -159,7 +162,7 @@ public class PaymentInformationPage extends BasePage {
 		}
 		
 		try {
-			setPaymentFrom(testCaseName);
+			setPaymentFrom(TestUtil.addDaysInCurrentDate("MM/dd/yyyy", -10));
 			log("STEP 4: Select Start Payments From", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Select Start Payments From", Status.FAIL);

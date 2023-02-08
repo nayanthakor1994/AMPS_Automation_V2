@@ -95,6 +95,7 @@ public class AgreementObligationsPage extends BasePage {
 	}
 	public void enterNextDueDate(String value) {
 		if(!commonFunction.checkNA(value)) {
+			util.waitUntilLoaderDisappear();
 			util.inputText(nextDueDate, value);
 		}
 	}
@@ -122,6 +123,7 @@ public class AgreementObligationsPage extends BasePage {
 		util.waitForWebElementToBeClickable(insertButton, IMPLICIT_WAIT);
 		util.waitFor(2000);
 		util.click(insertButton);
+		util.waitUntilLoaderDisappear();	
 	}
 	public String getSuccessMessage() {
 		util.waitUntilElementDisplay(successMessage);

@@ -25,6 +25,8 @@ public class Excel {
 	public static final String AgreementForm = "AgreementForm";
 	public static final String AgreementObligations = "AgreementObligations";
 	public static final String RecordingInfo = "RecordingInfo";
+	public static final String PaymentInfo = "PaymentInfo";
+	public static final String AgreementNote = "AgreementNote";
 
 	
 	public static final String UserAccount = "UserAccount";
@@ -198,5 +200,12 @@ public class Excel {
 	public static final String SendCommunication = "SendCommunication";
 	public static final String SelectOne = "SelectOne";
 	public static final String Message = "Message";
+	public static final String PaymentTemplate = "PaymentTemplate";
+	public static final String PaymentTerm = "PaymentTerm";
+	
+	/**
+	 * Add Column Name for Agreement Notes
+	 */
+	public static final String Agent = "Agent";
 	
 }

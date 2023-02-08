@@ -24,6 +24,8 @@ public class CommonFunction extends BasePage {
 		this.driver = driver;
 		util = new TestUtil(driver);
 	}
+	
+	By loaderIcon = By.xpath("//body/div[contains(@id,'Ajax')]");
 
 	// Open URL
 	public void openURL(String url) {

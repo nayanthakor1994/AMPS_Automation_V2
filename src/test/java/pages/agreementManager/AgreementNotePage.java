@@ -1,11 +1,14 @@
 package pages.agreementManager;
 
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
+import com.base.Excel;
 import com.util.CommonFunction;
 import com.util.TestUtil;
 
@@ -29,8 +32,13 @@ public class AgreementNotePage extends BasePage {
 	public void navigateToAgreementNoteALT() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
-		util.waitUntilElementDisplay(navAgreementManager);
-		util.click(navAgreementManager);
+		util.dummyWait(1);
+		util.waitForWebElementToBeClickableReturnElement(navAgreementManager).click();;
+		util.dummyWait(1);
+		if(!util.isElementPresent(navAgreementNotes, 2)) {
+			util.click(navAgreementManager);
+			util.dummyWait(1);
+		}
 		util.waitUntilElementDisplay(navAgreementNotes);
 		util.click(navAgreementNotes);
 		if (!util.isElementPresent(addNoteButton, 30)) {
@@ -74,7 +82,7 @@ public class AgreementNotePage extends BasePage {
 			util.inputTextAndPressTab(agentInput, value);
 		}
 	}
-	By categoryInput = By.xpath("//input[contains(@id,'AgntNotes_CID') and @type='text']");
+	By categoryInput = By.xpath("//input[contains(@id,'AgntNotes_CID') or contains(@id,'AgntNotes_DDL') and @type='text']");
 	private void setCategory(String value) {
 		if (!commonFunction.checkNA(value)) {
 			util.inputTextAndPressTab(categoryInput, value);
@@ -100,9 +108,10 @@ public class AgreementNotePage extends BasePage {
 		util.click(saveNoteButton);
 	}
 	
-	public void addNotes(String testCaseName) {
+	public void addNotes(Map<String, String> map, String testCaseName) {
 		
 		try {
+			util.dummyWait(2);
 			if(testCaseName.toLowerCase().contains("row")) {
 				navigateToLeaseNoteROW();
 			} else {
@@ -123,35 +132,35 @@ public class AgreementNotePage extends BasePage {
 		}
 		try {
 			switchToNoteIframe();
-			setActivityDate(testCaseName);
+			setActivityDate(TestUtil.getCurrentDateTime("MM/dd/yyyy"));
 			log("STEP 3: Fill in Activity Date", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: Fill in Activity Date", Status.FAIL);
 			throw new RuntimeException("Failed in step 3");
 		}
 		try {
-			setAgent(testCaseName);
+			setAgent(map.get(Excel.Agent));
 			log("STEP 4: Fill in Agent DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Fill in Agent DD", Status.FAIL);
 			throw new RuntimeException("Failed in step 4");
 		}
 		try {
-			setCategory(testCaseName);
+			setCategory(map.get(Excel.Category));
 			log("STEP 5: Fill in Category DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5: Fill in Category DD", Status.FAIL);
 			throw new RuntimeException("Failed in step 5");
 		}
 		try {
-			setPriority(testCaseName);
+			setPriority(map.get(Excel.Priority));
 			log("STEP 6: Fill in Priority DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 6: Fill in Priority DD", Status.FAIL);
 			throw new RuntimeException("Failed in step 6");
 		}
 		try {
-			setDescription(testCaseName);
+			setDescription(map.get(Excel.Description));
 			log("STEP 7: Fill in Note Description", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 7: Fill in Note Description", Status.FAIL);
@@ -168,13 +177,18 @@ public class AgreementNotePage extends BasePage {
 		
 	}
 	
-	public void editNotes(String testCaseName) {
+	By refreshButton = By.xpath("//table[contains(@id,'AGENTNOTES_radYALGridControl_ct')]//a[contains(@id,'Button1')]");
+	private void clickOnRefresh() {
+		util.click(refreshButton);
+	}
+	
+	By editButton = By.xpath("//a[contains(@id,'edit_Button')]");
+	private void clickOnEditNotes() {
+		util.click(editButton);
+	}
+	
+	public void editNotes(Map<String, String> map, String testCaseName) {
 		try {
-			if(testCaseName.toLowerCase().contains("row")) {
-				navigateToLeaseNoteROW();
-			} else {
-				navigateToAgreementNoteALT();
-			}
 			log("STEP 1: Navigate to Menu -Agreement Information page.Click on Agreement Notes tab", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 1: Navigate to Menu -Agreement Information page.Click on Agreement Notes tab", Status.FAIL);
@@ -182,6 +196,9 @@ public class AgreementNotePage extends BasePage {
 		}
 		
 		try {
+			clickOnRefresh();
+			util.waitUntilLoaderDisappear();
+			clickOnEditNotes();
 			log("STEP 2: Click edit Notes button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 2: Click edit Notes button", Status.FAIL);
@@ -189,35 +206,35 @@ public class AgreementNotePage extends BasePage {
 		}
 		try {
 			switchToNoteIframe();
-			setActivityDate(testCaseName);
+			setActivityDate(TestUtil.getCurrentDateTime("MM/dd/yyyy"));
 			log("STEP 3: Fill in Activity Date", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: Fill in Activity Date", Status.FAIL);
 			throw new RuntimeException("Failed in step 3");
 		}
 		try {
-			setAgent(testCaseName);
+			setAgent(map.get(Excel.Agent));
 			log("STEP 4: Fill in Agent DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Fill in Agent DD", Status.FAIL);
 			throw new RuntimeException("Failed in step 4");
 		}
 		try {
-			setCategory(testCaseName);
+			setCategory(map.get(Excel.Category));
 			log("STEP 5: Fill in Category DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5: Fill in Category DD", Status.FAIL);
 			throw new RuntimeException("Failed in step 5");
 		}
 		try {
-			setPriority(testCaseName);
+			setPriority(map.get(Excel.Priority));
 			log("STEP 6: Fill in Priority DD", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 6: Fill in Priority DD", Status.FAIL);
 			throw new RuntimeException("Failed in step 6");
 		}
 		try {
-			setDescription(testCaseName);
+			setDescription(map.get(Excel.Description));
 			log("STEP 7: Fill in Note Description", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 7: Fill in Note Description", Status.FAIL);
@@ -232,6 +249,6 @@ public class AgreementNotePage extends BasePage {
 			throw new RuntimeException("Failed in step 8");
 		}
 	}
-	
+
 
 }

@@ -22,6 +22,7 @@ import pages.agreementManager.AddNewPayeeInfoPage;
 import pages.agreementManager.AgreementInformationPage;
 import pages.agreementManager.AgreementObligationsPage;
 import pages.agreementManager.MilestoneDatePage;
+import pages.agreementManager.PaymentInformationPage;
 import pages.tools.MyDashboardPage;
 
 @Listeners(com.listeners.MyListeners.class)
@@ -36,6 +37,7 @@ public class AgreementInformationTest extends BasePage {
 	CommonFunction commonFunction;
 	MyDashboardPage dashboardPage;
 	AgreementObligationsPage objObligation;
+	PaymentInformationPage objPayment;
 	
 	ReadPropertyFile readPro = new ReadPropertyFile();
 	Map<String, String> map = new HashMap<String, String>();
@@ -52,6 +54,7 @@ public class AgreementInformationTest extends BasePage {
 		commonFunction = new CommonFunction(driver);
 		dashboardPage = new MyDashboardPage(driver);
 		objObligation = new AgreementObligationsPage(driver);
+		objPayment = new PaymentInformationPage(driver);
 	}
 
 	@Test(priority = 1)
@@ -155,6 +158,17 @@ public class AgreementInformationTest extends BasePage {
 	public void AgreementManager_Delete_Agreement_Obligations_TC_08() throws Exception {
 		log("TC08 : Delete Agreement Obligations");
 		objObligation.deleteAgreementObligations(environment);
+	}
+	
+	@Test(priority = 9)
+	public void PaymentInformation_Add_Payment_Term() throws Exception {
+		log("TC01 : Add Payment Term");
+		
+		String testcaseName = "AddPaymentInformation" + environment;
+		log("Data picked : " + testcaseName);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.PaymentInfo, testcaseName);
+		
+		objPayment.addNewPaymentInformation(map, testcaseName);
 	}
 
 }
