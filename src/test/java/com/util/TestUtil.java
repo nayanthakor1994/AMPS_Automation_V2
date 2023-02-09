@@ -365,6 +365,8 @@ public class TestUtil extends BasePage {
 			throw e;
 		}
 	}
+	
+	
 
 	public List<WebElement> getWebElements(By locator) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(IMPLICIT_WAIT));

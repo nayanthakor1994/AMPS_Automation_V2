@@ -65,13 +65,13 @@
 <!--		</classes>-->
 <!--	</test>-->
 	
-<!--	<test name="AgreementManager_ALT">-->
-<!--		<parameter name="browser" value="chrome" />-->
-<!--		<parameter name="env" value="ALT" />-->
-<!--		<classes>-->
-<!--			<class name="testsuit.agreementManager.AgreementInformationTest" />-->
-<!--		</classes>-->
-<!--	</test>-->
+	<test name="AgreementManager_ALT">
+		<parameter name="browser" value="chrome" />
+		<parameter name="env" value="ALT" />
+		<classes>
+			<class name="testsuit.agreementManager.DocumentsTest" />
+		</classes>
+	</test>
 
 
 <!--	<test name="ProjectDetails_DOT">-->
@@ -85,52 +85,52 @@
 <!--		</classes>-->
 <!--	</test>-->
 	
-		<test name="AdministrationSecurity_DOT">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="DOT" />
-		<classes>
-			<class name="testsuit.adminSecurity.UserAccount_AddNewUserTest" />
-			<class name="testsuit.adminSecurity.ManageUser_AddNewUserTest" />
-			<class name="testsuit.adminSecurity.UserRole_PagePermissionTest" />
-			<class name="testsuit.adminSecurity.UserRole_SpecialPermissionTest" />
-			<class name="testsuit.adminSecurity.UserRole_TemplatePermissionTest" />
-			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
-		</classes>
-	</test>
+<!--		<test name="AdministrationSecurity_DOT">-->
+<!--		<parameter name="browser" value="chrome" />-->
+<!--		<parameter name="env" value="DOT" />-->
+<!--		<classes>-->
+<!--			<class name="testsuit.adminSecurity.UserAccount_AddNewUserTest" />-->
+<!--			<class name="testsuit.adminSecurity.ManageUser_AddNewUserTest" />-->
+<!--			<class name="testsuit.adminSecurity.UserRole_PagePermissionTest" />-->
+<!--			<class name="testsuit.adminSecurity.UserRole_SpecialPermissionTest" />-->
+<!--			<class name="testsuit.adminSecurity.UserRole_TemplatePermissionTest" />-->
+<!--			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />-->
+<!--		</classes>-->
+<!--	</test>-->
 	
-	<test name="ProjectGroup_DOT">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="DOT" />
-		<classes>
-			<class name="testsuit.ProjectGroup.AddProjectGroupTest" />
-		</classes>
-	</test>
+<!--	<test name="ProjectGroup_DOT">-->
+<!--		<parameter name="browser" value="chrome" />-->
+<!--		<parameter name="env" value="DOT" />-->
+<!--		<classes>-->
+<!--			<class name="testsuit.ProjectGroup.AddProjectGroupTest" />-->
+<!--		</classes>-->
+<!--	</test>-->
 	
-	<test name="ProjectIimport_DOT">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="DOT" />
-		<classes>
-			<class name="testsuit.ProjectImport.ProjectImportTest" />
-			<class name="testsuit.ProjectImport.ViewErrorLogAndExportPageTest" />
-		</classes>
-	</test>
+<!--	<test name="ProjectIimport_DOT">-->
+<!--		<parameter name="browser" value="chrome" />-->
+<!--		<parameter name="env" value="DOT" />-->
+<!--		<classes>-->
+<!--			<class name="testsuit.ProjectImport.ProjectImportTest" />-->
+<!--			<class name="testsuit.ProjectImport.ViewErrorLogAndExportPageTest" />-->
+<!--		</classes>-->
+<!--	</test>-->
 
-	<test name="SSRSReports_DOT">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="DOT" />
-		<classes>
-			<class name="testsuit.SSRSReports.SSRSReportsTest" />
-		</classes>
-	</test>
+<!--	<test name="SSRSReports_DOT">-->
+<!--		<parameter name="browser" value="chrome" />-->
+<!--		<parameter name="env" value="DOT" />-->
+<!--		<classes>-->
+<!--			<class name="testsuit.SSRSReports.SSRSReportsTest" />-->
+<!--		</classes>-->
+<!--	</test>-->
 	
-		<test name="ToolsMyDashboard">
-		<parameter name="browser" value="chrome" />
-		<parameter name="env" value="DOT" />
-		<classes>
-			<class name="testsuit.ToolsMyDashboard.MyDashboardTest" />
-			<class name="testsuit.ToolsMyDashboard.ToolMyDashboardTest" />
-		</classes>
-	</test>
+<!--		<test name="ToolsMyDashboard">-->
+<!--		<parameter name="browser" value="chrome" />-->
+<!--		<parameter name="env" value="DOT" />-->
+<!--		<classes>-->
+<!--			<class name="testsuit.ToolsMyDashboard.MyDashboardTest" />-->
+<!--			<class name="testsuit.ToolsMyDashboard.ToolMyDashboardTest" />-->
+<!--		</classes>-->
+<!--	</test>-->
 
 <!--	<test name="ProjectDetails_ROW">-->
 <!--		<parameter name="browser" value="chrome" />-->

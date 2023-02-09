@@ -27,7 +27,7 @@ public class Excel {
 	public static final String RecordingInfo = "RecordingInfo";
 	public static final String PaymentInfo = "PaymentInfo";
 	public static final String AgreementNote = "AgreementNote";
-
+	public static final String Documents = "Documents";
 	
 	public static final String UserAccount = "UserAccount";
 	public static final String ManageUser = "ManageUser";
@@ -126,7 +126,6 @@ public class Excel {
 	
 	
 	
-	
 	/**
 	 * Add Column Name for Add User Account
 	 */
@@ -208,4 +207,11 @@ public class Excel {
 	 */
 	public static final String Agent = "Agent";
 	
+	
+	/**
+	 * Add Column Name for Document - Agreement information
+	 */
+	
+	public static final String EditDocumentName = "EditDocumentName";
+	public static final String EditDescription = "EditDescription";
 }

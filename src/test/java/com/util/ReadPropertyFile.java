@@ -47,73 +47,74 @@ public class ReadPropertyFile {
 		String extentReport = configProperty.getProperty("EXTENT_REPORT_PATH");
 		return extentReport;
 	}
-
-	// Get AltAmps URL
-	public String getAltAmpsURL() {
-		String altAmpsURL = configProperty.getProperty("ALT_AMPS_URL");
-		return altAmpsURL;
-	}
-	
-	// Get DOT AMPS URL
-	public String getDotAMPSURL(){
-		String dotAMPSURL = configProperty.getProperty("DOT_AMPS_URL");
-		return dotAMPSURL;
-	}
-
-	// Get ROW AMPS URL
-	public String getRowAMPSURL(){
-		String rowAMPSURL = configProperty.getProperty("ROW_AMPS_URL");
-		return rowAMPSURL;
-	}
-	
-	// Get AltAMPS Username
-	public String getAltAmpsUsername() {
-		String altAmpsUserName = configProperty.getProperty("ALT_ADMIN_ROLE_UNAME");
-		return altAmpsUserName;
-	}
-
-	// Get Password
-	public String getPassword() {
-		String altAmpsPassword = configProperty.getProperty("PASSWORD");
-		return altAmpsPassword;
-	}
-	
-	// Get Excel Test Data Sheet
-	public String getExcelSheet(){
-//		String excelSheet = configProperty.getProperty("EXCEL_TEST_DATA");
-		String excelSheet = System.getProperty("user.dir") + File.separator+ "Excel" + File.separator + "Test_Data.xlsx";
-		return excelSheet;
-	}
 	
 	public String getExcelFileName(){
 		String sheetOne = configProperty.getProperty("excel_file");
 		return sheetOne;
 	}
-	
-	// Get Sheet One
-	public String getSheetOne(){
-		String sheetOne = configProperty.getProperty("SHEET_ONE");
-		return sheetOne;
-	}
-	
-	// Get Sheet Two
-	public String getSheetTwo(){
-		String sheetTwo = configProperty.getProperty("SHEET_TWO");
-		return sheetTwo;
-	}
-	
-	// Get Sheet Three
-	public String getSheetThree(){
-		String sheetThree = configProperty.getProperty("SHEET_THREE");
-		return sheetThree;
-	}
-	
-	public String getCountryStateSheet() {
-		String sheetThree = configProperty.getProperty("CountryState");
-		return sheetThree;
-	}
-	public String getCurrectExcelFile(){
-		String excelFile = "/Excel/Test_Data.xlsx";
-		return excelFile;
-	}
+
+	// Get AltAmps URL
+//	public String getAltAmpsURL() {
+//		String altAmpsURL = configProperty.getProperty("ALT_AMPS_URL");
+//		return altAmpsURL;
+//	}
+//	
+//	// Get DOT AMPS URL
+//	public String getDotAMPSURL(){
+//		String dotAMPSURL = configProperty.getProperty("DOT_AMPS_URL");
+//		return dotAMPSURL;
+//	}
+//
+//	// Get ROW AMPS URL
+//	public String getRowAMPSURL(){
+//		String rowAMPSURL = configProperty.getProperty("ROW_AMPS_URL");
+//		return rowAMPSURL;
+//	}
+//	
+//	// Get AltAMPS Username
+//	public String getAltAmpsUsername() {
+//		String altAmpsUserName = configProperty.getProperty("ALT_ADMIN_ROLE_UNAME");
+//		return altAmpsUserName;
+//	}
+//
+//	// Get Password
+//	public String getPassword() {
+//		String altAmpsPassword = configProperty.getProperty("PASSWORD");
+//		return altAmpsPassword;
+//	}
+//	
+//	// Get Excel Test Data Sheet
+//	public String getExcelSheet(){
+////		String excelSheet = configProperty.getProperty("EXCEL_TEST_DATA");
+//		String excelSheet = System.getProperty("user.dir") + File.separator+ "Excel" + File.separator + "Test_Data.xlsx";
+//		return excelSheet;
+//	}
+//	
+//	
+//	// Get Sheet One
+//	public String getSheetOne(){
+//		String sheetOne = configProperty.getProperty("SHEET_ONE");
+//		return sheetOne;
+//	}
+//	
+//	// Get Sheet Two
+//	public String getSheetTwo(){
+//		String sheetTwo = configProperty.getProperty("SHEET_TWO");
+//		return sheetTwo;
+//	}
+//	
+//	// Get Sheet Three
+//	public String getSheetThree(){
+//		String sheetThree = configProperty.getProperty("SHEET_THREE");
+//		return sheetThree;
+//	}
+//	
+//	public String getCountryStateSheet() {
+//		String sheetThree = configProperty.getProperty("CountryState");
+//		return sheetThree;
+//	}
+//	public String getCurrectExcelFile(){
+//		String excelFile = "/Excel/Test_Data.xlsx";
+//		return excelFile;
+//	}
 }

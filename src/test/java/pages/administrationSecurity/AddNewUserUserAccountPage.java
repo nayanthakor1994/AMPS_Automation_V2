@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
@@ -159,32 +160,95 @@ public class AddNewUserUserAccountPage extends BasePage {
 	By selectPicture = By.xpath("//input[@class='ruButton ruBrowse']");
 	By loadDocument = By.xpath("//input[contains(@id,'buttonSubmit_input')]");
 	By successMessage = By.xpath("//span[@id='lblResults']");
-	By fileUpload = By.xpath("//span[@class='ruButton ruBrowse']");
+	By fileUpload = By.xpath("//input[contains(@id,'RadUpload1file') or contains(@id,'rauFileUploadfile')]");
 	By iframeDocument = By.xpath("//iframe[@name='UserListDialog']");
 	By close = By.xpath("//a[@title='Close']");
 
 	public void addPicture() {
 		util.click(btnAddPircture);
 		log("Add Picuture clicked : ", Status.PASS);
-		util.dummyWait(120);
-		util.waitUntilElementDisplay(iframeDocument);
-		util.switchToIframe(iframeDocument);
-		log("Switch to frame ", Status.PASS);
-		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
-		util.waitUntilElementDisplay(fileUpload);
-		util.click(fileUpload);
-		driver.findElement(fileUpload).sendKeys(filepath);
-		log("Uploadfile ", Status.PASS);
-		util.waitUntilElementDisplay(loadDocument);
-		util.click(loadDocument);
-		log("Click on load ", Status.PASS);
-		util.dummyWait(10);
-		util.waitUntilElementDisplay(successMessage);
-		log("Waitfor Message ", Status.PASS);
-		util.switchToDefaultContent();
-		util.click(close);
+		//util.dummyWait(120);
+//		util.waitUntilElementDisplay(iframeDocument);
+//		util.switchToIframe(iframeDocument);
+//		log("Switch to frame ", Status.PASS);
+//		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
+//		util.waitUntilElementDisplay(fileUpload);
+//		util.click(fileUpload);
+//		driver.findElement(fileUpload).sendKeys(filepath);
+//		log("Uploadfile ", Status.PASS);
+//		util.waitUntilElementDisplay(loadDocument);
+//		util.click(loadDocument);
+//		log("Click on load ", Status.PASS);
+//		util.dummyWait(10);
+//		util.waitUntilElementDisplay(successMessage);
+//		log("Waitfor Message ", Status.PASS);
+//		util.switchToDefaultContent();
+//		util.click(close);
 	}
 
+	public void uploadFile() {
+		String filepath = System.getProperty("user.dir") + File.separator + "test.txt";
+		driver.findElement(fileUpload).sendKeys(filepath);
+		util.waitFor(5000);
+	}
+	
+	By loadDocumentFile = By.cssSelector("#buttonSubmit");
+	By loadDocumentFile2 = By.xpath("//input[contains(@id,'buttonSubmit_input')]");
+	By documentSuccessMessage = By.xpath("//span[@id='lblResults']");
+	By btnCloseDocument = By.xpath("//div[contains(@id,'UserListDialog')]//a[@title='Close']");
+	By drpCategoryExtDoc = By.xpath("//select[@name='category']");
+	public void selectCategory(String value) {
+		if(util.isElementPresent(drpCategoryExtDoc)) {
+			util.selectValueFromDropdown2(value, drpCategoryExtDoc);
+		}
+	}
+	
+	By description = By.xpath("//input[contains(@id,'RadUpload1Desc') or contains(@id,'rauFileUploadDesc')]");
+	public void setDescription(String value) {
+		if(util.isElementPresent(description)) {
+			util.inputText(description, value);
+		}
+	}
+	public void addExternalDocumentFromIframe() {
+		try {
+			uploadFile();
+			log(" Click on the select button", Status.PASS);
+		} catch (Exception e) {
+			log(" Click on the select button", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
+		}
+		
+		try {
+			selectCategory("Docusign Demo");
+			log(" Fill in Category", Status.PASS);
+		} catch (Exception e) {
+			log(" Fill in Category", Status.FAIL);
+			throw new RuntimeException("Failed in step 4");
+		}
+
+		try {
+			setDescription("Automation comments");
+			log(" Fill in Description", Status.PASS);
+		} catch (Exception e) {
+			log(" Fill in Description", Status.FAIL);
+			throw new RuntimeException("Failed in step 5");
+		}
+
+
+		try {
+			if (util.isElementPresent(loadDocumentFile)) {
+				util.click(loadDocumentFile);
+			} else if (util.isElementPresent(loadDocumentFile2)) {
+				util.click(loadDocumentFile2);
+			}
+			util.waitUntilElementDisplay(documentSuccessMessage);
+			String msg = util.getText(documentSuccessMessage);
+			Assert.assertEquals(msg, "Loaded: test.txt", "Success message is mismatch");
+		} catch (Exception e) {
+			log(" Click on the load document button", Status.FAIL);
+			throw new RuntimeException("Failed in step 6");
+		}
+	}
 	public void addNewUser(Map<String, String> map, String testcaseName) {
 		try {
 			navigateUserAccount();
@@ -320,7 +384,12 @@ public class AddNewUserUserAccountPage extends BasePage {
 		try {
 			editNewUser(map.get(Excel.LastName));
 			log("Existing User Open ", Status.PASS);
+			util.waitFor(3000);
 			addPicture();
+			util.switchToIframe(iframeDocument);
+			addExternalDocumentFromIframe();
+			util.switchToDefaultContent();
+			util.click(btnCloseDocument);
 			log("STEP 19:  User can Add Pitcure", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 19:  User can not Add Pitcure", Status.FAIL);
