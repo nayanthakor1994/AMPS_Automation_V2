@@ -35,11 +35,11 @@ public class UserRole_SpecialPermissionTest extends BasePage {
 	public void specialPermission_UserRole_TC_02() throws Exception {
 		log("TC02 : Special Permission");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddSpecialPermission" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.UserRoleSpecialPermission,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.ADMINISTRATION_SECURITY_TEST_DATA), Excel.UserRoleSpecialPermission,
 				testcaseName);
 		objSpecialPermission.selectSpecialPermission(map, testcaseName);
 		objSpecialPermission.addNewPermission(map, testcaseName);

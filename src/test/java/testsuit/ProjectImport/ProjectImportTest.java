@@ -22,7 +22,6 @@ public class ProjectImportTest extends BasePage {
 	ProjectImportPage objProjectImportPage;
 	ReadPropertyFile readPro = new ReadPropertyFile();
 	Map<String, String> map = new HashMap<String, String>();
-	
 	@BeforeClass
 	public void setup() throws Exception {
 		driver = getDriver();
@@ -34,11 +33,11 @@ public class ProjectImportTest extends BasePage {
 	public void projectImport_TC_01() throws Exception {
 		log("TC01 : View projectImport");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
-		String testcaseName = "projectImport" + environment;
+		String testcaseName = "AddImport" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.SSRSReport, testcaseName);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_TEST_DATA), Excel.ProjectImport, testcaseName);
 		objProjectImportPage.projectImport(map, testcaseName);
 	}
 	

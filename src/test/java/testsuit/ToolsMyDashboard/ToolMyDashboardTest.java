@@ -32,56 +32,43 @@ public class ToolMyDashboardTest extends BasePage {
 	public void verifyMyParcel_TC_01() throws Exception {
 		log("TC01 : Verify MyParcel :");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = " Verify MyParcel" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectGroup, testcaseName);
-		objToolMyDashboard.verifyMyParcel(map, testcaseName);
+		objToolMyDashboard.verifyMyParcel(testcaseName);
 	}
 	@Test(priority = 2,enabled = true)
 	public void deletDoc_TC_02() throws Exception {
 		log("TC03 : Delect Doc :");
-		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
-		objLogin.login(map);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		String testcaseName = "DeleteDoc" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectGroup, testcaseName);
-		objToolMyDashboard.deleteDoc(map, testcaseName);
+		objToolMyDashboard.deleteDoc(testcaseName);
 	}
 	@Test(priority = 3,enabled = true)
 	public void verifyMyProject_TC_03() throws Exception {
 		log("TC03 : Verify MyProject :");
-		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
-		objLogin.login(map);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		String testcaseName = "VerifyMyProject" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectGroup, testcaseName);
-		objToolMyDashboard.verifyMyProject(map, testcaseName);
+		objToolMyDashboard.verifyMyProject(testcaseName);
 	}
 	@Test(priority = 4,enabled = true)
 	public void verifyNoteToReview_TC_04() throws Exception {
 		log("TC04 : Verify NoteToReview :");
-		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
-		objLogin.login(map);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		String testcaseName = "VerifyMyProject" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectGroup, testcaseName);
-		objToolMyDashboard.verifyNoteToReview(map, testcaseName);
+		objToolMyDashboard.verifyNoteToReview( testcaseName);
 	}
 	@Test(priority = 5,enabled = true)
 	public void editNoteToReview_TC_05() throws Exception {
 		log("TC05 : Edit NoteToReview :");
-		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
-		objLogin.login(map);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		String testcaseName = "EditNoteReview" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectGroup, testcaseName);
-		objToolMyDashboard.editNoteToReview(map, testcaseName);
+		objToolMyDashboard.editNoteToReview(testcaseName);
 	}
 
 }

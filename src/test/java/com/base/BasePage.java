@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -13,6 +15,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.Status;
+import com.util.ExcelUtils;
 import com.util.ReadPropertyFile;
 
 import extentReports.ExtentTestManager;
@@ -25,6 +28,8 @@ public class BasePage extends CommonConstant {
 	public Logger logger = Logger.getLogger("TestBase");
 	static ReadPropertyFile readPro = new ReadPropertyFile();
 	public static String projectDir = System.getProperty("user.dir");
+	Map<String, String> map = new HashMap<String, String>();
+	
 
 	// Initialization of the properties files
 	public BasePage() {
@@ -45,29 +50,32 @@ public class BasePage extends CommonConstant {
 	}
 
 	@BeforeTest(alwaysRun = true)
-	@Parameters({"browser","env"})
-	public WebDriver initialization(String browser, String env) throws Exception {
-		if(browser != null) {
-			browserName = browser;
-		} else {
-			browserName = "chrome";
-		}
-		if(env != null) {
-			Environment.setEnvironment(env);
-			environment = env;
-		} else {
-			throw new RuntimeException("Please provide environment in testng.xml");
-		}
-		DriverFactory.setTLDriver(browserName);
-		driver = getDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		try {
-			appURL = Environment.getEnvironment();
-		} catch (Exception e) {
-			System.out.println("Please provide URL");
-		}
-		sheetName = prop.getProperty("EXCEL_TEST_DATA");
+	@Parameters({"env"})
+	
+	public WebDriver initialization(String env) throws Exception {
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, env);
+		setBrowser(map,env);
+//		if(browser != null) {
+//			browserName = browser;
+//		} else {
+//			browserName = "chrome";
+//		}
+//		if(env != null) {
+//			Environment.setEnvironment(env);
+//			environment = env;
+//		} else {
+//			throw new RuntimeException("Please provide environment in testng.xml");
+//		}
+//		DriverFactory.setTLDriver(browserName);
+//		driver = getDriver();
+//		driver.manage().window().maximize();
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//		try {
+//			appURL = Environment.getEnvironment();
+//		} catch (Exception e) {
+//			System.out.println("Please provide URL");
+//		}
+//		sheetName = prop.getProperty("EXCEL_TEST_DATA");
 		return driver;
 	}
 
@@ -92,5 +100,31 @@ public class BasePage extends CommonConstant {
 	public void navigateToApplication(String url) {
 		driver.get(Environment.getEnvironment());
 		log("Navigating to : " + url);
+		driver.navigate().refresh();
+	}
+	
+	public void setBrowser(Map<String, String> map,String env) {
+		if(map.get(Excel.browser) != null) {
+			browserName = map.get(Excel.browser);
+		} else {
+			browserName = "chrome";
+		}
+		if(env != null) {
+			Environment.setEnvironment(env);
+			environment = env;
+		} else {
+			throw new RuntimeException("Please provide environment in testng.xml");
+		}
+		DriverFactory.setTLDriver(browserName);
+		driver = getDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		try {
+			appURL = Environment.getEnvironment();
+		} catch (Exception e) {
+			System.out.println("Please provide URL");
+		}
+		sheetName = prop.getProperty("EXCEL_TEST_DATA");
+		
 	}
 }

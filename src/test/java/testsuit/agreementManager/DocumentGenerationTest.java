@@ -33,11 +33,9 @@ public class DocumentGenerationTest extends BasePage {
 	public void DocumentGenerationPanel_Generate_Document_TC_01() throws Exception {
 		log("TC01 : Document generation Panel(Generate document)");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
-		
 		objDoc.verifyGenerateDocument(environment);
-		
 	}
 	
 	@Test(priority = 2, dependsOnMethods = { "DocumentGenerationPanel_Generate_Document_TC_01" })
@@ -51,7 +49,6 @@ public class DocumentGenerationTest extends BasePage {
 //			objAddInfo.navigateToAgreementInformationALT();
 //		}
 		objDoc.verifyPreviewDocument(environment);
-		
 	}
 	
 }

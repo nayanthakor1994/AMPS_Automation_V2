@@ -34,11 +34,11 @@ public class UserRole_PagePermissionTest extends BasePage {
 	public void pagePermission_UserRole_TC_01() throws Exception {
 		log("TC01 : Page Permission");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddPagePermission" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.UserRolePagePermission,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.ADMINISTRATION_SECURITY_TEST_DATA), Excel.UserRolePagePermission,
 				testcaseName);
 		objPagePermission.selectRolePermission(map, testcaseName);
 		objPagePermission.addNewPermission(map, testcaseName);

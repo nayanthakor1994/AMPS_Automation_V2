@@ -162,18 +162,22 @@ public class ManageUserAddNewUserPage extends BasePage {
 	By close = By.xpath("//a[@title='Close']");
 
 	public void addPicture() {
-		util.dummyWait(10);
+		util.waitForWebElementToBePresent(btnAddPircture, 60);
+		util.dummyWait(5);
 		util.click(btnAddPircture);
-		log("Add Picuture clicked ", Status.PASS);
-		util.dummyWait(10);
+		log("Add Picuture clicked : ", Status.PASS);
+		util.waitUntilElementDisplay(iframeDocument);
 		util.switchToIframe(iframeDocument);
+		util.dummyWait(2);
 		log("Switch to frame ", Status.PASS);
-		util.dummyWait(10);
-		String filepath = System.getProperty("user.dir") + File.separator + "Image1.jfif";
+		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
 		driver.findElement(fileUpload).sendKeys(filepath);
+		util.dummyWait(5);
 		log("Uploadfile ", Status.PASS);
+		util.waitUntilElementDisplay(loadDocument);
 		util.click(loadDocument);
 		log("Click on load ", Status.PASS);
+		util.dummyWait(10);
 		util.waitUntilElementDisplay(successMessage);
 		log("Waitfor Message ", Status.PASS);
 		util.switchToDefaultContent();
@@ -320,11 +324,15 @@ public class ManageUserAddNewUserPage extends BasePage {
 			log("STEP 19:  User can not Add Pitcure", Status.FAIL);
 			throw new RuntimeException("Failed in step 19");
 		}
+		
+		
+		
 	}
 
 	public void editNewUser(String value) {
-		By editNewUser = By.xpath("//*[text()='" + value + "']/..//td[1]");
-		util.waitUntilElementDisplay(editNewUser);
+		By editNewUser = By.xpath("//*[contains(text(),'" + value + "')]/..//td[1]");
+		util.dummyWait(2);
+		util.waitForWebElementToBeClickableReturnElement(editNewUser, IMPLICIT_WAIT);
 		util.click(editNewUser);
 	}
 

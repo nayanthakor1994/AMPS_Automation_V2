@@ -22,6 +22,7 @@ public class Environment {
 		}
 	}
 	
+	
 	public synchronized static String getEnvironment() {
 		try {
 			return environment.get();

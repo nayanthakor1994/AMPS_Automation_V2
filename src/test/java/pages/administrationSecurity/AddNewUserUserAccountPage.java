@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
@@ -128,8 +129,11 @@ public class AddNewUserUserAccountPage extends BasePage {
 	}
 
 	public void selectDefaultTractAssignment(String value) {
-		if (!commonFunction.checkNA(value))
+		if (!commonFunction.checkNA(value)) {
+			util.dummyWait(2);
+			util.waitForWebElementToBePresent(drpDegaulTrackAssignment, IMPLICIT_WAIT);
 			util.inputTextAndPressTab(drpDegaulTrackAssignment, value);
+		}
 	}
 
 	By seeAllProjectAssigned = By.xpath("//input[contains(@id,'CanSeeAllProjectsofAssignedArea')]");
@@ -141,17 +145,33 @@ public class AddNewUserUserAccountPage extends BasePage {
 	By btnInsert = By.xpath("//input[contains(@id,'btnInsert')]");
 
 	public void clickOnInsert() {
-		util.click(btnCancle);
+		util.click(btnInsert);
 	}
 
-	By btnCancle = By.xpath("//input[contains(@id,'btnInsert')]");
+	By btnCancle = By.xpath("//input[contains(@id,'btnCancel')]");
 
 	public void clickOnCancle() {
 		util.click(btnCancle);
 	}
+	By nextPage = By.xpath("//input[@title='Next Page']");
+	public void clickOnNextPage() {
+		util.click(nextPage);
+		
+	}
+//	public void editNewUser(String value) {
+//		By editNewUser = By.xpath("(//*[text()='"+value+"']/..//td[1]/following::input[@alt='Edit'])[1]");
+//		while(util.isElementPresent(editNewUser)==false) {
+//			util.click(nextPage);
+//			util.dummyWait(5);
+//		}
+//		util.click(editNewUser);
+//		util.dummyWait(10);
+//	}
 	
 	public void editNewUser(String value) {
-		By editNewUser = By.xpath("//*[text()='" + value + "']/..//td[1]");
+		By editNewUser = By.xpath("//*[contains(text(),'" + value + "')]/..//td[1]");
+		util.dummyWait(2);
+		util.waitForWebElementToBeClickableReturnElement(editNewUser, IMPLICIT_WAIT);
 		util.click(editNewUser);
 	}
 
@@ -159,21 +179,22 @@ public class AddNewUserUserAccountPage extends BasePage {
 	By selectPicture = By.xpath("//input[@class='ruButton ruBrowse']");
 	By loadDocument = By.xpath("//input[contains(@id,'buttonSubmit_input')]");
 	By successMessage = By.xpath("//span[@id='lblResults']");
-	By fileUpload = By.xpath("//span[@class='ruButton ruBrowse']");
+	By fileUpload = By.xpath("//input[contains(@id,'RadUpload1file') or contains(@id,'rauFileUploadfile')]");
 	By iframeDocument = By.xpath("//iframe[@name='UserListDialog']");
 	By close = By.xpath("//a[@title='Close']");
 
 	public void addPicture() {
+		util.waitForWebElementToBePresent(btnAddPircture, 60);
+		util.dummyWait(5);
 		util.click(btnAddPircture);
 		log("Add Picuture clicked : ", Status.PASS);
-		util.dummyWait(120);
 		util.waitUntilElementDisplay(iframeDocument);
 		util.switchToIframe(iframeDocument);
+		util.dummyWait(2);
 		log("Switch to frame ", Status.PASS);
 		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
-		util.waitUntilElementDisplay(fileUpload);
-		util.click(fileUpload);
 		driver.findElement(fileUpload).sendKeys(filepath);
+		util.dummyWait(5);
 		log("Uploadfile ", Status.PASS);
 		util.waitUntilElementDisplay(loadDocument);
 		util.click(loadDocument);
@@ -185,6 +206,69 @@ public class AddNewUserUserAccountPage extends BasePage {
 		util.click(close);
 	}
 
+	public void uploadFile() {
+		String filepath = System.getProperty("user.dir") + File.separator + "test.txt";
+		driver.findElement(fileUpload).sendKeys(filepath);
+		util.waitFor(5000);
+	}
+	
+	By loadDocumentFile = By.cssSelector("#buttonSubmit");
+	By loadDocumentFile2 = By.xpath("//input[contains(@id,'buttonSubmit_input')]");
+	By documentSuccessMessage = By.xpath("//span[@id='lblResults']");
+	By btnCloseDocument = By.xpath("//div[contains(@id,'UserListDialog')]//a[@title='Close']");
+	By drpCategoryExtDoc = By.xpath("//select[@name='category']");
+	public void selectCategory(String value) {
+		if(util.isElementPresent(drpCategoryExtDoc)) {
+			util.selectValueFromDropdown2(value, drpCategoryExtDoc);
+		}
+	}
+	
+	By description = By.xpath("//input[contains(@id,'RadUpload1Desc') or contains(@id,'rauFileUploadDesc')]");
+	public void setDescription(String value) {
+		if(util.isElementPresent(description)) {
+			util.inputText(description, value);
+		}
+	}
+	public void addExternalDocumentFromIframe() {
+		try {
+			uploadFile();
+			log(" Click on the select button", Status.PASS);
+		} catch (Exception e) {
+			log(" Click on the select button", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
+		}
+		
+		try {
+			selectCategory("Docusign Demo");
+			log(" Fill in Category", Status.PASS);
+		} catch (Exception e) {
+			log(" Fill in Category", Status.FAIL);
+			throw new RuntimeException("Failed in step 4");
+		}
+
+		try {
+			setDescription("Automation comments");
+			log(" Fill in Description", Status.PASS);
+		} catch (Exception e) {
+			log(" Fill in Description", Status.FAIL);
+			throw new RuntimeException("Failed in step 5");
+		}
+
+
+		try {
+			if (util.isElementPresent(loadDocumentFile)) {
+				util.click(loadDocumentFile);
+			} else if (util.isElementPresent(loadDocumentFile2)) {
+				util.click(loadDocumentFile2);
+			}
+			util.waitUntilElementDisplay(documentSuccessMessage);
+			String msg = util.getText(documentSuccessMessage);
+			Assert.assertEquals(msg, "Loaded: test.txt", "Success message is mismatch");
+		} catch (Exception e) {
+			log(" Click on the load document button", Status.FAIL);
+			throw new RuntimeException("Failed in step 6");
+		}
+	}
 	public void addNewUser(Map<String, String> map, String testcaseName) {
 		try {
 			navigateUserAccount();
@@ -326,6 +410,25 @@ public class AddNewUserUserAccountPage extends BasePage {
 			log("STEP 19:  User can not Add Pitcure", Status.FAIL);
 			throw new RuntimeException("Failed in step 19");
 		}
+		
+//		try {
+//			editNewUser(map.get(Excel.LastName));
+//			log("Existing User Open ", Status.PASS);
+//			util.dummyWait(10);
+//			addPicture();
+//			util.dummyWait(10);
+//			util.switchToIframe(iframeDocument);
+//			util.dummyWait(10);
+//			addExternalDocumentFromIframe();
+//			util.dummyWait(10);
+//			util.switchToDefaultContent();
+//			util.dummyWait(10);
+//			util.click(btnCloseDocument);
+//			log("STEP 19:  User can Add Pitcure", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 19:  User can not Add Pitcure", Status.FAIL);
+//			throw new RuntimeException("Failed in step 19");
+//		}
 	}
 
 
@@ -337,8 +440,8 @@ public class AddNewUserUserAccountPage extends BasePage {
 	}
 
 	public void updateNewUser(Map<String, String> map, String testcaseName) {
-		editNewUser(map.get(Excel.LastName));
 		try {
+			editNewUser(map.get(Excel.LastName));
 			log("STEP 20:  Existing User Open ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 20:  Existing User not Open", Status.FAIL);
@@ -347,7 +450,7 @@ public class AddNewUserUserAccountPage extends BasePage {
 		try {
 			selectDefaultTractAssignment(map.get(Excel.DefaultTractAssignment));
 			clickOnUpdate();
-			util.waitUntilElementDisplay(updateMessage);
+			util.waitForWebElementToBePresent(updateMessage, 20);
 			log("STEP 21:  User can Update New User ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 21:  User can not Update New User", Status.FAIL);

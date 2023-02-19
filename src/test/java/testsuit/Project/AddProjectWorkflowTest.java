@@ -44,12 +44,12 @@ public class AddProjectWorkflowTest extends BasePage {
 		System.out.println("");
 		log("TC09 : Add a Project workflow");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "ProjectApproval" + environment;
 		log("Data picked : " + testcaseName);
 		log("Nevigate to Add Workflow");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectApproval,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_DETAILS_TEST_DATA), Excel.ProjectApproval,
 				testcaseName);
 
 		commonFunction.navigateToProjectDeails();

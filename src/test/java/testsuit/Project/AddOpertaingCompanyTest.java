@@ -41,11 +41,11 @@ public class AddOpertaingCompanyTest extends BasePage {
 	public void Add_Project_TC_08() throws Exception {
 		log("TC08 : Add an operating company");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "Add";
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.OperatingCompany,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_DETAILS_TEST_DATA), Excel.OperatingCompany,
 				testcaseName);
 		commonFunction.navigateToProjectDeails();
 		operatingCompany.addOperatingCompanies(map);

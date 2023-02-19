@@ -37,12 +37,12 @@ public class AddProjectTest extends BasePage {
 	public void add_Project_TC_01() throws Exception {
 		log("TC01 : Add a Project");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddProject" + environment;
 		log("Data picked : " + testcaseName);
 		log("navigating to create new Project");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectInformation,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_DETAILS_TEST_DATA), Excel.ProjectInformation,
 				testcaseName);
 		objAddProject.addProjectInformation(map, testcaseName);
 	}
@@ -51,12 +51,12 @@ public class AddProjectTest extends BasePage {
 	public void add_Project_State_County_TC_02() throws Exception {
 		log("TC02 : Add a Project State and County");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddStateCounty" + environment;
 		log("Data picked : " + testcaseName);
 		log("navigating to create State and County");
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.StateCounty, testcaseName);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_DETAILS_TEST_DATA), Excel.StateCounty, testcaseName);
 		objStateCounty.addStateAndCountyInformation(map);
 		objStateCounty.updateStateAndCountyInformation(map);
 	}

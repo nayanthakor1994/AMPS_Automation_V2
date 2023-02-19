@@ -61,7 +61,7 @@ public class AgreementInformationTest extends BasePage {
 	public void AgreementManager_Add_Agreement_Information_TC_01() throws Exception {
 		log("TC01 : Add a Agreement Information");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddAgreementInformation" + environment;
 		log("Data picked : " + testcaseName);
@@ -163,7 +163,6 @@ public class AgreementInformationTest extends BasePage {
 	@Test(priority = 9)
 	public void PaymentInformation_Add_Payment_Term() throws Exception {
 		log("TC01 : Add Payment Term");
-		
 		String testcaseName = "AddPaymentInformation" + environment;
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.PaymentInfo, testcaseName);

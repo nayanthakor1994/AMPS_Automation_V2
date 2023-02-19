@@ -33,11 +33,11 @@ public class UserAccount_AddNewUserTest extends BasePage {
 	public void add_NewUser_UserAccount_TC_01() throws Exception {
 		log("TC01 : Add a New User");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddNewUser" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.UserAccount,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.ADMINISTRATION_SECURITY_TEST_DATA), Excel.UserAccount,
 				testcaseName);
 		objAddUser.addNewUser(map, testcaseName);
 		objAddUser.updateNewUser(map,testcaseName);
