@@ -34,11 +34,11 @@ public class PasswordEncryptionTest extends BasePage {
 	public void add_Password_Encryption_TC_01() throws Exception {
 		log("TC01 : Add Password Encryption");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "AddPasswordEncryption" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.PasswordEncryption,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.ADMINISTRATION_SECURITY_TEST_DATA), Excel.PasswordEncryption,
 				testcaseName);
 		objPasswordEncryption.setNewEncryptionPassword(map, testcaseName);
 	}

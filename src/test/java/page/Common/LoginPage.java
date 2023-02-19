@@ -41,6 +41,7 @@ public class LoginPage extends BasePage {
 		util.click(btnLogin);
 		if (util.isElementPresent(isLoginSuccess)) {
 			log("Login Successfully !!!", Status.PASS);
+			driver.navigate().refresh();
 		} else {
 			log("Failed Login !!!", Status.FAIL);
 		}

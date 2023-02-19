@@ -57,7 +57,7 @@ public class ToolMyDashboardPage extends BasePage {
 		util.click(btnPDF);
 	}
 
-	public void verifyMyParcel(Map<String, String> map, String testcaseName) {
+	public void verifyMyParcel( String testcaseName) {
 		try {
 			navigateToMyDashBoard();
 			clickOnMyParcel();
@@ -112,7 +112,7 @@ System.out.println();
 		util.isElementPresent(navProjectDetails);
 	}
 
-	public void verifyMyProject(Map<String, String> map, String testcaseName) {
+	public void verifyMyProject(String testcaseName) {
 		if (testcaseName.contains("DOT") || testcaseName.contains("ROW")) {
 			log(" My Project is not  applicable for DOT and ROW", Status.SKIP);
 		} else {
@@ -184,7 +184,7 @@ System.out.println();
 		util.click(btnApprove);
 	}
 
-	public void verifyNoteToReview(Map<String, String> map, String testcaseName) {
+	public void verifyNoteToReview(String testcaseName) {
 		if (testcaseName.contains("ALT")) {
 			log(" NoteToReview not applicable for ATL", Status.SKIP);
 		} else {
@@ -227,7 +227,7 @@ System.out.println();
 		util.click(clickEditRow);
 	}
 
-	public void editNoteToReview(Map<String, String> map, String testcaseName) {
+	public void editNoteToReview(String testcaseName) {
 		if (testcaseName.contains("ALT")) {
 			log(" Edit NoteToReview not applicable for ATL", Status.SKIP);
 		} else {
@@ -265,7 +265,7 @@ System.out.println();
 		util.click(tabDeleteDoc);
 	}
 
-	public void deleteDoc(Map<String, String> map, String testcaseName) {
+	public void deleteDoc(String testcaseName) {
 		if (testcaseName.contains("DOT") || testcaseName.contains("ROW")) {
 			log(" Delete Doc not applicable for DOT and ROW", Status.SKIP);
 		} else {

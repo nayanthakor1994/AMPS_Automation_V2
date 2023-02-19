@@ -169,7 +169,7 @@ public class DocumentsPage extends BasePage {
 		util.click(externalLinkTab);
 	}
 
-	By documentNameExtLnk = By.xpath("//input[contains(@id,'txtname')]");
+	By documentNameExtLnk = By.xpath("//input[contains(@id,'txtname') or contains(@id,'txtDynamic1')]");
 
 	public void setDocumentName(String value) {
 		util.inputText(documentNameExtLnk, value);
@@ -180,17 +180,36 @@ public class DocumentsPage extends BasePage {
 	public void setDocumentCategoryExtLnk(String value) {
 		util.inputTextAndPressTab(documentCategoryExtLnk, value);
 	}
+	
+	By documentCategoryExtLnk_ROW = By.xpath("(//div[contains(@id,'radReportConfigPanels_i0_i0_XYZ1_RadDropDownTree1')])[1]");
+
+	public void setDocumentCategoryExtLnk_ROW(String value) {
+		util.inputTextAndPressTab(documentCategoryExtLnk_ROW, value);
+	}
 
 	By documentExternalLink = By.xpath("//input[contains(@id,'txtlinkname')]");
 
 	public void setDocumentExternalLink(String value) {
 		util.inputText(documentExternalLink, value);
 	}
+	
+	By documentExternalLink_ROW = By.xpath("//input[contains(@id,'radReportConfigPanels_i0_i0_link1')]");
+
+	public void setDocumentExternalLink_ROW(String value)
+	{
+		util.inputText(documentExternalLink_ROW, value);
+	}
+
 
 	By documentDescriptionExtLnk = By.xpath("//input[contains(@id,'txtDynamic')]");
 
 	public void setLinkDescription(String value) {
 		util.inputText(documentDescriptionExtLnk, value);
+	}
+	By documentDescriptionExtLnk_ROW = By.xpath("//input[contains(@id,'description1')]");
+
+	public void setLinkDescription_ROW(String value) {
+		util.inputText(documentDescriptionExtLnk_ROW, value);
 	}
 
 	public void clickOnLoadDocumentExternalLink() {
@@ -221,7 +240,12 @@ public class DocumentsPage extends BasePage {
 			util.switchToIframe(iframeDocument);
 			navigateToExternalLinkTab();
 			setDocumentName(map.get(Excel.DocumentName));
-			setLinkDescription(map.get(Excel.Description));
+			if(testcaseName.contains("ROW")) {
+				setLinkDescription_ROW(map.get(Excel.Description));
+			}
+			else {
+				setLinkDescription(map.get(Excel.Description));
+			}
 			log("STEP 3: Fill in Description", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3: Fill in Description", Status.FAIL);
@@ -229,7 +253,12 @@ public class DocumentsPage extends BasePage {
 		}
 
 		try {
-			setDocumentCategoryExtLnk(map.get(Excel.ExternalLink));
+			if(testcaseName.contains("ROW")) {
+				setDocumentCategoryExtLnk_ROW(map.get(Excel.Category));
+			}
+			else {
+				setDocumentCategoryExtLnk(map.get(Excel.Category));
+			}
 			log("STEP 4: Fill in Category", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 4: Fill in Category", Status.FAIL);
@@ -237,7 +266,12 @@ public class DocumentsPage extends BasePage {
 		}
 
 		try {
-			setDocumentExternalLink(map.get(Excel.ExternalLink));
+			if(testcaseName.contains("ROW")) {
+				setDocumentExternalLink_ROW(map.get(Excel.ExternalLink));
+			}
+			else {
+				setDocumentExternalLink(map.get(Excel.ExternalLink));
+			}
 			log("STEP 5: Fill in External Link", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 5: Fill in External Link", Status.FAIL);
@@ -567,6 +601,7 @@ public class DocumentsPage extends BasePage {
 		}
 		try {
 			clickOnInsertButton();
+			util.dummyWait(2);
 			log("STEP 16: Click on insert button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 16: Click on insert button", Status.FAIL);
@@ -596,7 +631,6 @@ public class DocumentsPage extends BasePage {
 
 	public void editRecordingInformation(Map<String, String> addDocuemntMap, Map<String, String> map,
 			String testcaseName) {
-
 		try {
 			navigateToDocumentTab();
 			log("STEP 1: Navigate to Menu -Agreement Management page", Status.PASS);

@@ -39,7 +39,7 @@ public class ViewErrorLogAndExportPage extends BasePage{
 	By btnexport = By.xpath("//input[contains(@id,'btnSaveTract')]");
 	
 	
-	public void viewErrorLog(Map<String, String> map, String testcaseName) {
+	public void viewErrorLog(String testcaseName) {
 		try {
 			navigateToImport();
 			log("STEP 1:  Navigate to Menu - Import", Status.PASS);
@@ -74,7 +74,7 @@ public class ViewErrorLogAndExportPage extends BasePage{
 		
 	}
 
-	public void exportButton(Map<String, String> map, String testcaseName) {
+	public void exportButton (String testcaseName) {
 		if(testcaseName.contains("ALT")||testcaseName.contains("ROW")) {
 			log("Export Button Not applicable for ALT  :", Status.PASS);
 			

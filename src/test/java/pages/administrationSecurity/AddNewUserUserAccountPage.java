@@ -129,8 +129,11 @@ public class AddNewUserUserAccountPage extends BasePage {
 	}
 
 	public void selectDefaultTractAssignment(String value) {
-		if (!commonFunction.checkNA(value))
+		if (!commonFunction.checkNA(value)) {
+			util.dummyWait(2);
+			util.waitForWebElementToBePresent(drpDegaulTrackAssignment, IMPLICIT_WAIT);
 			util.inputTextAndPressTab(drpDegaulTrackAssignment, value);
+		}
 	}
 
 	By seeAllProjectAssigned = By.xpath("//input[contains(@id,'CanSeeAllProjectsofAssignedArea')]");
@@ -142,17 +145,33 @@ public class AddNewUserUserAccountPage extends BasePage {
 	By btnInsert = By.xpath("//input[contains(@id,'btnInsert')]");
 
 	public void clickOnInsert() {
-		util.click(btnCancle);
+		util.click(btnInsert);
 	}
 
-	By btnCancle = By.xpath("//input[contains(@id,'btnInsert')]");
+	By btnCancle = By.xpath("//input[contains(@id,'btnCancel')]");
 
 	public void clickOnCancle() {
 		util.click(btnCancle);
 	}
+	By nextPage = By.xpath("//input[@title='Next Page']");
+	public void clickOnNextPage() {
+		util.click(nextPage);
+		
+	}
+//	public void editNewUser(String value) {
+//		By editNewUser = By.xpath("(//*[text()='"+value+"']/..//td[1]/following::input[@alt='Edit'])[1]");
+//		while(util.isElementPresent(editNewUser)==false) {
+//			util.click(nextPage);
+//			util.dummyWait(5);
+//		}
+//		util.click(editNewUser);
+//		util.dummyWait(10);
+//	}
 	
 	public void editNewUser(String value) {
-		By editNewUser = By.xpath("//*[text()='" + value + "']/..//td[1]");
+		By editNewUser = By.xpath("//*[contains(text(),'" + value + "')]/..//td[1]");
+		util.dummyWait(2);
+		util.waitForWebElementToBeClickableReturnElement(editNewUser, IMPLICIT_WAIT);
 		util.click(editNewUser);
 	}
 
@@ -165,25 +184,26 @@ public class AddNewUserUserAccountPage extends BasePage {
 	By close = By.xpath("//a[@title='Close']");
 
 	public void addPicture() {
+		util.waitForWebElementToBePresent(btnAddPircture, 60);
+		util.dummyWait(5);
 		util.click(btnAddPircture);
 		log("Add Picuture clicked : ", Status.PASS);
-		//util.dummyWait(120);
-//		util.waitUntilElementDisplay(iframeDocument);
-//		util.switchToIframe(iframeDocument);
-//		log("Switch to frame ", Status.PASS);
-//		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
-//		util.waitUntilElementDisplay(fileUpload);
-//		util.click(fileUpload);
-//		driver.findElement(fileUpload).sendKeys(filepath);
-//		log("Uploadfile ", Status.PASS);
-//		util.waitUntilElementDisplay(loadDocument);
-//		util.click(loadDocument);
-//		log("Click on load ", Status.PASS);
-//		util.dummyWait(10);
-//		util.waitUntilElementDisplay(successMessage);
-//		log("Waitfor Message ", Status.PASS);
-//		util.switchToDefaultContent();
-//		util.click(close);
+		util.waitUntilElementDisplay(iframeDocument);
+		util.switchToIframe(iframeDocument);
+		util.dummyWait(2);
+		log("Switch to frame ", Status.PASS);
+		String filepath = System.getProperty("user.dir") + File.separator + "Image2.jpg";
+		driver.findElement(fileUpload).sendKeys(filepath);
+		util.dummyWait(5);
+		log("Uploadfile ", Status.PASS);
+		util.waitUntilElementDisplay(loadDocument);
+		util.click(loadDocument);
+		log("Click on load ", Status.PASS);
+		util.dummyWait(10);
+		util.waitUntilElementDisplay(successMessage);
+		log("Waitfor Message ", Status.PASS);
+		util.switchToDefaultContent();
+		util.click(close);
 	}
 
 	public void uploadFile() {
@@ -384,17 +404,31 @@ public class AddNewUserUserAccountPage extends BasePage {
 		try {
 			editNewUser(map.get(Excel.LastName));
 			log("Existing User Open ", Status.PASS);
-			util.waitFor(3000);
 			addPicture();
-			util.switchToIframe(iframeDocument);
-			addExternalDocumentFromIframe();
-			util.switchToDefaultContent();
-			util.click(btnCloseDocument);
 			log("STEP 19:  User can Add Pitcure", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 19:  User can not Add Pitcure", Status.FAIL);
 			throw new RuntimeException("Failed in step 19");
 		}
+		
+//		try {
+//			editNewUser(map.get(Excel.LastName));
+//			log("Existing User Open ", Status.PASS);
+//			util.dummyWait(10);
+//			addPicture();
+//			util.dummyWait(10);
+//			util.switchToIframe(iframeDocument);
+//			util.dummyWait(10);
+//			addExternalDocumentFromIframe();
+//			util.dummyWait(10);
+//			util.switchToDefaultContent();
+//			util.dummyWait(10);
+//			util.click(btnCloseDocument);
+//			log("STEP 19:  User can Add Pitcure", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 19:  User can not Add Pitcure", Status.FAIL);
+//			throw new RuntimeException("Failed in step 19");
+//		}
 	}
 
 
@@ -406,8 +440,8 @@ public class AddNewUserUserAccountPage extends BasePage {
 	}
 
 	public void updateNewUser(Map<String, String> map, String testcaseName) {
-		editNewUser(map.get(Excel.LastName));
 		try {
+			editNewUser(map.get(Excel.LastName));
 			log("STEP 20:  Existing User Open ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 20:  Existing User not Open", Status.FAIL);
@@ -416,7 +450,7 @@ public class AddNewUserUserAccountPage extends BasePage {
 		try {
 			selectDefaultTractAssignment(map.get(Excel.DefaultTractAssignment));
 			clickOnUpdate();
-			util.waitUntilElementDisplay(updateMessage);
+			util.waitForWebElementToBePresent(updateMessage, 20);
 			log("STEP 21:  User can Update New User ", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 21:  User can not Update New User", Status.FAIL);

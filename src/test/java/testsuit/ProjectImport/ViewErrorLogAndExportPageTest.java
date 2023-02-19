@@ -36,24 +36,22 @@ public class ViewErrorLogAndExportPageTest extends BasePage {
 	public void viewError_ProjectImport_TC_02() throws Exception {
 		log("TC02 : View Error log :");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "projectImport" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.SSRSReport, testcaseName);
-		objViewErrorLogAndExportPage.viewErrorLog(map, testcaseName);
+		objViewErrorLogAndExportPage.viewErrorLog(testcaseName);
 	}
 	
-	@Test(priority=1,enabled=true)
+	@Test(priority=2,enabled=true)
 	public void verifyExport_ProjectImport_TC_03() throws Exception {
 		log("TC03 : Verify Export :");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "projectImport" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.SSRSReport, testcaseName);
-		objViewErrorLogAndExportPage.exportButton(map, testcaseName);
+		objViewErrorLogAndExportPage.exportButton(testcaseName);
 	}
 
 }

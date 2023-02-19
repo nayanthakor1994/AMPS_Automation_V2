@@ -107,6 +107,10 @@ public class AgreementNotePage extends BasePage {
 	private void clickOnSaveNote() { //need to switch to iframe
 		util.click(saveNoteButton);
 	}
+	By closeframe = By.xpath("//a[@title='Close']");
+	public void Closeframe() {
+		util.click(closeframe);
+	}
 	
 	public void addNotes(Map<String, String> map, String testCaseName) {
 		
@@ -169,11 +173,14 @@ public class AgreementNotePage extends BasePage {
 		try {
 			switchToNoteIframe();
 			clickOnSaveNote();
+			util.switchToDefaultContent();
+			Closeframe();
 			log("STEP 8: Click on Add Notes button", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 8: Click on Add Notes button", Status.FAIL);
 			throw new RuntimeException("Failed in step 8");
 		}
+		
 		
 	}
 	

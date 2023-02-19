@@ -35,7 +35,7 @@ public class AgreementNoteTest extends BasePage {
 	public void AgreementNotes_Add_Agreement_Notes() throws Exception {
 		log("TC01 : Add Agreement Notes");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 
 		String testcaseName = "AddAgreementNote" + environment;
@@ -54,11 +54,9 @@ public class AgreementNoteTest extends BasePage {
 	@Test(priority = 2)
 	public void AgreementNotes_Edit_Agreement_Notes() throws Exception {
 		log("TC02 : Edit Agreement Notes");
-
 		String testcaseName = "EditAgreementNote" + environment;
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.AgreementNote, testcaseName);
-		
 		objNotes.editNotes(map, testcaseName);
 	}
 }

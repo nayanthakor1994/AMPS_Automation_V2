@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-
-<suite  name="Suite" >
-<!--<test name="ProjectDetails_ALT">-->
-<!--		<parameter name="env" value="ALT" />-->
-<!--		<classes>-->
+<!--<suite name="AMPS_Test">-->
+	<suite thread-count="1" name="Suite" parallel="tests" data-provider-thread-count="4">
+<test name="ProjectDetails_ALT" parallel="tests">
+		<parameter name="env" value="ALT" />
+		<classes>
 <!--			<class name="testsuit.Project.AddProjectTest" />-->
 <!--			<class name="testsuit.Project.UpdateProjectSettingsAndMaintenanceTest" />-->
 <!--			<class name="testsuit.Project.AddProjectAssignmentTest" />-->
 <!--			<class name="testsuit.Project.AddInterconnectionInformationTest" />-->
 <!--			<class name="testsuit.Project.AddKeyDateTest" />-->
 <!--			<class name="testsuit.Project.AddProjectWorkflowTest" />-->
-<!--		</classes>-->
-<!--	</test>-->
-<!--	<test  thread-count="2" name="AdministrationSecurity_ALT" >-->
-<!--		<parameter name="env" value="ALT" />-->
-<!--		<classes>-->
-<!--			<class name="testsuit.adminSecurity.ManageUser_AddNewUserTest" />-->
-<!--			<class name="testsuit.adminSecurity.UserRole_PagePermissionTest" />-->
-<!--			<class name="testsuit.adminSecurity.UserRole_SpecialPermissionTest" />-->
-<!--			<class name="testsuit.agreementManager.AgreementInformationTest" />-->
-<!--			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />-->
-<!--		</classes>-->
-<!--	</test>-->
+		</classes>
+	</test>
+	<test  thread-count="1" name="AdministrationSecurity_ALT" >
+		<parameter name="env" value="ROW" />
+		<classes>
+			<class name="testsuit.ToolsMyDashboard.MyDashboardTest" />
+			<class name="testsuit.adminSecurity.ManageUser_AddNewUserTest" />
+			<class name="testsuit.adminSecurity.UserRole_PagePermissionTest" />
+			<class name="testsuit.adminSecurity.UserRole_SpecialPermissionTest" />
+			<class name="testsuit.adminSecurity.UserRole_TemplatePermissionTest" />
+			<class name="testsuit.adminSecurity.PasswordEncryptionTest" />
+		</classes>
+	</test>
 <!--	<test name="ProjectGroup_ALT">-->
 <!--		<parameter name="env" value="ALT" />-->
 <!--		<classes>-->
 <!--			<class name="testsuit.ToolsMyDashboard.MyDashboardTest" />-->
 <!--		</classes>-->
 <!--	</test>-->
-	<test name="ProjectIimport_ALT">
-		<parameter name="env" value="ROW" />
-		<classes>
-			<class name="testsuit.ProjectImport.ProjectImportTest" />
+<!--	<test name="ProjectIimport_ALT">-->
+<!--		<parameter name="env" value="ALT" />-->
+<!--		<classes>-->
+<!--			<class name="testsuit.ProjectImport.ProjectImportTest" />-->
 <!--			<class name="testsuit.ProjectImport.ViewErrorLogAndExportPageTest" />-->
-		</classes>
-	</test>
+<!--		</classes>-->
+<!--	</test>-->
 <!--	<test name="SSRSReports_ALT">-->
 <!--		<parameter name="env" value="ALT" />-->
 <!--		<classes>-->
@@ -50,15 +50,15 @@
 <!--			<class name="testsuit.ToolsMyDashboard.ToolMyDashboardTest" />-->
 <!--		</classes>-->
 <!--	</test>-->
-<!--	<test name="AgreementManager_ALT">-->
-<!--		<parameter name="env" value="ALT" />-->
-<!--		<classes>-->
+	<test name="AgreementManager_ALT">
+		<parameter name="env" value="ALT" />
+		<classes>
 <!--			<class name="testsuit.agreementManager.AgreementInformationTest" />-->
 <!--			<class name="testsuit.agreementManager.AgreementNoteTest" />-->
 <!--			<class name="testsuit.agreementManager.DocumentGenerationTest" />-->
 <!--			<class name="testsuit.agreementManager.DocumentsTest" />-->
-<!--		</classes>-->
-<!--	</test>-->
+		</classes>
+	</test>
 
 <!--	<test name="ProjectDetails_DOT">-->
 <!--		<parameter name="browser" value="chrome" />-->

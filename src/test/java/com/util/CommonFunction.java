@@ -1,4 +1,5 @@
 package com.util;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,87 +15,22 @@ import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 
-
-
 public class CommonFunction extends BasePage {
 
 	TestUtil util;
-	
+
 	public CommonFunction(WebDriver driver) {
 		this.driver = driver;
 		util = new TestUtil(driver);
 	}
-	
-	By loaderIcon = By.xpath("//body/div[contains(@id,'Ajax')]");
 
-	// Open URL
-	public void openURL(String url) {
-		String Url = "https://uat.geoamps.com/PIPE/Project/ProjectDashboard.aspx?mode=PRDT";
-		driver.get(Url);
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-	}
+	By loaderIcon = By.xpath("//body/div[contains(@id,'Ajax')]");
 
 	// Close Browser
 	public void closeBrowser() {
 		driver.quit();
 	}
 
-	
-
-	// Login altAMPS
-	/*
-	 * public void login(String username, String password) { // Enter Username
-	 * util.waitUntilElementDisplay(txtUsername); util.inputText(txtUsername,
-	 * username);
-	 * 
-	 * // Enter Password util.waitUntilElementDisplay(txtPassword);
-	 * util.inputText(txtPassword, password);
-	 * 
-	 * // Click on Login Button util.waitUntilElementDisplay(btnLogin);
-	 * util.click(btnLogin);
-	 * 
-	 * // Verify Login Success if (isLoginSuccess != null) {
-	 * System.out.println("Login Successfully !!!");
-	 * ReportsClass.logStat(Status.PASS, "Login Successfully !!!"); } else {
-	 * System.out.println("Failed Login !!!"); ReportsClass.logStat(Status.FAIL,
-	 * "Failed Login !!!"); } Assert.assertTrue((isLoginSuccess != null),
-	 * "Failed Login !!!"); }
-	 */
-
-	// Delete Video
-	public static void deleteVideos(String path) {
-		File directory = new File(path);
-		File[] files = directory.listFiles();
-		for (File file : files) {
-			file.delete();
-		}
-	}
-
-//	public static void captureScreenshot(WebDriver driver, String screenshotName) {
-//
-//		try {
-//			TakesScreenshot ts = (TakesScreenshot) driver;
-//
-//			File source = ts.getScreenshotAs(OutputType.FILE);
-//			FileUtils.copyFile(source, new File("./Screenshots/" + screenshotName + ".png"));
-//
-//			System.out.println("Screenshot taken: " + screenshotName);
-//		} catch (Exception e) {
-//
-//			System.out.println("Exception while taking screenshot " + e.getMessage());
-//		}
-//	}
-
-	// Delete Screennshot
-	public static void deleteScreenshot(String screenshotName) {
-		try {
-			Files.deleteIfExists(Paths.get("./Screenshots/" + screenshotName + ".png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 	By navToolsMenu = By.xpath("//a//span[@class='rmText rmExpandDown' and contains(text(),'Tools')]");
 	By navToolsMyDashboard = By.xpath("//a//span[contains(text(),'My Dashboard')]");
 	By navProjectMenu = By.xpath("*//a//span[@class='rmText rmExpandDown' and contains(text(),'Project')] ");
@@ -110,6 +46,7 @@ public class CommonFunction extends BasePage {
 	By archieveOk = By.xpath("//a[contains(@onClick,'confirm')][1]");
 	By btnUnArchieve = By.xpath("//input[contains(@id,'btnUnarchive')]");
 	By btnSave = By.xpath("//input[contains(@id,'btnSaveProject')]");
+
 	public void navigateToProjectDeails() {
 		util.waitUntilElementDisplay(navProjectMenu);
 		util.click(navProjectMenu);
@@ -128,7 +65,7 @@ public class CommonFunction extends BasePage {
 		}
 		Assert.assertTrue(tabProjectDetails.contains("Project Details"), "User cannot see the option in Menu !!!");
 	}
-	
+
 	public void navigateToMyDashboard() {
 		util.waitUntilElementDisplay(navToolsMenu);
 		util.click(navToolsMenu);
@@ -136,7 +73,7 @@ public class CommonFunction extends BasePage {
 		util.click(navToolsMyDashboard);
 		log("navigating to create new Project");
 	}
-	
+
 	public void clickOnAddButton() {
 		// Click on Project Menu
 		util.waitUntilElementDisplay(topProjectMenu);
@@ -146,23 +83,23 @@ public class CommonFunction extends BasePage {
 		util.waitUntilElementDisplay(btnAdd);
 		util.click(btnAdd);
 	}
+
 	public void clickOnArchieveButton() throws InterruptedException {
 		util.waitUntilElementDisplay(btnArchieve);
 		util.click(btnArchieve);
 		Thread.sleep(1000);
-		if(util.isElementPresent(archieveOk))
-		{
-		util.waitUntilElementDisplay(archieveOk);
-		util.click(archieveOk);
+		if (util.isElementPresent(archieveOk)) {
+			util.waitUntilElementDisplay(archieveOk);
+			util.click(archieveOk);
 		}
-		//util.waitUntilElementDisplay(btnUnArchieve);
-		if(util.isElementPresent(btnUnArchieve)){
+		// util.waitUntilElementDisplay(btnUnArchieve);
+		if (util.isElementPresent(btnUnArchieve)) {
 			log("UnArchieve Present !!!", Status.PASS);
-		}
-		else {
+		} else {
 			log("UnArchieve not Present !!!", Status.FAIL);
 		}
-}
+	}
+
 	public void clickOnSaveButton() {
 		util.waitUntilElementDisplay(btnSave);
 		util.click(btnSave);
@@ -171,30 +108,36 @@ public class CommonFunction extends BasePage {
 	public boolean checkNA(String value) {
 		return value.equals(NA);
 	}
-	
+
 	By successMessage = By.xpath("//span[@id='usrMessage']");
+
 	public void waitForSuccessMessage() {
 		util.waitForWebElementToBePresent(successMessage, 10);
 	}
+
 	public String getSuccessMessage() {
 		return util.getText(successMessage);
 	}
+
 	By successAddMessage = By.xpath("//span[@id='usrMessageAdd']");
+
 	public void waitForSuccessAddMessage() {
 		util.waitForWebElementToBePresent(successAddMessage, 10);
 	}
+
 	public String getSuccessAddMessage() {
 		return util.getText(successAddMessage);
 	}
-	
+
 	public boolean iSArchieveButton() {
 		return util.isElementPresent(btnArchieve, 10);
 	}
-	
+
 	By buttonNewRecord = By.xpath("//a[contains(@id,'AddNewRecord')]");
+
 	public void clickOnNewRecord() {
 		util.waitUntilElementDisplay(buttonNewRecord);
 		util.click(buttonNewRecord);
 	}
-	
+
 }

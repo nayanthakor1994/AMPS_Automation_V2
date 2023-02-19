@@ -4,6 +4,19 @@ public class Excel {
 
 	public static final String excelFileName = "EXCEL_TEST_DATA";
 	public static final String AGREEEMENT_TEST_DATA = "AGREEEMENT_TEST_DATA";
+	public static final String LOGIN_TEST_DATA = "LOGIN_TEST_DATA";
+	public static final String ADMINISTRATION_SECURITY_TEST_DATA = "ADMINISTRATION_SECURITY_TEST_DATA";
+	public static final String PROJECT_TEST_DATA = "PROJECT_TEST_DATA";
+	public static final String PROJECT_DETAILS_TEST_DATA = "PROJECT_DETAILS_TEST_DATA";
+	public static final String REPORT_TEST_DATA = "REPORT_TEST_DATA";
+	public static final String TOOL_TEST_DATA = "TOOL_TEST_DATA";
+	public static final String browser = "browser";
+	
+	public static final String ALT_PROJECTIMPORT_FILE ="ALT_PROJECTIMPORT_FILE";
+	public static final String ROW_PROJECTIMPORT_FILE ="ROW_PROJECTIMPORT_FILE";
+	
+	
+	
 
 	/**
 	 * Add sheet name
@@ -38,6 +51,7 @@ public class Excel {
 	public static final String SSRSReport = "SSRSReport";
 	public static final String ProjectGroup = "ProjectGroup";
 	public static final String MyDashboard = "MyDashboard";
+	public static final String Project = "Project";
 	
 	/**
 	 * Add column names for login excel
@@ -214,4 +228,14 @@ public class Excel {
 	
 	public static final String EditDocumentName = "EditDocumentName";
 	public static final String EditDescription = "EditDescription";
+	
+	
+	/**
+	 * Project Import
+	 */
+	public static final String ProjectImport = "ProjectImport";
+	public static final String ImportType = "ImportType";
+	public static final String WorkSheet = "WorkSheet";
+	public static final String Mapping = "Mapping";
+	
 }

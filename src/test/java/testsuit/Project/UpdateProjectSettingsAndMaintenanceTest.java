@@ -37,11 +37,11 @@ public class UpdateProjectSettingsAndMaintenanceTest extends BasePage {
 	public void Update_Project_Setting_Maintence_TC_03() throws Exception {
 		log("TC03 : Update the Project Settings & Maintence");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "ProjectSettingsAndMaintence" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectSettingsAndMaintence,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_DETAILS_TEST_DATA), Excel.ProjectSettingsAndMaintence,
 				testcaseName);
 		log("navigating to create UpdateProjectSettingMaintence");
 		commonFunction.navigateToProjectDeails();

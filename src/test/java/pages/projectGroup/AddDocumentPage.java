@@ -334,7 +334,7 @@ public class AddDocumentPage extends BasePage {
 		util.click(btnViewDocument);
 	}
 
-	public void viewDocument(Map<String, String> map, String testcaseName) {
+	public void viewDocument(Map<String,String >map ,String testcaseName) {
 		try {
 			navigateToProjectGroup();
 			log("STEP 1:  Navigate to Menu - Project Group", Status.PASS);

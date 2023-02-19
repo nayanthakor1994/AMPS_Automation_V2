@@ -41,11 +41,11 @@ public class AddProjectPermitTest extends BasePage {
 	public void Add_Project_Permit_TC_07() throws Exception {
 		log("TC07 : Add a Project Permit");
 		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.TestCases, environment);
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
 		objLogin.login(map);
 		String testcaseName = "ProjectPermit" + environment;
 		log("Data picked : " + testcaseName);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.excelFileName), Excel.ProjectPermit,
+		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.PROJECT_DETAILS_TEST_DATA), Excel.ProjectPermit,
 				testcaseName);
 		commonFunction.navigateToProjectDeails();
 		projectPermit.addProjectPermit(map);
