@@ -1,15 +1,20 @@
 package pages.projectImport;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.Status;
 import com.base.BasePage;
 import com.base.Excel;
 import com.util.CommonFunction;
+import com.util.ExcelUtils;
 import com.util.TestUtil;
 
 public class ProjectImportPage extends BasePage {
@@ -64,24 +69,26 @@ public class ProjectImportPage extends BasePage {
 	By drpWorkSheet = By.xpath("//input[contains(@id,'radcbSheets_Input')]");
 	public void setWorkSheet(String value) {
 		util.waitUntilElementDisplay(drpWorkSheet);
-		util.inputText(drpWorkSheet, value);
+		value = "'"+value+"'";
+		util.inputTextAndPressTab(drpWorkSheet, value);
 	}
 	By drpImportType = By.xpath("//input[contains(@id,'DDImportType')]");
 	
 	public void setImportType(String value) {
 		util.waitUntilElementDisplay(drpImportType);
-		util.inputText(drpImportType, value);
+		util.inputTextAndPressTab(drpImportType, value);
 	}
 	
 	By drpProject = By.xpath("//input[contains(@id,'ProjectList')]");
 	public void setProject(String value) {
 		util.waitUntilElementDisplay(drpProject);
-		util.inputText(drpProject, value);
+		util.inputTextAndPressTab(drpProject, value);
 	}
 	By dropMapping = By.xpath("//input[contains(@id,'RadMyUploadMap')]");
 	public void setMapping(String value) {
 		util.waitUntilElementDisplay(dropMapping);
-		util.inputText(dropMapping, value);
+		util.inputTextAndPressTab(dropMapping, value);
+		util.waitUntilLoaderDisappear();
 	}
 	
 	By importMessage = By.xpath("//*[text()='Data imported successfully']");
@@ -139,7 +146,8 @@ public class ProjectImportPage extends BasePage {
 				throw new RuntimeException("Failed in step 6:  User can not able to select Mapping");
 			}
 			try {
-				if(util.isElementPresent(importMessage)==true)
+				Assert.assertTrue(util.isElementPresent(importMessage, 30), "Data import message not displayed");
+				verifyLandData(testcaseName);
 				log("STEP 8:  Import Successfully :", Status.PASS);
 			} catch (Exception e) {
 				log("STEP 8:  Import is not perfome Successfully :", Status.FAIL);
@@ -148,6 +156,76 @@ public class ProjectImportPage extends BasePage {
 			
 			
 		}
+	By navParcelMenu = By.xpath("*//a//span[@class='rmText rmExpandDown' and contains(text(),'Parcel')]");
+	By navParcelInfo= By.xpath("*//span[text()='Parcel Info']/parent::a");
+	By navParcelInformation= By.xpath("*//span[text()='Parcel Information']/parent::a");
+	public void navigateToParcelInformation() {
+		util.waitUntilElementDisplay(navParcelMenu);
+		util.click(navParcelMenu);
+		util.waitUntilElementDisplay(navParcelInfo);
+		util.click(navParcelInfo);
+		util.waitUntilElementDisplay(navParcelInformation);
+		util.click(navParcelInformation);
+	}
+	
+	By parcelNumber = By.xpath("//input[contains(@id,'TRACT_NUMBER') and @type='text']");
+	private String getParcelNumber() {
+		return util.getAttributeValue(parcelNumber, "value");
+	}
+	By parcelType = By.xpath("//input[contains(@id,'TractType_Tract_Type_ID') and @type='text']");
+	private String getParcelType() {
+		return util.getAttributeValue(parcelType, "value");
+	}
+	By propertyType = By.xpath("//input[contains(@id,'TractType_Property_Type_ID') and @type='text']");
+	private String getPropertyType() {
+		return util.getAttributeValue(propertyType, "value");
+	}
+	By acquisitionPriority = By.xpath("//input[contains(@id,'TractType_Acquisition_type_ID') and @type='text']");
+	private String getAcquisitionPriority() {
+		return util.getAttributeValue(acquisitionPriority, "value");
+	}
+	By countryPID = By.xpath("//input[contains(@id,'TractType_radGISID') and @type='text']");
+	private String getCountryPID() {
+		return util.getAttributeValue(countryPID, "value");
+	}
+	By parcelAcres = By.xpath("//input[contains(@id,'TractType_customFields2_41') and @type='text']");
+	private String getParcelAcres() {
+		return util.getAttributeValue(parcelAcres, "value");
+	}
+	By gisAcres = By.xpath("//input[contains(@id,'TractType_customFields2_42') and @type='text']");
+	private String getGISAcres() {
+		return util.getAttributeValue(gisAcres, "value");
+	}
+	By leasedAcres = By.xpath("//input[contains(@id,'TractType_customFields2_43') and @type='text']");
+	private String getLeasedAcres() {
+		return util.getAttributeValue(leasedAcres, "value");
+	}
+	
+	public void verifyLandData(String testcaseName) {
+		navigateToParcelInformation();
+		List<Map<String, String>> excelData = ExcelUtils.getAllData(prop.getProperty(Excel.ALT_PROJECTIMPORT_FILE), Excel.LandData);
+		for(Map<String, String> map : excelData) {
+			By addedRecord = By.xpath("//td[text()='"+map.get("Parcel #").trim()+"']/parent::tr");
+			Assert.assertTrue(util.isElementPresent(addedRecord, 30), "Record is not added yet");
+			util.click(addedRecord);
+			
+			By parcelSummary = By.xpath("//td[contains(@id,'_tractInfo')]//td[normalize-space()='"+map.get("Parcel #").trim()+"']");
+			util.waitForWebElementToBePresent(parcelSummary, IMPLICIT_WAIT);
+			
+			SoftAssert assertion = new SoftAssert();
+			
+			assertion.assertEquals(getParcelNumber(), map.get("Parcel #").trim(), "Parcel number mismatched");
+			assertion.assertEquals(getParcelType(), map.get("Parcel Type").trim(), "Parcel type mismatched");
+			assertion.assertEquals(getPropertyType(), map.get("Property Type").trim(), "Parcel type mismatched");
+//			assertion.assertEquals(getAcquisitionPriority(), map.get("Acquisition Priority").trim(), "Parcel type mismatched");
+//			assertion.assertEquals(getCountryPID(), map.get("County PID").trim(), "Parcel type mismatched");
+			assertion.assertEquals(getParcelAcres(), map.get("Parcel Acres").trim(), "Parcel type mismatched");
+			assertion.assertEquals(getGISAcres(), map.get("GIS Parcel Acres").trim(), "Parcel type mismatched");
+			assertion.assertEquals(getLeasedAcres(), map.get("Leased Acres").trim(), "Parcel type mismatched");
+			
+			assertion.assertAll();
+		}
+	}
 
 	
 

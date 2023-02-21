@@ -69,6 +69,48 @@ public class ExcelUtils {
 		return arrayExcelData;
 	}
 	
+	public static String[][] getExcelData2(String fileName, String SheetName) {
+		String[][] arrayExcelData = null;
+		try {
+			int colCount, rowCount, i = 0, j = 0, count = 0;
+			FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + fileName);
+			XSSFWorkbook myWorkBook = new XSSFWorkbook(fis);
+			XSSFSheet mySheet = myWorkBook.getSheet(SheetName);
+			XSSFRow row = null;
+			row = mySheet.getRow(0);
+			colCount = row.getLastCellNum();
+			rowCount = mySheet.getLastRowNum() + 1;
+			Iterator<Row> iterator = mySheet.iterator();
+			arrayExcelData = new String[rowCount][colCount];
+			SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yy");
+			while (iterator.hasNext()) {
+				Row currentRow = iterator.next();
+				Iterator<Cell> cellIterator = currentRow.iterator();
+					j = 0;
+					while (cellIterator.hasNext()) {
+						Cell currentCell = cellIterator.next();
+						if (currentCell.getCellTypeEnum() == CellType.STRING) {
+							arrayExcelData[i][j] = currentCell.getStringCellValue();
+						} else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
+							if (currentCell.getCellStyle().getDataFormatString().equalsIgnoreCase("General")) {
+								arrayExcelData[i][j] = String.valueOf(currentCell.getNumericCellValue());
+								arrayExcelData[i][j] = arrayExcelData[i][j].indexOf(".") < 0 ? arrayExcelData[i][j]
+										: arrayExcelData[i][j].replaceAll("0*$", "").replaceAll("\\.$", "");
+							} else {
+								Date d = currentCell.getDateCellValue();
+								arrayExcelData[i][j] = fmt.format(d);
+							}
+						}
+						j++;
+					}
+					i++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrayExcelData;
+	}
+	
 	/**
 	 * 	For this method, In Excel make first row empty
 	 * @param fileName
@@ -91,6 +133,32 @@ public class ExcelUtils {
 			}
 		}
 		return map;
+	}
+	
+	/**
+	 * 	For this method, In Excel make first row empty
+	 * @param fileName
+	 * @param SheetName
+	 * @param rowData
+	 * @return
+	 */
+	public static List<Map<String, String>> getAllData(String fileName, String SheetName) {
+		String[][] excelData = ExcelUtils.getExcelData2(fileName, SheetName);
+		System.out.println("demo");
+		String[] column= excelData[0];
+		int colSize = column.length;
+		colSize = column.length;
+		int size = excelData.length;
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		for (int i=1;i<size;i++){
+			Map<String, String> map = new HashMap<String, String>();
+				for(int j=0;j<colSize;j++) {
+					map.put(excelData[0][j], excelData[i][j]); 
+				}
+				list.add(map);
+		}
+		System.out.println(list);
+		return list;
 	}
 	
 	/**

@@ -237,5 +237,8 @@ public class Excel {
 	public static final String ImportType = "ImportType";
 	public static final String WorkSheet = "WorkSheet";
 	public static final String Mapping = "Mapping";
+
+	
+	public static final String LandData = "10. Land Data";
 	
 }
