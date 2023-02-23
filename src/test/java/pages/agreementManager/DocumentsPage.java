@@ -440,6 +440,7 @@ public class DocumentsPage extends BasePage {
 
 	public void enterStateName(String value) {
 		util.selectDropDownValue(stateInput, value);
+		util.waitUntilLoaderDisappear();
 		// util.inputText(stateInput, value);
 	}
 
@@ -779,6 +780,7 @@ public class DocumentsPage extends BasePage {
 
 	public void deleteRecordingInformation(Map<String, String> map, String environment) {
 		try {
+			navigateToDocumentTab();
 			clickOnDeleteRecordInfo(map.get(Excel.Volume));
 			log("STEP 1: click on the Delete button for the record in the Recording Information panel ", Status.PASS);
 		} catch (Exception e) {

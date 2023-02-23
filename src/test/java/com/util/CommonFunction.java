@@ -30,6 +30,11 @@ public class CommonFunction extends BasePage {
 	public void closeBrowser() {
 		driver.quit();
 	}
+	
+	public void refreshThePage() {
+		util.reloadPage();
+		util.dummyWait(5);
+	}
 
 	By navToolsMenu = By.xpath("//a//span[@class='rmText rmExpandDown' and contains(text(),'Tools')]");
 	By navToolsMyDashboard = By.xpath("//a//span[contains(text(),'My Dashboard')]");

@@ -134,7 +134,7 @@ public class AgreementInformationTest extends BasePage {
 		log("TC06 : Add a Agreement Obligations");
 		String testcaseName = "AddAgreementObligations" + environment;
 		log("Data picked : " + testcaseName);
-		
+		commonFunction.refreshThePage();
 		if(testcaseName.toLowerCase().contains("row")) {
 			objAddInfo.navigateToAgreementInformationROW();
 		} else {
@@ -168,6 +168,8 @@ public class AgreementInformationTest extends BasePage {
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.PaymentInfo, testcaseName);
 		
 		objPayment.addNewPaymentInformation(map, testcaseName);
+		
+		objAddInfo.duplicateTheAgreement(testcaseName);
 	}
 
 }

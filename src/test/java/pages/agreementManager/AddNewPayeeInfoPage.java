@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -95,14 +96,14 @@ public class AddNewPayeeInfoPage extends BasePage {
 	private void enterEntityName(String value) {
 		util.inputText(entityName, value);
 	}
-	public void addLandOwnerDetails() {
-		addSurfaceOwnership("0.5");
-		addWindOwnership("0.5");
-		addCropOwnership("1");
-		selectContactType("Trustee");
-		enterEntityLastName("Lastname");
-		enterEntityFirstName("Firstname");
-		enterEntityName("Automation");
+	public void addLandOwnerDetails(Map<String, String> map) {
+		addSurfaceOwnership(map.get(Excel.SurfaceOwnership));
+		addWindOwnership(map.get(Excel.WindOwnership));
+		addCropOwnership(map.get(Excel.CropOwnership));
+		selectContactType(map.get(Excel.ContactType));
+		enterEntityLastName(map.get(Excel.LastName));
+		enterEntityFirstName(map.get(Excel.FirstName));
+		enterEntityName(map.get(Excel.EntityName));
 	}
 	By iframeSaveButtonLO = By.xpath("//input[@id='btnSaveLO']");
 	private void clickOnSaveButtonLandOwner() {
@@ -233,15 +234,28 @@ public class AddNewPayeeInfoPage extends BasePage {
 		util.waitFor(5000);
 	}
 	
+	By landownerInformationTab = By.xpath("//div[contains(@id,'RadTabStripLO')]//span[text()='Landowner Information']");
+	private void clickOnLandOwnerInfoTab(){
+		util.click(landownerInformationTab);
+		util.dummyWait(2);
+	}
 	By parcelTractInformationTab = By.xpath("//div[contains(@id,'RadTabStripLO')]//span[text()='Parcel Information' or text()='Tract Information']");
 	private void clickOnParcelOrTractInfoTab(){
 		util.click(parcelTractInformationTab);
 	}
-	By availableTract = By.xpath("//span[contains(@id,'TRACTS_Arrow')]");
+	By availableTract = By.xpath("//div[contains(@id,'TRACTSPanel')]//*[contains(@id,'TRACTS_Arrow')]");
 	private void selectAvailableTract(String value){
-		util.selectValueFromDropdown(availableTract, value);
+		util.selectValueFromDropdownCheckboxContains(availableTract, value);
 		util.waitFor(1000);
 		util.click(availableTract);
+	}
+	By availableTractInputbox = By.xpath("//input[contains(@id,'_TRACTS_Input')]");
+	private void selectAvailableTractROW(String value){
+		util.waitForWebElementToBePresentReturn(availableTractInputbox, 30).click();
+		util.waitForWebElementToBePresentReturn(availableTractInputbox, 30).sendKeys(value);
+		util.dummyWait(10);
+		util.waitForWebElementToBePresentReturn(availableTractInputbox, 30).sendKeys(Keys.ENTER);
+		util.waitForWebElementToBePresentReturn(availableTractInputbox, 30).sendKeys(Keys.TAB);
 	}
 	By addAvailableTract = By.xpath("//input[contains(@id,'_ImageButton2')]");
 	private void clickOnAddButtonAvailableTract(){
@@ -249,8 +263,9 @@ public class AddNewPayeeInfoPage extends BasePage {
 	}
 	By successMessageAvailableTract = By.xpath("//span[contains(@id,'usrTractMessage')]");
 	private void verifySuccessMessageAvailableTract(){
+		util.waitUntilLoaderDisappear();
 		util.waitForWebElementToBePresent(successMessageAvailableTract, IMPLICIT_WAIT);
-		Assert.assertEquals(util.getText(successMessageAvailableTract), "Selected Parcel added To Agreement",
+		Assert.assertTrue(util.getText(successMessageAvailableTract).toLowerCase().contains("selected parcel added to"),
 				"Available tract is not added successfully.");
 	}
 	
@@ -264,68 +279,16 @@ public class AddNewPayeeInfoPage extends BasePage {
 	}
 	By deleteMessage = By.xpath("//div[contains(@id,'RadGridTract1Panel')]//span[contains(@id,'usrMessage')]");
 	private void verifyDeleteMessage() {
+		util.waitUntilLoaderDisappear();
 		util.waitForWebElementToBePresent(deleteMessage, IMPLICIT_WAIT);
 		Assert.assertEquals(util.getText(deleteMessage), "Changes saved successfully!",
 				"Delete parcel message mismatched");
 	}
 	
-
 	
-	
-	public void addPayeeInformation(Map<String, String> map, String AGREEMENT_NUMBER, String testCaseName) {
-		
+	public void editOwnership(String testCaseName) {
 		try {
-			selectExistingContact(map.get(Excel.LandownerName));
-			log("STEP 1: Fill in Landowner DD", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 1: Fill in Landowner DD", Status.FAIL);
-			throw new RuntimeException("Failed in step 1");
-		}
-		
-		try {
-			clickOnAddButton();
-			verifySuccessPayeeMessage(environment);
-			log("STEP 2: Click on Add", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 2: Click on Add", Status.FAIL);
-			throw new RuntimeException("Failed in step 2");
-		}
-		
-		try {
-			clickOnAddNewButton();
-			log("STEP 3: Click on Add New", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 3: Click on Add New", Status.FAIL);
-			throw new RuntimeException("Failed in step 3");
-		}
-		
-		try {
-			switchToLandOwnerIframe();	
-			addLandOwnerDetails();
-			log("STEP 4: Fill the value in all fields", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 4: Fill the value in all fields", Status.FAIL);
-			throw new RuntimeException("Failed in step 4");
-		}
-		
-		try {
-			clickOnSaveButtonLandOwner();
-			verifySuccessMessageLO();
-			log("STEP 5: click on Save button", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 5: click on Save button", Status.FAIL);
-			throw new RuntimeException("Failed in step 5");
-		}
-		
-		try {
-			closeLandOwnerIframe();
-			log("STEP 6: click on Close (X) icon", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 6: click on Close (X) icon", Status.FAIL);
-			throw new RuntimeException("Failed in step 6");
-		}
-		
-		try {
+			clickOnLandOwnerInfoTab();
 			clickOnEditOwnershipButton();
 			switchToEditLandOwnerIframe();
 			log("STEP 7: click on Edit Ownership button", Status.PASS);
@@ -387,35 +350,96 @@ public class AddNewPayeeInfoPage extends BasePage {
 				log("STEP 13: click on Save button", Status.FAIL);
 				throw new RuntimeException("Failed in step 13");
 			}
-
-			// Parcel Information tab
-			try {
-				clickOnParcelOrTractInfoTab();
-				selectAvailableTract(map.get(Excel.AvailableTract));
-				log("STEP 14: Fill in Available Parcel(s) DD", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 14: Fill in Available Parcel(s) DD", Status.FAIL);
-				throw new RuntimeException("Failed in step 14");
-			}
-			try {
-				clickOnAddButtonAvailableTract();
-				verifySuccessMessageAvailableTract();
-				log("STEP 15: click on Add button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 15: click on Add button", Status.FAIL);
-				throw new RuntimeException("Failed in step 15");
-			}
-			try {
-				clickOnDeleteButtonAvailableTract();
-				clickOnDeleteOkButtonIframe();
-				verifyDeleteMessage();
-				log("STEP 16: click on Delete button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 16: click on Delete button", Status.FAIL);
-				throw new RuntimeException("Failed in step 16");
-			}
+		}
+	}
+	
+	
+	public void addPayeeInformation(Map<String, String> map, String AGREEMENT_NUMBER, String testCaseName) {
+		
+		try {
+			selectExistingContact(map.get(Excel.LandownerName));
+			log("STEP 1: Fill in Landowner DD", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 1: Fill in Landowner DD", Status.FAIL);
+			throw new RuntimeException("Failed in step 1");
 		}
 		
+		try {
+			clickOnAddButton();
+			verifySuccessPayeeMessage(environment);
+			log("STEP 2: Click on Add", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 2: Click on Add", Status.FAIL);
+			throw new RuntimeException("Failed in step 2");
+		}
+		
+		try {
+			clickOnAddNewButton();
+			log("STEP 3: Click on Add New", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 3: Click on Add New", Status.FAIL);
+			throw new RuntimeException("Failed in step 3");
+		}
+		
+		try {
+			switchToLandOwnerIframe();	
+			addLandOwnerDetails(map);
+			log("STEP 4: Fill the value in all fields", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4: Fill the value in all fields", Status.FAIL);
+			throw new RuntimeException("Failed in step 4");
+		}
+		
+		try {
+			clickOnSaveButtonLandOwner();
+			verifySuccessMessageLO();
+			log("STEP 5: click on Save button", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 5: click on Save button", Status.FAIL);
+			throw new RuntimeException("Failed in step 5");
+		}
+		
+		try {
+			closeLandOwnerIframe();
+			log("STEP 6: click on Close (X) icon", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 6: click on Close (X) icon", Status.FAIL);
+			throw new RuntimeException("Failed in step 6");
+		}
+		
+		// Parcel Information tab
+		try {
+			clickOnParcelOrTractInfoTab();
+			if(testCaseName.toLowerCase().contains(row)) {
+				selectAvailableTractROW(map.get(Excel.AvailableTract));
+			} else {
+				selectAvailableTract(map.get(Excel.AvailableTract));
+			}
+			log("STEP 14: Fill in Available Parcel(s) DD", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 14: Fill in Available Parcel(s) DD", Status.FAIL);
+			throw new RuntimeException("Failed in step 14");
+		}
+		try {
+			clickOnAddButtonAvailableTract();
+			verifySuccessMessageAvailableTract();
+			log("STEP 15: click on Add button", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 15: click on Add button", Status.FAIL);
+			throw new RuntimeException("Failed in step 15");
+		}
+		try {
+			clickOnDeleteButtonAvailableTract();
+			clickOnDeleteOkButtonIframe();
+			verifyDeleteMessage();
+			log("STEP 16: click on Delete button", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 16: click on Delete button", Status.FAIL);
+			throw new RuntimeException("Failed in step 16");
+		}
+		
+		editOwnership(testCaseName);
+
 	}
 
 

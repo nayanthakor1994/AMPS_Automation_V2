@@ -823,6 +823,30 @@ public class TestUtil extends BasePage {
 			}
 		}
 	}
+	
+	public void selectValueFromDropdownCheckboxContains(By locator, String value) {
+		String drpSelectName = "//ul//li[contains(.,'"+value+"')]//input";
+		try {
+			waitFor(1000);
+			waitUntilElementDisplay(locator);
+			click(locator);
+			waitFor(1000);
+			if (!isElementVisible(By.xpath(drpSelectName))) {
+				click(locator);
+				waitFor(1000);
+			}
+			click(By.xpath(drpSelectName));
+			ExtentTestManager.info("User select value: " + value + " in locator: " + locator.toString());
+		} catch (Exception e) {
+			try {
+				click(locator);
+				waitUntilElementDisplay(By.xpath(drpSelectName));
+				click(By.xpath(drpSelectName));
+			} catch (Exception e1) {
+				throw new RuntimeException("Unable to select :" + value);
+			}
+		}
+	}
 
 	public void switchToIframe(By locator) {
 		waitUntilElementDisplay(locator);
