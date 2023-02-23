@@ -33,7 +33,7 @@ public class AddProjectTest extends BasePage {
 		objStateCounty = new AddProjectStateCountyPage(driver);
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = true,priority = 1)
 	public void add_Project_TC_01() throws Exception {
 		log("TC01 : Add a Project");
 		navigateToApplication(appURL);
@@ -47,7 +47,7 @@ public class AddProjectTest extends BasePage {
 		objAddProject.addProjectInformation(map, testcaseName);
 	}
 	
-	@Test(enabled = true)
+	@Test(enabled = true,priority = 2)
 	public void add_Project_State_County_TC_02() throws Exception {
 		log("TC02 : Add a Project State and County");
 		navigateToApplication(appURL);

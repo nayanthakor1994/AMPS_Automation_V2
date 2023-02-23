@@ -160,6 +160,8 @@ public class Excel {
 	public static final String WorkPhone = "WorkPhone";
 	public static final String DefaultProjectRole = "DefaultProjectRole";
 	public static final String DefaultTractAssignment = "DefaultTractAssignment";
+	public static final String SpecialPermissionOption = "SpecialPermissionOption";
+	public static final String TemplatePermissions ="TemplatePermissions";
 	
 	/**
 	 * Add Column Name for Manage User

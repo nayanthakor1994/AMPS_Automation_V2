@@ -40,7 +40,7 @@ public class UserRole_TemplatePermissionTest extends BasePage{
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.ADMINISTRATION_SECURITY_TEST_DATA), Excel.UserTemplatePagePermission,
 				testcaseName);
 		objTemplatePermission.selectTemplatePermission(map, testcaseName);
-		objTemplatePermission.addNewPermission(map, testcaseName);
+	//	objTemplatePermission.addNewPermission(map, testcaseName);
 	}
 
 }

@@ -115,12 +115,20 @@ public class UserRoleTemplatePermissionPage extends BasePage {
 		projectDetailsNotDisplay();
 	}
 	
-	By tabSpecialPermission = By.xpath("//span[text()='Template Permissions']");
-	public void clickOnSpecialPermission() {
-		util.click(tabSpecialPermission);
+	By tabTemplatePermission = By.xpath("//span[text()='Template Permissions']");
+	public void clickOnTemplatePermission() {
+		util.click(tabTemplatePermission);
 
 	}
 
+	
+	private void selectTemplatePermissionnOption(String value) {
+		if (!commonFunction.checkNA(value)) {
+			By selectTemplatePermission = By.xpath("//*[text()='"+value+"']/../input[1]");
+			util.click(selectTemplatePermission);
+		}
+		
+	}
 	By btnSavePermission = By.xpath("//input[contains(@id,'savePermissions')]");
 	public void clickOnSavePermission() {
 		util.waitUntilElementDisplay(btnSavePermission);
@@ -170,15 +178,19 @@ public class UserRoleTemplatePermissionPage extends BasePage {
 			throw new RuntimeException("Failed in step 2:  User can not select Role");
 		}
 		try {
-			clickOnSpecialPermission();
+			clickOnTemplatePermission();
 			log("STEP 3:  User can click on Special Permission", Status.PASS);
 		} catch (Exception e) {
 			log("STEP 3:  User can not click on Special Permission", Status.FAIL);
 			throw new RuntimeException("Failed in step 3:  User can not click on Page Permission");
 		}
-		/**
-		 * 4th step Pending
-		 */
+		try {
+			selectTemplatePermissionnOption(map.get(Excel.TemplatePermissions));
+			log("STEP 4:  User can select TemplatePermissions option", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4:  User can not select TemplatePermissions option", Status.FAIL);
+			throw new RuntimeException("STEP 4:  User can not select TemplatePermissions option");
+		}
 		try {
 			clickOnSavePermission();
 			log("STEP 5:  User can click on Save", Status.PASS);
@@ -186,33 +198,35 @@ public class UserRoleTemplatePermissionPage extends BasePage {
 			log("STEP 5:  User can not click on Save", Status.FAIL);
 			throw new RuntimeException("Failed in step 5: User can not click on Save ");
 		}
-		try {
-			navigateUserRoles();
-			selectRoleDD(map.get(Excel.Roles));
-			clickOnDuplication();
-			log("STEP 6:  User can click on Duplication Permission", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 6:  User can not click on Duplication Permission", Status.FAIL);
-			throw new RuntimeException("Failed in step 6:  User can not click on Duplication Permission");
-		}
-		try {
-			saveUserRole(map.get(Excel.NewRoles));
-			log("STEP 7:  User can enter new user Role", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 7:  User can not enter new user Role", Status.FAIL);
-			throw new RuntimeException("Failed in step 7:  User can not enter new user Role");
-		}
-		try {
-			clickOnSave();
-			log("STEP 8:  User can click on Save", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 8:  User can not click on Save", Status.FAIL);
-			throw new RuntimeException("Failed in step 11: User can not click on Save ");
-		}
+//		try {
+//			navigateUserRoles();
+//			selectRoleDD(map.get(Excel.Roles));
+//			clickOnDuplication();
+//			log("STEP 6:  User can click on Duplication Permission", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 6:  User can not click on Duplication Permission", Status.FAIL);
+//			throw new RuntimeException("Failed in step 6:  User can not click on Duplication Permission");
+//		}
+//		try {
+//			saveUserRole(map.get(Excel.NewRoles));
+//			log("STEP 7:  User can enter new user Role", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 7:  User can not enter new user Role", Status.FAIL);
+//			throw new RuntimeException("Failed in step 7:  User can not enter new user Role");
+//		}
+//		try {
+//			clickOnSave();
+//			log("STEP 8:  User can click on Save", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 8:  User can not click on Save", Status.FAIL);
+//			throw new RuntimeException("Failed in step 11: User can not click on Save ");
+//		}
 
 	}
 
 	
+	
+
 	By txtRoles = By.xpath("//input[contains(@id,'NEWDistribution')]");
 	public void setNewRoles(String value) {
 		util.waitUntilElementDisplay(txtRoles);

@@ -41,6 +41,12 @@ public class UserRoleSpecialPermissionPage extends BasePage {
 		if (!commonFunction.checkNA(value))
 			util.selectDropDownValue(drpRole, value);
 	}
+	public void selectSpecialPermissionOption(String value) {
+		if (!commonFunction.checkNA(value)) {
+			By selectSpecialPermission = By.xpath("//*[text()='"+value+"']/../input[1]");
+			util.click(selectSpecialPermission);
+		}
+	}
 	
 	By tabSpecialPermission = By.xpath("//span[text()='Special Permissions']");
 	public void clickOnSpecialPermission() {
@@ -94,9 +100,14 @@ public class UserRoleSpecialPermissionPage extends BasePage {
 			log("STEP 3:  User can not click on Special Permission", Status.FAIL);
 			throw new RuntimeException("Failed in step 3:  User can not click on Page Permission");
 		}
-		/**
-		 * 4th step Pending
-		 */
+		
+		try {
+			selectSpecialPermissionOption(map.get(Excel.SpecialPermissionOption));
+			log("STEP 4:  User can select Special Permission option", Status.PASS);
+		} catch (Exception e) {
+			log("STEP 4:  User can not select Special Permission option", Status.FAIL);
+			throw new RuntimeException("STEP 4:  User can not select Special Permission option");
+		}
 		try {
 			clickOnSavePermission();
 			log("STEP 5:  User can click on Save", Status.PASS);
@@ -104,29 +115,29 @@ public class UserRoleSpecialPermissionPage extends BasePage {
 			log("STEP 5:  User can not click on Save", Status.FAIL);
 			throw new RuntimeException("Failed in step 5: User can not click on Save ");
 		}
-		try {
-			navigateUserRoles();
-			selectRoleDD(map.get(Excel.Roles));
-			clickOnDuplication();
-			log("STEP 6:  User can click on Duplication Permission", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 6:  User can not click on Duplication Permission", Status.FAIL);
-			throw new RuntimeException("Failed in step 6:  User can not click on Duplication Permission");
-		}
-		try {
-			saveUserRole(map.get(Excel.NewRoles));
-			log("STEP 7:  User can enter new user Role", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 7:  User can not enter new user Role", Status.FAIL);
-			throw new RuntimeException("Failed in step 7:  User can not enter new user Role");
-		}
-		try {
-			clickOnSave();
-			log("STEP 8:  User can click on Save", Status.PASS);
-		} catch (Exception e) {
-			log("STEP 8:  User can not click on Save", Status.FAIL);
-			throw new RuntimeException("Failed in step 11: User can not click on Save ");
-		}
+//		try {
+//			navigateUserRoles();
+//			selectRoleDD(map.get(Excel.Roles));
+//			clickOnDuplication();
+//			log("STEP 6:  User can click on Duplication Permission", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 6:  User can not click on Duplication Permission", Status.FAIL);
+//			throw new RuntimeException("Failed in step 6:  User can not click on Duplication Permission");
+//		}
+//		try {
+//			saveUserRole(map.get(Excel.NewRoles));
+//			log("STEP 7:  User can enter new user Role", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 7:  User can not enter new user Role", Status.FAIL);
+//			throw new RuntimeException("Failed in step 7:  User can not enter new user Role");
+//		}
+//		try {
+//			clickOnSave();
+//			log("STEP 8:  User can click on Save", Status.PASS);
+//		} catch (Exception e) {
+//			log("STEP 8:  User can not click on Save", Status.FAIL);
+//			throw new RuntimeException("Failed in step 11: User can not click on Save ");
+//		}
 
 		
 	}

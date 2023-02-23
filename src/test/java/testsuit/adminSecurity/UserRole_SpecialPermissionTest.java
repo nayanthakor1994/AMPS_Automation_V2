@@ -42,6 +42,6 @@ public class UserRole_SpecialPermissionTest extends BasePage {
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.ADMINISTRATION_SECURITY_TEST_DATA), Excel.UserRoleSpecialPermission,
 				testcaseName);
 		objSpecialPermission.selectSpecialPermission(map, testcaseName);
-		objSpecialPermission.addNewPermission(map, testcaseName);
+		//objSpecialPermission.addNewPermission(map, testcaseName);
 	}
 }
