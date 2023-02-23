@@ -45,25 +45,34 @@ public class SSRSReportPage extends BasePage {
 	}
 	
 	By drpProject = By.xpath("//input[contains(@id,'ctl00_ConPHLeftTop_RadDock3_C_134_Input')]");
+	By drpCloaseProject = By.xpath("(//td[@class='rcbArrowCell rcbArrowCellRight'])[1]");
 	public void setProjectName(String value) {
 		if (!commonFunction.checkNA(value)) {
 		util.waitUntilElementDisplay(drpProject);
-		util.inputTextAndPressTab(drpProject, value);}
+		util.selectValueFromDropdownCheckbox(drpProject, value);}
+		util.click(drpCloaseProject);
 		}
 	
 	By drpAgreementType = By.xpath("//input[contains(@id,'ctl00_ConPHLeftTop_RadDock3_C_135_Input')]");
+	By drpCloseAgreementType = By.xpath("(//td[@class='rcbArrowCell rcbArrowCellRight'])[2]");
 	public void setAgreementType(String value) {
 		if (!commonFunction.checkNA(value)) {
 			util.waitUntilElementDisplay(drpAgreementType);
-			util.inputTextAndPressTab(drpAgreementType, value);
+			util.scrollToElement(drpAgreementType);
+			util.selectValueFromDropdownCheckbox(drpAgreementType, value);
+			util.click(drpCloseAgreementType);
 		}
 	}
 	
 	By drpAgreementStatus = By.xpath("//input[contains(@id,'ctl00_ConPHLeftTop_RadDock3_C_158_Input')]");
+	By drpCloseAgreementStatus = By.xpath("(//td[@class='rcbArrowCell rcbArrowCellRight'])[3]");
 	public void setAgreementStatus (String value) {
 		if (!commonFunction.checkNA(value)) {
 		util.waitUntilElementDisplay(drpAgreementStatus);
-		util.inputTextAndPressTab(drpAgreementStatus, value);
+		util.scrollToElement(drpAgreementStatus);
+		util.selectValueFromDropdownCheckbox(drpAgreementStatus, value);
+		util.click(drpCloseAgreementStatus);
+		
 	}}
 	By txtStartDate = By.xpath("//input[contains(@id,'ctl00_ConPHLeftTop_RadDock3_C_131_dateInput')]");
 	public void setStartDate(String value) {
