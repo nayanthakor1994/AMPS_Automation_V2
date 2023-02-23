@@ -30,6 +30,7 @@ public class AgreementObligationsPage extends BasePage {
 			util.click(agreementOrLeaseTab);
 		}
 		util.click(addNewAgreementObligationForm);
+		util.waitUntilLoaderDisappear();
 		util.waitFor(5000);
 	}
 	
@@ -70,17 +71,17 @@ public class AgreementObligationsPage extends BasePage {
 	}
 	public void enterDateApproved(String value) {
 		if(!commonFunction.checkNA(value)) {
-			util.inputText(dateApproved, value);
+			util.inputTextAndPressTab(dateApproved, value);
 		}
 	}
 	public void enterStartDate(String value) {
 		if(!commonFunction.checkNA(value)) {
-			util.inputText(startDate, value);
+			util.inputTextAndPressTab(startDate, value);
 		}
 	}
 	public void enterEndDate(String value) {
 		if(!commonFunction.checkNA(value)) {
-			util.inputText(endDate, value);
+			util.inputTextAndPressTab(endDate, value);
 		}
 	}
 	public void enterAssignedTo(String value) {
@@ -90,13 +91,13 @@ public class AgreementObligationsPage extends BasePage {
 	}
 	public void enterLastCompletedDate(String value) {
 		if(!commonFunction.checkNA(value)) {
-			util.inputText(lastCompletedDate, value);
+			util.inputTextAndPressTab(lastCompletedDate, value);
 		}
 	}
 	public void enterNextDueDate(String value) {
 		if(!commonFunction.checkNA(value)) {
 			util.waitUntilLoaderDisappear();
-			util.inputText(nextDueDate, value);
+			util.inputTextAndPressTab(nextDueDate, value);
 		}
 	}
 	public void enterDescription(String value) {
@@ -241,6 +242,8 @@ public class AgreementObligationsPage extends BasePage {
 	
 	public void clickOnEditButton() {
 		util.click(editButton);
+		util.waitUntilLoaderDisappear();
+		util.dummyWait(2);
 	}
 	public void clickOnUpdateButton() {
 		util.click(updateButton);
@@ -283,6 +286,7 @@ public class AgreementObligationsPage extends BasePage {
 	
 	public void clickOnDeleteButton() {
 		util.click(deleteButton);
+		util.waitUntilLoaderDisappear();
 	}
 	public void clickOnDeleteOkButton() {
 		util.click(deleteOkButton);

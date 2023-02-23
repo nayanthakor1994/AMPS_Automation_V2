@@ -118,37 +118,37 @@ public class DocumentsTest extends BasePage {
 	@Test(priority = 6,enabled = true)
 	public void Documents_Edit_Record() throws Exception {
 		log("TC06 : Recording Information - Edit Record");
-		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
-		objLogin.login(map);
+//		navigateToApplication(appURL);
+//		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
+//		objLogin.login(map);
 		String testcaseName = "EditRecordingInfo" + environment;
 		String AddtestcaseName = "AddRecordingInfo" + environment;
 		log("Data picked : " + testcaseName);
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.RecordingInfo, testcaseName);
 		addDocumentMap = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.RecordingInfo, AddtestcaseName);
-		if(environment.toLowerCase().contains("row")) {
-			objAddInfo.navigateToAgreementInformationROW();
-		} else {
-			objAddInfo.navigateToAgreementInformationALT();
-		}
+//		if(environment.toLowerCase().contains("row")) {
+//			objAddInfo.navigateToAgreementInformationROW();
+//		} else {
+//			objAddInfo.navigateToAgreementInformationALT();
+//		}
 		objDoc.editRecordingInformation(addDocumentMap,map, testcaseName);
 	}
 	
 	@Test(priority = 7,enabled = true)
 	public void Documents_Delete_Record() throws Exception {
 		log("TC07 : Recording Information - Delete Record");
-		navigateToApplication(appURL);
-		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
-		objLogin.login(map);
+//		navigateToApplication(appURL);
+//		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.LOGIN_TEST_DATA), Excel.Login, environment);
+//		objLogin.login(map);
 		String testcaseName = "EditRecordingInfo" + environment;
 		String AddtestcaseName = "AddRecordingInfo" + environment;
 		map = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.RecordingInfo, testcaseName);
 		addDocumentMap = ExcelUtils.getRowFromRowNumber(prop.getProperty(Excel.AGREEEMENT_TEST_DATA), Excel.RecordingInfo, AddtestcaseName);
-		if(environment.toLowerCase().contains("row")) {
-			objAddInfo.navigateToAgreementInformationROW();
-		} else {
-			objAddInfo.navigateToAgreementInformationALT();
-		}
+//		if(environment.toLowerCase().contains("row")) {
+//			objAddInfo.navigateToAgreementInformationROW();
+//		} else {
+//			objAddInfo.navigateToAgreementInformationALT();
+//		}
 		objDoc.deleteRecordingInformation(map,environment);
 	}
 

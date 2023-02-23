@@ -119,6 +119,7 @@ public class AddNewInformationPage extends BasePage {
 							+ AGREEMENT_NUMBER + "')]");
 			util.waitForWebElementToBePresent(savedAgreementInformation, 20);
 		}
+		util.waitUntilLoaderDisappear();
 	}
 
 	By btnAddterm = By.xpath("//input[contains(@id,'_btnAddProjectPhase') or contains(@id,'btnAddLeaseTerm')]");
@@ -429,24 +430,6 @@ public class AddNewInformationPage extends BasePage {
 			log("STEP 19:  Click on save button", Status.FAIL);
 			throw new RuntimeException("Failed in step 19");
 		}
-		if(!testcaseName.toLowerCase().contains("row")) {
-			try {
-				clickOnDuplicateButton();
-				log("STEP 20: Click on Duplicate button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 20: Click on Duplicate button", Status.FAIL);
-				throw new RuntimeException("Failed in step 20");
-			}
-			try {
-				switchToLeaseCopyIframe();
-				clickOnDuplicateSaveButton();
-				closeLeaseCopyIframe();
-				log("STEP 21: Click on Save button", Status.PASS);
-			} catch (Exception e) {
-				log("STEP 21: Click on Save button", Status.FAIL);
-				throw new RuntimeException("Failed in step 21");
-			}
-		}
 		return AGREEMENT_NUMBER;
 	}
 
@@ -487,6 +470,29 @@ public class AddNewInformationPage extends BasePage {
 			log("STEP 2: Click on Save", Status.FAIL);
 			throw new RuntimeException("Failed in step 2");
 		}
+	}
+
+	public void duplicateTheAgreement(String testcaseName) {
+		
+		if(!testcaseName.toLowerCase().contains("row")) {
+			try {
+				clickOnDuplicateButton();
+				log("STEP 20: Click on Duplicate button", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 20: Click on Duplicate button", Status.FAIL);
+				throw new RuntimeException("Failed in step 20");
+			}
+			try {
+				switchToLeaseCopyIframe();
+				clickOnDuplicateSaveButton();
+				closeLeaseCopyIframe();
+				log("STEP 21: Click on Save button", Status.PASS);
+			} catch (Exception e) {
+				log("STEP 21: Click on Save button", Status.FAIL);
+				throw new RuntimeException("Failed in step 21");
+			}
+		}
+		
 	}
 	
 	

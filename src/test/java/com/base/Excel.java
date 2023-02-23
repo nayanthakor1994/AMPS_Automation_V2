@@ -137,6 +137,11 @@ public class Excel {
 
 	public static final String LandownerName = "LandownerName";
 	public static final String AvailableTract = "AvailableTract";
+	public static final String SurfaceOwnership = "SurfaceOwnership";
+	public static final String WindOwnership = "WindOwnership";
+	public static final String CropOwnership = "CropOwnership";
+	public static final String ContactType = "ContactType";
+	public static final String EntityName = "EntityName";
 	
 	
 	
